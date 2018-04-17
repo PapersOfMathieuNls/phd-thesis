@@ -1,0 +1,10 @@
+define if_statement
+  if ( [expr] ) [IN][NL]
+    [statement] [EX]
+    [opt else_statement]
+end define
+
+define else_statement
+  else [IN][NL]
+    [statement] [EX]
+end define

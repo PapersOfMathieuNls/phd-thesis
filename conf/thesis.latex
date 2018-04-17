@@ -1,0 +1,89 @@
+\documentclass[12pt]{report}
+% \documentstyle{}
+\usepackage{url}
+\usepackage{rotating}
+\usepackage{pgfgantt}
+\usepackage[square]{natbib}
+\usepackage{cuthesis}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{lscape}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{algorithm2e}
+\usepackage{tikz}
+\usepackage{xargs}                      % Use more than one optional parameter in a new commands
+% \usepackage{xcolor}  % Coloured text etc.
+\usepackage{xcolor,colortbl}
+\usepackage{hyperref}
+\usepackage{pgfplots}
+\usepackage{moreverb}
+\usepackage{listings}
+\tikzset{
+    vgrid 0/.style={draw,gray!25},
+    vgrid 1/.style={draw,gray},
+    vgrid 2/.style={draw,thin},
+    vgrid 3/.style={draw,thick}
+}
+\pgfplotsset{grid style={dashed,gray}}
+\lstset{
+    frame=single,
+    breaklines=true,
+    postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}
+}
+\definecolor{bblue}{HTML}{4F81BD}
+\definecolor{rred}{HTML}{C0504D}
+\definecolor{ggreen}{HTML}{9BBB59}
+\definecolor{ppurple}{HTML}{9F4C7C}
+
+\usepackage{amssymb}% http://ctan.org/pkg/amssymb
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+\usepackage{listings}
+
+\def\mymathhyphen{{\hbox{-}}}
+
+\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
+\def\UrlBreaks{\do\/\do-\do.\do=\do_\do?\do\&\do\%\do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j\do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t\do\u\do\v\do\w\do\x\do\y\do\z\do\A\do\B\do\C\do\D\do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L\do\M\do\N\do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X\do\Y\do\Z\do\0\do\1\do\2\do\3\do\4\do\5\do\6\do\7\do\8\do\9}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\usepackage{todonotes}
+
+\author{Mathieu Nayrolles}
+\title{Software Maintenance at Commit Time}
+
+\titleOfPhDAuthor{Mr.}          % or Ms., Mrs., Miss, etc. (only for PhD's)
+\PhD                            % Masters by default
+\dept{Electrical \& Computer Engineering}        %   default is Comp.Sci.
+%\cosupervisor                   % if you also have a co-supervisor
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+
+
+\begin{abstract}
+  $abstract$
+\end{abstract}
+
+\begin{acknowledgments}
+  $acknowledgments$
+\end{acknowledgments}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Body of Thesis goes here.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+$body$
+
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{conf/library.bib, library.bib}  %place your .bib files here
+\bibliographystyle{plain}                   %the bibliography style to use
+
+\end{document}

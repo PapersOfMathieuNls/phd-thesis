@@ -1,0 +1,20 @@
+\begin{table}[]
+\centering
+\caption{Cohen's Kappa for each classifier}
+\label{tab:kappa}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{cccccccc}
+\hline
+Type & Gram & TP T4 & TN T4 & \begin{tabular}[c]{@{}c@{}}Observed \\ Accuracy\end{tabular} & \begin{tabular}[c]{@{}c@{}}Expected \\ Accuracy\end{tabular} & Kappa & Interpretation \\ \hline
+ & 1 & 3824 & 262 & 0.64 & 0.49 & 0.30 & Fair \\
+SVM & 2 & 3713 & 377 & 0.64 & 0.49 & 0.30 & Fair \\
+ & 3 & 3728 & 345 & 0.64 & 0.49 & 0.29 & Fair \\ \hline
+ & 1 & 3744 & 268 & 0.63 & 0.49 & 0.27 & Fair \\
+Linear Regression & 2 & 3473 & 555 & 0.63 & 0.49 & 0.28 & Fair \\
+ & 3 & 3611 & 430 & 0.64 & 0.49 & 0.28 & Fair \\ \hline
+ & 1 & 3833 & 291 & 0.65 & 0.49 & 0.31 & Fair \\
+Random Forest & 2 & 3777 & 382 & 0.66 & 0.49 & 0.32 & Fair \\
+ & 3 & 3710 & 425 & 0.65 & 0.49 & 0.31 & Fair \\ \hline
+\end{tabular}%
+}
+\end{table}

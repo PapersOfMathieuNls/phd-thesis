@@ -1,0 +1,14 @@
+rule removeBlocksOutsideRange X [number] Y [number]
+  skipping [compound_statement]
+    replace [repeat compound_statement]
+      FileName [srcfilename] LineNumber [srclinenumber]
+'{
+       CompoundBody [compound_statement_body]
+       EndFileName [srcfilename] EndLineNumber [srclinenumber]
+'} Semi [opt ';]
+  MoreBlocks [repeat compound_statement]
+			where not all
+		      LineNumber [< Y] [> X]
+     by
+          MoreBlocks
+end rule

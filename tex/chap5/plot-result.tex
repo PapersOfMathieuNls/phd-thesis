@@ -1,0 +1,77 @@
+\begin {figure*}%[!hbtp]
+\centering
+\begin{tikzpicture}
+    \begin{axis}[
+      scale only axis, % The height and width argument only apply to the actual axis
+    height=5cm,
+    width=0.9\textwidth,
+    grid = both,
+    minor tick num=1,
+    xlabel={Revisions},
+    ylabel={Clones},
+    xmin=0]
+    \addplot table [smooth,red,mark=none,x=revision,y=clones,col sep=comma] {data/chap5/monit.csv};
+    \addlegendentry{NICAD Detection}
+
+    \addplot table [smooth,blue,mark=none,x=revision,y=detected,col sep=comma] {data/chap5/monit.csv};
+    \addlegendentry{PRECINCT Detection}
+
+    \addplot table [smooth,red,mark=none,x=revision,y=prevented,col sep=comma] {data/chap5/monit.csv};
+    \addlegendentry{Remaining Clones}
+
+    \end{axis}
+    \end{tikzpicture}
+    \caption{Monit clone detection over revisions\label{fig:precinct-r1}}
+\end{figure*}
+
+\begin {figure*}%[!hbtp]
+\centering
+\begin{tikzpicture}
+    \begin{axis}[
+      scale only axis, % The height and width argument only apply to the actual axis
+    height=5cm,
+    width=0.9\textwidth,
+    grid = both,
+    minor tick num=1,
+    xlabel={Revisions},
+    ylabel={Clones},
+    xmin=0]
+  \addplot table [smooth,red,mark=none,x=revision,y=clones,col sep=comma] {data/chap5/jhotdraw.csv};
+      \addlegendentry{NICAD Detection}
+
+    \addplot table [smooth,green,mark=none,x=revision,y=detected,col sep=comma] {data/chap5/jhotdraw.csv};
+    \addlegendentry{PRECINCT Detection}
+
+    \addplot table [smooth,red,mark=none,x=revision,y=prevented,col sep=comma] {data/chap5/jhotdraw.csv};
+    \addlegendentry{Remaining Clones}
+
+    \end{axis}
+    \end{tikzpicture}
+    \caption{JHotDraw clone detection over revisions\label{fig:precinct-r2}}
+\end{figure*}
+
+\begin {figure*}%[!hbtp]
+\centering
+\begin{tikzpicture}
+    \begin{axis}[
+      scale only axis, % The height and width argument only apply to the actual axis
+    height=5cm,
+    width=0.9\textwidth,
+    grid = both,
+    minor tick num=1,
+    xlabel={Revisions},
+    ylabel={Clones},
+    xmin=0]
+  \addplot table [smooth,red,mark=none,x=revision,y=clones,col sep=comma] {data/chap5/dnsjava.csv};
+    \addlegendentry{NICAD Detection}
+
+    \addplot table [smooth,green,mark=none,x=revision,y=detected,col sep=comma] {data/chap5/dnsjava.csv};
+    \addlegendentry{PRECINCT Detection}
+
+    \addplot table [smooth,red,mark=none,x=revision,y=prevented,col sep=comma] {data/chap5/dnsjava.csv};
+    \addlegendentry{Remaining Clones}
+
+    \end{axis}
+    \end{tikzpicture}
+    \caption{Dnsjava clone detection over revisions\label{fig:precinct-r3}}
+\end{figure*}

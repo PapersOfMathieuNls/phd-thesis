@@ -1,0 +1,24 @@
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+\begin{table}[]
+\centering
+\caption{Random classifier. \hspace{\textwidth} TP: True positive, TN: True Negative, FN: False Negative, FP: False Positive }
+\label{tab:random}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llllllllll}
+\hline
+Project & Reports & T4 Reports & TP & TN & FN & FP & Precision & Recall & F1 \\ \hline
+Ambari & 828 & 540 & 249 & 158 & 291 & 131 & 65.53\% & 46.11\% & 54.13\% \\
+Cassandra & 339 & 199 & 111 & 68 & 88 & 73 & 60.33\% & 55.78\% & 57.96\% \\
+Flume & 132 & 80 & 32 & 31 & 48 & 22 & 59.26\% & 40.00\% & 47.76\% \\
+HBase & 356 & 215 & 105 & 68 & 110 & 74 & 58.66\% & 48.84\% & 53.30\% \\
+Hive & 271 & 191 & 85 & 40 & 106 & 41 & 67.46\% & 44.50\% & 53.63\% \\
+Cnd & 1104 & 805 & 393 & 159 & 412 & 141 & 73.60\% & 48.82\% & 58.70\% \\
+Editor & 665 & 478 & 230 & 94 & 248 & 94 & 70.99\% & 48.12\% & 57.36\% \\
+Java & 1089 & 693 & 365 & 205 & 328 & 192 & 65.53\% & 52.67\% & 58.40\% \\
+JavaEE & 574 & 287 & 122 & 148 & 165 & 140 & 46.56\% & 42.51\% & 44.44\% \\
+Platform & 968 & 573 & 277 & 194 & 296 & 202 & 57.83\% & 48.34\% & 52.66\% \\
+Total & 6335 & 4061 & 1969 & 1165 & 2092 & 1110 & 63.95\% & 48.49\% & 55.15\% \\ \hline
+\end{tabular}%
+}
+\end{table}

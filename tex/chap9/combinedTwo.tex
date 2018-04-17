@@ -1,0 +1,42 @@
+
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+\begin{table*}[]
+\centering
+\small
+\caption{Types 1\& and 3 versus Types 2 \& 4 Complexity Metrics Comparison and Mann-whitney test results.\\ $\mu$:mean, $\sum$:sum, $\hat{x}$:median, $\sigma$:standard deviation, $\%$:percentage}
+\label{tab:combined-two}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{ccccccc|cccccc}
+Ecosystem & Metric & \multicolumn{5}{c}{Types 1 and 3}   & \multicolumn{5}{c}{Types 2 and 4}             & Mann-Whitney       \\ \cline{3-12}
+          &  & $\mu$ & $\sum$ & $\hat{x}$ & $\sigma$ & $\%$ & $\mu$ & $\sum$ & $\hat{x}$ & $\sigma$ & $\%$ & p-value            \\ \hline \rowcolor{gray!25}
+          & Dup.   & 0.02   & 101     & 0 & 0.1   & 29.3 & 0.028    & 244       & 0    & 0.2      & 70.7 & \checkmark (\textless 0.05) \\ \rowcolor{gray!25}
+          & Tim.   & 57.51  & 291517  & 2 & 203.7 & 35.3 & 61.742   & 535303    & 4    & 203.3    & 64.7 & \checkmark (\textless 0.05) \\ \rowcolor{gray!25}
+          & Com.   & 4.396  & 22283   & 3 & 4.5   & 24.7 & 7.842    & 67992     & 5    & 9.7      & 75.3 & \checkmark (\textless 0.05) \\ \rowcolor{gray!25}
+          & Reo.   & 0.044  & 223     & 0 & 0.2   & 25.3 & 0.076    & 659       & 0    & 0.3      & 74.7 & \checkmark (\textless 0.05) \\ \rowcolor{gray!25}
+Apache    & Fil.   & 0.993  & 5031    & 1 & 0.1   & 9.6  & 5.452    & 47273     & 3    & 15.1     & 90.4 & \checkmark (\textless 0.05) \\ \rowcolor{gray!25}
+          & Sev.   & 3.558  & 18037   & 4 & 1.2   & 35.5 & 3.787    & 32831     & 4    & 1        & 64.5 & \checkmark (\textless 0.05) \\ \rowcolor{gray!25}
+          & Cha.   & 1      & 5069    & 1 & 0     & 4.8  & 11.684   & 101297    & 4    & 49       & 95.2 & \checkmark (\textless 0.05) \\ \rowcolor{gray!25}
+          & Hun.   & 3.941  & 19978   & 3 & 3.1   & 0.1  & 2054.846 & 17815519  & 26.5 & 54002    & 99.9 & \checkmark (\textless 0.05) \\ \rowcolor{gray!25}
+          & Chur.  & 17.655 & 89494   & 7 & 49.3  & 0    & 25369.15 & 219950532 & 180  & 332850.4 & 100  & \checkmark (\textless 0.05) \\
+          & Dup.   & 0.075  & 687     & 0 & 0.4   & 25.8 & 0.112    & 1975      & 0    & 0.7      & 74.2 & \checkmark (\textless 0.05) \\
+          & Tim.   & 87.519 & 800623  & 9 & 232.4 & 26.1 & 128.602  & 2264175   & 13   & 332.5    & 73.9 & \checkmark (\textless 0.05) \\
+          & Com.   & 4.726  & 43236   & 3 & 4.2   & 28.9 & 6.036    & 106266    & 4    & 6.7      & 71.1 & \checkmark (\textless 0.05) \\
+          & Reo.   & 0.059  & 541     & 0 & 0.3   & 24.6 & 0.094    & 1658      & 0    & 0.4      & 75.4 & \checkmark (\textless 0.05) \\
+Netbeans  & Fil.   & 1.342  & 12278   & 1 & 6.2   & 7.7  & 8.414    & 148132    & 4    & 25.4     & 92.3 & \checkmark (\textless 0.05) \\
+          & Sev.   & 4.046  & 37014   & 3 & 1.4   & 34.5 & 3.988    & 70206     & 3    & 1.4      & 65.5 & \checkmark (\textless 0.05) \\
+          & Cha.   & 1.067  & 9759    & 1 & 0.3   & 23   & 1.86     & 32752     & 2    & 1.2      & 77   & \checkmark (\textless 0.05) \\
+          & Hun.   & 5.087  & 46533   & 3 & 12    & 6.2  & 39.945   & 703275    & 13   & 98       & 93.8 & \checkmark (\textless 0.05) \\
+          & Chur.  & 6.588  & 60266   & 2 & 21.4  & 5.3  & 61.489   & 1082573   & 15   & 178.1    & 94.7 & \checkmark (\textless 0.05) \\\rowcolor{gray!25}
+          & Dup.   & 0.055  & 788     & 0 & 0.3   & 26.2 & 0.084    & 2219      & 0    & 0.6      & 73.8 & \checkmark (\textless 0.05) \\\rowcolor{gray!25}
+          & Tim.   & 76.819 & 1092140 & 6 & 223.1 & 28.1 & 106.541  & 2799478   & 9    & 297.8    & 71.9 & \checkmark (\textless 0.05) \\\rowcolor{gray!25}
+          & Com.   & 4.608  & 65519   & 3 & 4.3   & 27.3 & 6.632    & 174258    & 4    & 7.9      & 72.7 & \checkmark (\textless 0.05) \\\rowcolor{gray!25}
+          & Reo.   & 0.054  & 764     & 0 & 0.3   & 24.8 & 0.088    & 2317      & 0    & 0.4      & 75.2 & \checkmark (\textless 0.05) \\\rowcolor{gray!25}
+Overall   & Fil.   & 1.217  & 17309   & 1 & 5     & 8.1  & 7.437    & 195405    & 3    & 22.6     & 91.9 & \checkmark (\textless 0.05) \\\rowcolor{gray!25}
+          & Sev.   & 3.872  & 55051   & 3 & 1.4   & 34.8 & 3.921    & 103037    & 3    & 1.3      & 65.2 & \checkmark (\textless 0.05) \\\rowcolor{gray!25}
+          & Cha.   & 1.043  & 14828   & 1 & 0.2   & 10   & 5.102    & 134049    & 2    & 28.5     & 90   & \checkmark (\textless 0.05) \\\rowcolor{gray!25}
+          & Hun.   & 4.678  & 66511   & 3 & 9.8   & 0.4  & 704.78   & 18518794  & 16   & 31033.2  & 99.6 & \checkmark (\textless 0.05) \\\rowcolor{gray!25}
+          & Chur.  & 10.534 & 149760  & 4 & 34.5  & 0.1  & 8411.977 & 221033105 & 30   & 191558.8 & 99.9 & \checkmark (\textless 0.05)
+\end{tabular}%
+}
+\end{table*}
