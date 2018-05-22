@@ -9,7 +9,7 @@ By a fix, we mean a modification (adding or deleting lines of code) to an existi
 
 For example, there have been several studies (e.g., [@Weiß2007; @Zhang2013]) that study the factors that influence the bug fixing time.
 These studies empirically investigate the relationship between bug report attributes (description, severity, etc.) and the fixing time.
-Other studies take bug analysis to another level by investigating techniques and tools for bug prediction and reproduction (e.g., [@Chen2013; @Kim2007a;]).
+Other studies take bug analysis to another level by investigating techniques and tools for bug prediction and reproduction (e.g., [@Chen2013; @Kim2007a]).
 
 With this in mind, the relationship between bugs and fixes can be modelled using the UML diagram in Figure \ref{fig:bug-taxo-diag}. 
 The diagram only includes bug reports that are fixed and not, for example, duplicate reports.
@@ -232,7 +232,7 @@ We experimented with 1-gram, 2-gram, and 3-gram words weighted using tf-idf. To 
 
 To answer **RQ$_1$**, we analyse the accuracy of predictors aiming at determining the type of a bug at submission time (i.e. when someone submits the bug report).  
 
-Tables \ref{tab:1gram}, \ref{tab:2gram} and \ref{tab:3gram} presents the results obtained while building classifiers for the most complex type of bug. According to the complexity analysis conducted in section \ref{sec:dataset}, the most complex type of bug, in terms of duplicate, time to fix, comments, reopening, files changed, severity, changesets, churns, and hunks is T4.
+Tables \ref{tab:1gram-svm}, \ref{tab:1gram-lr}, \ref{tab:1gram-rf}, \ref{tab:2gram-svm}, \ref{tab:2gram-lr}, \ref{tab:2gram-rf},  \ref{tab:3gram-svm}, \ref{tab:3gram-lr} and \ref{tab:3gram-rf} presents the results obtained while building classifiers for the most complex type of bug. According to the complexity analysis conducted in section \ref{sec:dataset}, the most complex type of bug, in terms of duplicate, time to fix, comments, reopening, files changed, severity, changesets, churns, and hunks is T4.
 
 To answer our research question, we built nine different classifiers using three different machine learning techniques: Linear regression, support vector machines and random forest for ten different projects (5 from each ecosystem).
 

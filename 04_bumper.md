@@ -190,13 +190,6 @@ _I got the following Exception: Exception in thread "main" java.lang.NullPointer
 
 The web interface of bumper, presented in Figure \ref{fig:bumper-ui}, was to be used for this task.
 
-\begin{figure}[]
-  \centering
-    \includegraphics[scale=0.30]{media/bumper-live.png}
-    \caption{Web Interface of BUMPER.
-    \label{fig:bumper-ui}}
-\end{figure}
-
 One possible solution to this bug is to apply the following diff to the CsvFileUtils file. Lines preceded by a minus are removed while lines preceded by a plus are added.
 
 ```diff
@@ -218,7 +211,12 @@ public String[] readOneLine() throws IOException{
 }
 ```
 
-
+\begin{figure}[h]
+  \centering
+    \includegraphics[scale=0.30]{media/bumper-live.png}
+    \caption{Web Interface of BUMPER.
+    \label{fig:bumper-ui}}
+\end{figure}
 
 ## Empirical Validation
 

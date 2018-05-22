@@ -42,7 +42,14 @@ This can be written as:
 (SUT, x) \models p
 \end{equation}
 
-For the SUT of Figure \ref{fig:mc-def}, we can write $(SUT, {S_0, S_1, S_2})$ $\models$ $p_3$ because the sequence of states ${S_0, S_1, S_2}$ will lead to a state $S_2$ where $p_3$ holds. However, $(SUT, {S_0, S_1, S_2}) \models p_3$ only ensures that $\exists x$ such that $p$ is reached at some point in the execution of the program and not that $p_3$ holds for $\forall x$.
+For the SUT of Figure \ref{fig:mc-def}, we can write $(SUT, {S_0, S_1, S_2})$ $\models$ $p_3$ because the sequence of states ${S_0, S_1, S_2}$ will lead to a state $S_2$ where $p_3$ holds.
+However,
+
+\begin{equation}
+(SUT, S_0, S_1, S_2) \models p_3
+\end{equation}
+
+only ensures that $\exists x$ such that $p$ is reached at some point in the execution of the program and not that $p_3$ holds for $\forall x$.
 
 In JCHARMING, we assume that SUTs must not crash in a typical environment. In the framework of this study, we consider a typical environment as any environment where the transitions between the states represent the functionalities offered by the program. For example, in a typical environment, the program heap or other memory spaces cannot be modified. Without this constraint, all programs could be tagged as buggy since we could, for example, destroy objects in memory while the program continues its execution. As we are interested in verifying the absence of unhandled exceptions in the SUT, we aim to verify that for all possible combinations of states and transitions there is no path leading towards a crash. That is:
 
@@ -223,9 +230,7 @@ Figure \ref{fig:jcharming-algo} presents a step by step graphical representation
     \label{fig:jcharming-algo}}
 \end{figure}
 
-
-
-Our algorithm, given an uncorrupted stack trace, will be able to compute an optimum backward static slice based on the frames (Figure~\ref{fig:jcharming-slice}) and compensate for frames corruption ,if need be, by \textit{offsetting} the corrupted frame (Figure~\ref{fig:jcharming-algo}).
+Our algorithm, given an uncorrupted stack trace, will be able to compute an optimum backward static slice based on the frames (Figure \ref{fig:jcharming-slice}) and compensate for frames corruption ,if need be, by \textit{offsetting} the corrupted frame (Figure \ref{fig:jcharming-algo}).
 The compensation of corrupted frames, obviously, comes at the cost of a sub-optimum backward static slice.
 In our previous example, the transition between $b$ and $h$ could have been omitted if $f_3$ was not corrupted.
 
@@ -313,7 +318,7 @@ Each time JPF processes a new instruction, our listener catches it and saves it 
 
 When the _validate_ step triggers a crash stack with a similarity larger than a factor _t_, the JUnit generation engine queries the MongoDB database and fetches the sequence of instructions that led to the crash of interest. Figure \ref{fig:jcharming-unittest} contains a hypothetical sequence of instructions related to the example of Figures \ref{fig:testing-toy}, \ref{fig:checking-toy}, \ref{fig:dchecking-toy}, which reads : _new jsme.Bar_,  _invokespecial jsme.Bar()_, _astore_1 [bar]_, _aload_1 [bar]_,   _iconst_3_, _invokevirtual jsme.Bar.foo(int)_, _const_0_,   _istore_2 [i]_, _goto_, _iload_2 [i]_, _iconst_2_,   _if_icmple iinc 2 1_, _new java.lang.Exception_. From this sequence we know that, to reproduce to crash of interest, we have to (1) create a new object _jsme.Bar_ (_new jsme.Bar_, _invokespecial jsme.Bar()_), (2) store the newly created object in a variable named _bar_ (_astore_1 [bar]_), (3) invoke the method _jsme.Bar.foo(int)_ of the _bar_ object with _3_ as value (_aload_1 [bar]_, _iconst_3_, _invokevirtual jsme.Bar.foo(int)_). Then, the _jsme.Bar.foo(int)_ method will execute the $for-loop$ from $i=0$ until $i=3$ and throw an exception at _i = 3_ (_const_0_, _istore_2 [i]_, _goto_, _iload_2 [i]_, _iconst_2_, _if_icmple iinc 2 1_, _new java.lang.Exception_).
 
-The generation of the JUnit test itself is based on templates and targets directly the system under test. Templates are excerpts of Java source code with well-defined tags that will be replaced by values. We use templates because the JUnit test cases have common structures. Figure \ref{fig:jcharming-unittemplate} shows our template for generating JUnit test cases. In this figure, each _{% %}_ will be dynamically replaced by the corresponding value when the JUnit test is generated. For example, _{% SUT %}_ will be replaced by _Ant_ if the SUT is Ant. First, we declare four variables that contain the _failure_, the _threshold_ above which a given bug is said to be partially reproduced, the _differences_, which count how many lines differ between the original failure, the failure produced by JCHARMING, and a _StringTokenizer_. The _StringTokenizer_ allows breaking the original _failure_ into tokens. Second, the test method where _{%SUT%}_ is replaced by the name of the SUT and _{%STEPS%}_ by the steps to make the SUT crash. Then, the crash trace related to the crash is received in the _catch_ part of the _try-catch_ block. In the _catch_ part, we compute the number of lines that do not match the original exception and store it into _differences_ \footnote{This code has been replaced by $//Count the differences$ to ease the reading.}. Finally, the _assertTrue_ call will assert that the crash traces from the induced and the original crash are at least _threshold_ percent similar to each other.
+The generation of the JUnit test itself is based on templates and targets directly the system under test. Templates are excerpts of Java source code with well-defined tags that will be replaced by values. We use templates because the JUnit test cases have common structures. Figure \ref{fig:jcharming-unittemplate} shows our template for generating JUnit test cases. In this figure, each _{% %}_ will be dynamically replaced by the corresponding value when the JUnit test is generated. For example, _{% SUT %}_ will be replaced by _Ant_ if the SUT is Ant. First, we declare four variables that contain the _failure_, the _threshold_ above which a given bug is said to be partially reproduced, the _differences_, which count how many lines differ between the original failure, the failure produced by JCHARMING, and a _StringTokenizer_. The _StringTokenizer_ allows breaking the original _failure_ into tokens. Second, the test method where _{%SUT%}_ is replaced by the name of the SUT and _{%STEPS%}_ by the steps to make the SUT crash. Then, the crash trace related to the crash is received in the _catch_ part of the _try-catch_ block. In the _catch_ part, we compute the number of lines that do not match the original exception and store it into _differences_ \footnote{This code has been replaced by $//Count~the~differences$ to ease the reading.}. Finally, the _assertTrue_ call will assert that the crash traces from the induced and the original crash are at least _threshold_ percent similar to each other.
 
 \begin{figure}[h!]
 
@@ -498,7 +503,7 @@ Thread.java:82)
 
 The cause of this bug is that the reference to the attribute of the class was lost after being displayed on the left panel of ArgoUML and therefore, selecting it through a mouse click throws a null pointer exception. In the subsequent version, ArgoUML developers added a TargetManager to keep the reference of such object in the program. Using the crash trace, JCHARMING's preprocessing step removed the lines between lines 11 and 29 because they belong to the Java standard library and we do not want either the static slice or the model checking engine to verify the Java standard library but only the SUT. Then, the third step performs the static analysis following the process described in Section IV.C. The fourth step performs the model checking on the static slice to produce the same crash trace. More specifically, the model checker identifies that the method _setTargetInternal(Object o)_ could receive a null object that will result in a _Null_ pointer exception.
 
-The second reproduced bug we describe in this section is Bug #486 belonging to MAHOUT. The submitter (Robin Anil) named the bug entry as _Null Pointer Exception running DictionaryVectorizer with ngram=2 on Reuters dataset_. He simply copied the crash stack presented in Figure~\ref{fig:mahout} without further explanation.
+The second reproduced bug we describe in this section is Bug #486 belonging to MAHOUT. The submitter (Robin Anil) named the bug entry as _Null Pointer Exception running DictionaryVectorizer with ngram=2 on Reuters dataset_. He simply copied the crash stack presented in Figure \ref{fig:mahout} without further explanation.
 
 
 
@@ -507,7 +512,7 @@ The second reproduced bug we describe in this section is Bug #486 belonging to M
 \noindent\fbox{%
     \parbox{\textwidth}{%
 1 java.io.IOException: Spill failed \\
-2 at org.apache.hadoop.mapred.MapTask\$MapOutputBuffer.collect(MapTask.java:860) \\
+2 at org.apache.hadoop.mapred.MapTask\$MapOutputBuffer.collect \\ (MapTask.java:860) \\
 ...\\
 14 Caused by: java.lang.NullPointerException \\
 15 at java.io.ByteArrayOutputStream.write(ByteArrayOutputStream.java:86) \\
@@ -516,16 +521,16 @@ The second reproduced bug we describe in this section is Bug #486 belonging to M
 18 at org.apache.hadoop.io.serializer.WritableSerialization\$WritableSerializer.serialize ... \\
 19 at org.apache.hadoop.io.serializer.WritableSerialization\$WritableSerializer.serialize ... \\
 20 at org.apache.hadoop.mapred.IFile\$Writer.append(IFile.java:179) \\
-21 at org.apache.hadoop.mapred.Task\$CombineOutputCollector.collect(Task.java:880) \\
+21 at org.apache.hadoop.mapred.Task\$CombineOutputCollector.collect \\ (Task.java:880) \\
 22 at org.apache.hadoop.mapred.Task\$NewCombinerRunner\$OutputConverter.write ... \\
 23 at org.apache.hadoop.mapreduce.TaskInputOutputContext.write ... \\
-24 at org.apache.mahout.utils.nlp.collocations.llr.CollocCombiner.reduce(CollocCombiner.java:40) \\
-25 at org.apache.mahout.utils.nlp.collocations.llr.CollocCombiner.reduce(CollocCombiner.java:25) \\
+24 at org.apache.mahout.utils.nlp.collocations.llr.CollocCombiner \\ .reduce(CollocCombiner.java:40) \\
+25 at org.apache.mahout.utils.nlp.collocations.llr.CollocCombiner \\ .reduce(CollocCombiner.java:25) \\
 26 at org.apache.hadoop.mapreduce.Reducer.run(Reducer.java:176) \\
 27 at org.apache.hadoop.mapred.Task\$NewCombinerRunner.combine(Task.java:1222) \\
-28 at org.apache.hadoop.mapred.MapTask\$MapOutputBuffer.sortAndSpill(MapTask.java:1265) \\
-29 at org.apache.hadoop.mapred.MapTask\$MapOutputBuffer.access\$1800(MapTask.java:686) \\
-30 at org.apache.hadoop.mapred.MapTask\$MapOutputBuffer\$SpillThread.run(MapTask.java:1173) \\
+28 at org.apache.hadoop.mapred.MapTask\$MapOutputBuffer.\\ sortAndSpill(MapTask.java:1265) \\
+29 at org.apache.hadoop.mapred.MapTask\$MapOutputBuffer.\\ access\$1800(MapTask.java:686) \\
+30 at org.apache.hadoop.mapred.MapTask\$MapOutputBuffer \\ \$SpillThread.run(MapTask.java:1173) \\
 }%
 }
 

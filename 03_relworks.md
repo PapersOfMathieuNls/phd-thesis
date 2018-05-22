@@ -64,7 +64,7 @@ For example, researchers were interested in improving the bug reports themselves
 Another field of study consists of assigning these bug reports, automatically if possible, to the right developers during triaging [@Anvik2006; @Jeong2009; @Tamrawi2011a; @Bortis2013].
 Another set of approaches focus on how long it takes to fix a bug [@Bhattacharya2011; @Zhang2013; @Saha2014] and where it should be fixed [@Zeller2013a; @Zhou2012].
 With the rapidly increasing number of bugs, the community was also interested in prioritizing bug reports [@Kim2011c], and in predicting the severity of a bug [@Lamkanfi2010].
-Finally, researchers proposed approaches to predict which bug will get reopened [@Zimmermann2012; Lo2013], which bug report is a duplicate of another one [@Bettenburg2008a; @Tian2012a; @Jalbert2008] and which locations are likely to yield new bugs [@Kim2006; Kim2007a].
+Finally, researchers proposed approaches to predict which bug will get reopened [@Zimmermann2012; @Lo2013], which bug report is a duplicate of another one [@Bettenburg2008a; @Tian2012a; @Jalbert2008] and which locations are likely to yield new bugs [@Kim2006; @Kim2007a].
 
 ## Fault Prediction
 
@@ -91,9 +91,9 @@ Existing studies can be divided into two distinct categories: (A) on-field recor
 These two categories yield varying results depending on the selected approach and are mainly differentiated by the need for instrumentation.
 The first category of techniques oversees -- by means of instrumentation -- the execution of the target system on the field in order to reproduce the crashes in-house, whereas tools and approaches belonging to the second category only use data produced by the crash such as the crash stack or the core dump at crash time. In the first category, tools record different types of data such as the invoked methods [@Narayanasamy2005], try-catch exceptions [@Rossler2013], or objects [@Jaygarl]. In the second category, existing tools and approaches are aimed towards understanding the causes of a crash, using data produced by the crash itself, such as a crash stack [@Chen2013a], previous -- and controlled -- execution [@Zuddas2014], etc.
 
-Tools and approaches that rely on instrumentation face common limitations such as the need to instrument the source code in order to introduce logging mechanisms[@Narayanasamy2005;@Jaygarl;@Artzi2008], which is known to slow down the subject system.
+Tools and approaches that rely on instrumentation face common limitations such as the need to instrument the source code in order to introduce logging mechanisms[@Narayanasamy2005; @Jaygarl; @Artzi2008], which is known to slow down the subject system.
 In addition,  recording system behavior by means of instrumentation may yield privacy concerns.
-Tools and approaches that only use data about a crash -- such as core dump or exception stack crashes -- face a different set of limitations. They have to reconstruct the timeline of events that have led to the crash [@Chen2013a;@Nayrolles2015]. Computing all the paths from the initial state of the software to the crash point is an NP-complete problem, and may cause state space explosion [@Chen2013a;@Clause2007].
+Tools and approaches that only use data about a crash -- such as core dump or exception stack crashes -- face a different set of limitations. They have to reconstruct the timeline of events that have led to the crash [@Chen2013a; @Nayrolles2015]. Computing all the paths from the initial state of the software to the crash point is an NP-complete problem, and may cause state space explosion [@Chen2013a;@Clause2007].
 
 In order to overcome these limitations, some researchers have proposed to
 use various SMT (satisfiability modulo theories) solvers [@Dutertre2006]
@@ -103,7 +103,7 @@ software engineering, which hinders their adoption  [@Visser2004].
 
 It is worth mentioning that both categories share a common limitation.
 It is possible for the required condition to reproduce a crash to be purely external such as the reading of a file that is only present on the hard drive of the customer or the reception of a faulty network packet
-[@Chen2013a;@Nayrolles2015].
+[@Chen2013a; @Nayrolles2015].
 It is almost impossible to reproduce the bug without this input.
 
 ### On-field Record and In-house Replay

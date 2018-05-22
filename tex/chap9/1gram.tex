@@ -2,8 +2,8 @@
 % \usepackage{graphicx}
 \begin{table}[]
 \centering
-\caption{Support Vector Machine, Linear Regression and Random Forest based classifiers performances while using 1 gram. \hspace{\textwidth} TP: True positive, TN: True Negative, FN: False Negative, FP: False Positive }
-\label{tab:1gram}
+\caption{Support Vector Machine classifier performances while using 1 gram. \hspace{\textwidth} TP: True positive, TN: True Negative, FN: False Negative, FP: False Positive }
+\label{tab:1gram-svm}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{llllllllll}
 \hline
@@ -20,6 +20,17 @@ Java & 1090 & 693 & 676 & 37 & 17 & 360 & 65.25\% & 97.55\% & 78.20\% \\
 JavaEE & 585 & 287 & 258 & 52 & 29 & 246 & 51.19\% & 89.90\% & 65.23\% \\
 Platform & 969 & 573 & 467 & 110 & 106 & 286 & 62.02\% & 81.50\% & 70.44\% \\
 Total & 6346 & 4061 & 3824 & 262 & 237 & 2023 & 65.40\% & 94.16\% & 77.19\% \\ \hline
+\end{tabular}%
+}
+\end{table}
+\begin{table}[]
+\centering
+\caption{Linear Regression classifier performances while using 1 gram. \hspace{\textwidth} TP: True positive, TN: True Negative, FN: False Negative, FP: False Positive }
+\label{tab:1gram-lr}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llllllllll}
+\hline
+Project & Reports & T4 Reports & TP & TN & FN & FP & Precision & Recall & F1 \\ \hline
 \multicolumn{10}{c}{Linear Regression} \\ \hline
 Ambari & 829 & 540 & 514 & 14 & 26 & 275 & 65.15\% & 95.19\% & 77.35\% \\
 Cassandra & 340 & 199 & 194 & 5 & 5 & 136 & 58.79\% & 97.49\% & 73.35\% \\
@@ -32,6 +43,17 @@ Java & 1090 & 693 & 683 & 13 & 10 & 384 & 64.01\% & 98.56\% & 77.61\% \\
 JavaEE & 575 & 287 & 271 & 30 & 16 & 258 & 51.23\% & 94.43\% & 66.42\% \\
 Platform & 969 & 573 & 486 & 102 & 87 & 294 & 62.31\% & 84.82\% & 71.84\% \\
 Total & 6336 & 4061 & 3744 & 268 & 317 & 2007 & 65.10\% & 92.19\% & 76.31\% \\ \hline
+\hline
+\end{tabular}%
+}
+\end{table}
+\begin{table}[]
+\centering
+\caption{Random Forest classifier performances while using 1 gram. \hspace{\textwidth} TP: True positive, TN: True Negative, FN: False Negative, FP: False Positive }
+\label{tab:1gram-rf}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llllllllll}
+Project & Reports & T4 Reports & TP & TN & FN & FP & Precision & Recall & F1 \\ \hline
 \multicolumn{10}{c}{Random Forest} \\ \hline
 Ambari & 829 & 540 & 514 & 13 & 26 & 276 & 65.06\% & 95.19\% & 77.29\% \\
 Cassandra & 337 & 199 & 191 & 12 & 8 & 126 & 60.25\% & 95.98\% & 74.03\% \\

@@ -9,13 +9,20 @@
 \usepackage{graphicx}
 \usepackage{lscape}
 \usepackage{amsmath}
+\usepackage{longtable}
 \usepackage{multirow}
 \usepackage{algorithm2e}
 \usepackage{tikz}
 \usepackage{xargs}                      % Use more than one optional parameter in a new commands
 % \usepackage{xcolor}  % Coloured text etc.
 \usepackage{xcolor,colortbl}
-\usepackage{hyperref}
+
+\usepackage[
+bookmarksopen,
+bookmarksdepth=2,
+breaklinks=true
+]{hyperref}
+
 \usepackage{pgfplots}
 \usepackage{moreverb}
 \usepackage{listings}
@@ -84,6 +91,6 @@ $body$
 
 \addcontentsline{toc}{chapter}{Bibliography}
 \bibliography{conf/library.bib, library.bib}  %place your .bib files here
-\bibliographystyle{plain}                   %the bibliography style to use
+\bibliographystyle{alpha}                   %the bibliography style to use
 
 \end{document}

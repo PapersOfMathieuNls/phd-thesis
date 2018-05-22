@@ -213,7 +213,7 @@ When created, this branch is reinitialized at the initial state of the project (
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.8\linewidth]{media/chap5/branch.png}
+  \includegraphics[width=0.5\linewidth]{media/chap5/branch.png}
   \caption{PRECINCT Branching.\label{fig:precinct-branching}}
 \end{figure}
 

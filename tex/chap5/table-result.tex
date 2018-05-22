@@ -1,8 +1,8 @@
-\begin{table}[]
+\begin{table*}[]
 \centering
 \caption{Overview of PRECINCT's results in terms of precision, recall, F$_{1}$-measure, execution time and output reduction.}
 \label{tab:result-precinct}
-
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{c|c|c|c|c|c||c|c}
          &  Detected & Precision & Recall & F1-measure & \begin{tabular}[c]{@{}c@{}}NICAD's Average\\ Execution Time\end{tabular} & \begin{tabular}[c]{@{}c@{}}PRECINCT's Average \\ Execution Time\end{tabular} & \begin{tabular}[c]{@{}c@{}}Overall \\ Output Reduction\end{tabular} \\ \hline\hline
 Monit      & 123      & 96.1\%    & 100\%  & 98\%       & 2.2s                                                                     & 0.9s                                                                         & 88.3\%                                                              \\ \hline
@@ -10,5 +10,5 @@ JHotDraw   & 6490     & 98.3\%    & 100\%  & 99.1\%     & 5.1s                  
 DnsJava    & 226      & 82.8\%    & 100\%  & 90.6\%     & 1.8s                                                                     & 1.1s                                                                         & 88.6\%                                                              \\ \hline\hline
 Total      & 6839     & 97.7\%    & 100\%  & 98.8\%     & 3s                                                                       & 1.2s                                                                         & 83.4\%                                                              \\ \hline
 \end{tabular}
-
-\end{table}
+}
+\end{table*}

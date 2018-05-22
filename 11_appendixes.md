@@ -192,3 +192,4 @@ Lists all the top-level open-source projects we analysed for our works.
 - JXPath: defines a simple interpreter of an expression language called XPath
 
 \section*{Bibliography}
+\setlength{\parindent}{0pt}

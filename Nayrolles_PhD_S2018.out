@@ -1,0 +1,138 @@
+\BOOKMARK [0][]{chapter*.2}{List of Figures}{}% 1
+\BOOKMARK [0][]{chapter*.3}{List of Tables}{}% 2
+\BOOKMARK [0][]{chapter.1}{Introduction}{}% 3
+\BOOKMARK [1][]{section.1.1}{Problem and Motivations}{chapter.1}% 4
+\BOOKMARK [1][]{section.1.2}{Research Contributions}{chapter.1}% 5
+\BOOKMARK [1][]{section.1.3}{Thesis Organization}{chapter.1}% 6
+\BOOKMARK [1][]{section.1.4}{Related Publications}{chapter.1}% 7
+\BOOKMARK [0][]{chapter.2}{Background}{}% 8
+\BOOKMARK [1][]{section.2.1}{Definitions}{chapter.2}% 9
+\BOOKMARK [1][]{section.2.2}{Version control systems}{chapter.2}% 10
+\BOOKMARK [1][]{section.2.3}{Providers}{chapter.2}% 11
+\BOOKMARK [2][]{subsection.2.3.1}{Project Tracking Systems}{section.2.3}% 12
+\BOOKMARK [1][]{section.2.4}{Providers}{chapter.2}% 13
+\BOOKMARK [0][]{chapter.3}{Related work}{}% 14
+\BOOKMARK [1][]{section.3.1}{Clone Detection}{chapter.3}% 15
+\BOOKMARK [2][]{subsection.3.1.1}{Traditional Clone Detection Techniques}{section.3.1}% 16
+\BOOKMARK [2][]{subsection.3.1.2}{Remote Detection of Clones}{section.3.1}% 17
+\BOOKMARK [2][]{subsection.3.1.3}{Local Detection of Clones}{section.3.1}% 18
+\BOOKMARK [1][]{section.3.2}{Reports and source code relationships}{chapter.3}% 19
+\BOOKMARK [1][]{section.3.3}{Fault Prediction}{chapter.3}% 20
+\BOOKMARK [1][]{section.3.4}{Automatic Patch Generation}{chapter.3}% 21
+\BOOKMARK [1][]{section.3.5}{Crash Reproduction}{chapter.3}% 22
+\BOOKMARK [2][]{subsection.3.5.1}{On-field Record and In-house Replay}{section.3.5}% 23
+\BOOKMARK [2][]{subsection.3.5.2}{On-house Crash Explanation}{section.3.5}% 24
+\BOOKMARK [1][]{section.3.6}{Bugs Classification}{chapter.3}% 25
+\BOOKMARK [0][]{chapter.4}{An Aggregated Bug Repository for Developers and Researchers}{}% 26
+\BOOKMARK [1][]{section.4.1}{Introduction}{chapter.4}% 27
+\BOOKMARK [1][]{section.4.2}{Approach}{chapter.4}% 28
+\BOOKMARK [2][]{subsection.4.2.1}{Architecture}{section.4.2}% 29
+\BOOKMARK [2][]{subsection.4.2.2}{BUMPER Metadata}{section.4.2}% 30
+\BOOKMARK [2][]{subsection.4.2.3}{Bumper Query Language and API }{section.4.2}% 31
+\BOOKMARK [2][]{subsection.4.2.4}{Bumper Data Repository}{section.4.2}% 32
+\BOOKMARK [1][]{section.4.3}{Experimental Setup}{chapter.4}% 33
+\BOOKMARK [1][]{section.4.4}{Empirical Validation}{chapter.4}% 34
+\BOOKMARK [1][]{section.4.5}{Threats to Validity}{chapter.4}% 35
+\BOOKMARK [1][]{section.4.6}{Chapter Summary}{chapter.4}% 36
+\BOOKMARK [0][]{chapter.5}{Preventing Code Clone Insertion At Commit-Time}{}% 37
+\BOOKMARK [1][]{section.5.1}{Introduction}{chapter.5}% 38
+\BOOKMARK [1][]{section.5.2}{Approach}{chapter.5}% 39
+\BOOKMARK [2][]{subsection.5.2.1}{Commit}{section.5.2}% 40
+\BOOKMARK [2][]{subsection.5.2.2}{Pre-Commit Hook}{section.5.2}% 41
+\BOOKMARK [2][]{subsection.5.2.3}{Extract and Save Blocks}{section.5.2}% 42
+\BOOKMARK [2][]{subsection.5.2.4}{Compare Extracted Blocks}{section.5.2}% 43
+\BOOKMARK [2][]{subsection.5.2.5}{Output and Decision}{section.5.2}% 44
+\BOOKMARK [1][]{section.5.3}{Experimental Setup}{chapter.5}% 45
+\BOOKMARK [1][]{section.5.4}{Empirical Validation }{chapter.5}% 46
+\BOOKMARK [1][]{section.5.5}{Threats to Validity}{chapter.5}% 47
+\BOOKMARK [1][]{section.5.6}{Chapter Summary}{chapter.5}% 48
+\BOOKMARK [0][]{chapter.6}{Preventing Bug Insertion Using Clone Detection At Commit-Time}{}% 49
+\BOOKMARK [1][]{section.6.1}{Introduction}{chapter.6}% 50
+\BOOKMARK [1][]{section.6.2}{Approach}{chapter.6}% 51
+\BOOKMARK [2][]{subsection.6.2.1}{Clustering Project Repositories}{section.6.2}% 52
+\BOOKMARK [2][]{subsection.6.2.2}{Building a Database of Code Blocks of Defect-Commits and Fix-Commits}{section.6.2}% 53
+\BOOKMARK [2][]{subsection.6.2.3}{Analysing New Commits Using Pre-Commit Hooks}{section.6.2}% 54
+\BOOKMARK [1][]{section.6.3}{Experimental Setup}{chapter.6}% 55
+\BOOKMARK [2][]{subsection.6.3.1}{Project Repository Selection}{section.6.3}% 56
+\BOOKMARK [2][]{subsection.6.3.2}{Project Dependency Analysis}{section.6.3}% 57
+\BOOKMARK [2][]{subsection.6.3.3}{Building a Database of Defect-Commits and Fix-Commits for Performances Evaluation}{section.6.3}% 58
+\BOOKMARK [2][]{subsection.6.3.4}{Process of Comparing New Commits}{section.6.3}% 59
+\BOOKMARK [2][]{subsection.6.3.5}{Evaluation Measures}{section.6.3}% 60
+\BOOKMARK [1][]{section.6.4}{Empirical Validation}{chapter.6}% 61
+\BOOKMARK [2][]{subsection.6.4.1}{Baseline Classifier Comparison}{section.6.4}% 62
+\BOOKMARK [2][]{subsection.6.4.2}{Performance of BIANCA}{section.6.4}% 63
+\BOOKMARK [2][]{subsection.6.4.3}{Analysis of the Quality of the Fixes Proposed by BIANCA}{section.6.4}% 64
+\BOOKMARK [1][]{section.6.5}{Threats to Validity}{chapter.6}% 65
+\BOOKMARK [1][]{section.6.6}{Chapter Summary}{chapter.6}% 66
+\BOOKMARK [0][]{chapter.7}{Combining Code Metrics with Clone Detection for Just-In-Time Fault Prevention and Resolution}{}% 67
+\BOOKMARK [1][]{section.7.1}{Introduction}{chapter.7}% 68
+\BOOKMARK [1][]{section.7.2}{Approach}{chapter.7}% 69
+\BOOKMARK [2][]{subsection.7.2.1}{Clustering Projects}{section.7.2}% 70
+\BOOKMARK [2][]{subsection.7.2.2}{Building a Database of Code Blocks of Defect-Commits and Fix-Commits}{section.7.2}% 71
+\BOOKMARK [2][]{subsection.7.2.3}{Building a Metric-Based Model}{section.7.2}% 72
+\BOOKMARK [2][]{subsection.7.2.4}{Comparing Code Blocks}{section.7.2}% 73
+\BOOKMARK [2][]{subsection.7.2.5}{Classifying Incoming Commits}{section.7.2}% 74
+\BOOKMARK [2][]{subsection.7.2.6}{Proposing Fixes}{section.7.2}% 75
+\BOOKMARK [1][]{section.7.3}{Experimental Setup}{chapter.7}% 76
+\BOOKMARK [2][]{subsection.7.3.1}{Project Repository Selection}{section.7.3}% 77
+\BOOKMARK [2][]{subsection.7.3.2}{Project Dependency Analysis}{section.7.3}% 78
+\BOOKMARK [2][]{subsection.7.3.3}{Building a Database of Defect-Commits and Fix-Commits}{section.7.3}% 79
+\BOOKMARK [2][]{subsection.7.3.4}{Process of Comparing New Commits}{section.7.3}% 80
+\BOOKMARK [1][]{section.7.4}{Empirical Validation}{chapter.7}% 81
+\BOOKMARK [2][]{subsection.7.4.1}{Performance of CLEVER}{section.7.4}% 82
+\BOOKMARK [2][]{subsection.7.4.2}{Analysis of the Quality of the Fixes Proposed by CLEVER}{section.7.4}% 83
+\BOOKMARK [1][]{section.7.5}{University-Industry Research Collaboration}{chapter.7}% 84
+\BOOKMARK [2][]{subsection.7.5.1}{Deep understanding of the project requirements}{section.7.5}% 85
+\BOOKMARK [2][]{subsection.7.5.2}{Understanding the benefits of the project to both parties}{section.7.5}% 86
+\BOOKMARK [2][]{subsection.7.5.3}{Focusing in the Beginning on Low-Hanging Fruits}{section.7.5}% 87
+\BOOKMARK [2][]{subsection.7.5.4}{Communicating effectively}{section.7.5}% 88
+\BOOKMARK [2][]{subsection.7.5.5}{Managing change}{section.7.5}% 89
+\BOOKMARK [1][]{section.7.6}{Threats to Validity}{chapter.7}% 90
+\BOOKMARK [1][]{section.7.7}{Chapter Summary}{chapter.7}% 91
+\BOOKMARK [0][]{chapter.8}{Bug Reproduction Using Crash Traces and Directed Model Checking}{}% 92
+\BOOKMARK [1][]{section.8.1}{Preliminaries}{chapter.8}% 93
+\BOOKMARK [1][]{section.8.2}{Approach}{chapter.8}% 94
+\BOOKMARK [2][]{subsection.8.2.1}{Collecting Crash Traces}{section.8.2}% 95
+\BOOKMARK [2][]{subsection.8.2.2}{Preprocessing}{section.8.2}% 96
+\BOOKMARK [2][]{subsection.8.2.3}{Building the Backward Static Slice}{section.8.2}% 97
+\BOOKMARK [2][]{subsection.8.2.4}{Directed Model Checking}{section.8.2}% 98
+\BOOKMARK [2][]{subsection.8.2.5}{Validation}{section.8.2}% 99
+\BOOKMARK [2][]{subsection.8.2.6}{Generating Test Cases for Bug Reproduction}{section.8.2}% 100
+\BOOKMARK [1][]{section.8.3}{Experimental Setup}{chapter.8}% 101
+\BOOKMARK [2][]{subsection.8.3.1}{Targeted Systems}{section.8.3}% 102
+\BOOKMARK [2][]{subsection.8.3.2}{Bug Selection and Crash Traces}{section.8.3}% 103
+\BOOKMARK [1][]{section.8.4}{Empirical Validation}{chapter.8}% 104
+\BOOKMARK [2][]{subsection.8.4.1}{Successfully Reproduced}{section.8.4}% 105
+\BOOKMARK [2][]{subsection.8.4.2}{Partially Reproduced}{section.8.4}% 106
+\BOOKMARK [2][]{subsection.8.4.3}{Not Reproduced}{section.8.4}% 107
+\BOOKMARK [1][]{section.8.5}{Threats to Validity}{chapter.8}% 108
+\BOOKMARK [1][]{section.8.6}{Chapter Summary}{chapter.8}% 109
+\BOOKMARK [0][]{chapter.9}{Towards a Classification of Bugs Based on the Location of the Corrections: An Empirical Study}{}% 110
+\BOOKMARK [1][]{section.9.1}{Introduction}{chapter.9}% 111
+\BOOKMARK [1][]{section.9.2}{Experimental Setup}{chapter.9}% 112
+\BOOKMARK [2][]{subsection.9.2.1}{Context Selection}{section.9.2}% 113
+\BOOKMARK [2][]{subsection.9.2.2}{Dataset Analysis}{section.9.2}% 114
+\BOOKMARK [1][]{section.9.3}{Empirical Validation}{chapter.9}% 115
+\BOOKMARK [2][]{subsection.9.3.1}{Are T4 bug predictable at submission time?}{section.9.3}% 116
+\BOOKMARK [2][]{subsection.9.3.2}{What are the best predictors of type 4 bugs?}{section.9.3}% 117
+\BOOKMARK [1][]{section.9.4}{Threats to Validity}{chapter.9}% 118
+\BOOKMARK [1][]{section.9.5}{Chapter Summary}{chapter.9}% 119
+\BOOKMARK [0][]{chapter.10}{Conclusion and Future Work}{}% 120
+\BOOKMARK [1][]{section.10.1}{Summary of the Findings}{chapter.10}% 121
+\BOOKMARK [1][]{section.10.2}{Closing Remarks}{chapter.10}% 122
+\BOOKMARK [1][]{section.10.3}{Future Work}{chapter.10}% 123
+\BOOKMARK [2][]{subsection.10.3.1}{Current Limitations}{section.10.3}% 124
+\BOOKMARK [2][]{subsection.10.3.2}{Other Possible Opportunities for Future Research}{section.10.3}% 125
+\BOOKMARK [0][]{chapter.11}{Appendices}{}% 126
+\BOOKMARK [1][]{section.11.1}{Lists of the top-level open-source projects}{chapter.11}% 127
+\BOOKMARK [2][]{subsection.11.1.1}{Parsers}{section.11.1}% 128
+\BOOKMARK [2][]{subsection.11.1.2}{Databases}{section.11.1}% 129
+\BOOKMARK [2][]{subsection.11.1.3}{Web and Services}{section.11.1}% 130
+\BOOKMARK [2][]{subsection.11.1.4}{Cloud and Big data}{section.11.1}% 131
+\BOOKMARK [2][]{subsection.11.1.5}{Messaging and Logging}{section.11.1}% 132
+\BOOKMARK [2][]{subsection.11.1.6}{Graphics}{section.11.1}% 133
+\BOOKMARK [2][]{subsection.11.1.7}{Dependency Management and build systems}{section.11.1}% 134
+\BOOKMARK [2][]{subsection.11.1.8}{Networking}{section.11.1}% 135
+\BOOKMARK [2][]{subsection.11.1.9}{File systems and repository}{section.11.1}% 136
+\BOOKMARK [2][]{subsection.11.1.10}{Misc}{section.11.1}% 137
+\BOOKMARK [0][]{section*.30}{Bibliography}{}% 138

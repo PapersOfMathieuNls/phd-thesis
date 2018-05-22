@@ -1,0 +1,164 @@
+\select@language {english}
+\contentsline {chapter}{List of Figures}{x}{chapter*.2}
+\contentsline {chapter}{List of Tables}{xii}{chapter*.3}
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Problem and Motivations}{1}{section.1.1}
+\contentsline {section}{\numberline {1.2}Research Contributions}{2}{section.1.2}
+\contentsline {section}{\numberline {1.3}Thesis Organization}{5}{section.1.3}
+\contentsline {section}{\numberline {1.4}Related Publications}{5}{section.1.4}
+\contentsline {chapter}{\numberline {2}Background}{9}{chapter.2}
+\contentsline {section}{\numberline {2.1}Definitions}{9}{section.2.1}
+\contentsline {section}{\numberline {2.2}Version control systems}{10}{section.2.2}
+\contentsline {section}{\numberline {2.3}Providers}{13}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Project Tracking Systems}{13}{subsection.2.3.1}
+\contentsline {section}{\numberline {2.4}Providers}{16}{section.2.4}
+\contentsline {chapter}{\numberline {3}Related work}{17}{chapter.3}
+\contentsline {section}{\numberline {3.1}Clone Detection}{17}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Traditional Clone Detection Techniques}{17}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Remote Detection of Clones}{18}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}Local Detection of Clones}{19}{subsection.3.1.3}
+\contentsline {section}{\numberline {3.2}Reports and source code relationships}{20}{section.3.2}
+\contentsline {section}{\numberline {3.3}Fault Prediction}{21}{section.3.3}
+\contentsline {section}{\numberline {3.4}Automatic Patch Generation}{23}{section.3.4}
+\contentsline {section}{\numberline {3.5}Crash Reproduction}{23}{section.3.5}
+\contentsline {subsection}{\numberline {3.5.1}On-field Record and In-house Replay}{24}{subsection.3.5.1}
+\contentsline {subsection}{\numberline {3.5.2}On-house Crash Explanation}{26}{subsection.3.5.2}
+\contentsline {section}{\numberline {3.6}Bugs Classification}{28}{section.3.6}
+\contentsline {chapter}{\numberline {4}An Aggregated Bug Repository for Developers and Researchers}{30}{chapter.4}
+\contentsline {section}{\numberline {4.1}Introduction}{30}{section.4.1}
+\contentsline {section}{\numberline {4.2}Approach}{31}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Architecture}{31}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}BUMPER Metadata}{32}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}Bumper Query Language and API }{34}{subsection.4.2.3}
+\contentsline {subsection}{\numberline {4.2.4}Bumper Data Repository}{35}{subsection.4.2.4}
+\contentsline {section}{\numberline {4.3}Experimental Setup}{36}{section.4.3}
+\contentsline {section}{\numberline {4.4}Empirical Validation}{38}{section.4.4}
+\contentsline {section}{\numberline {4.5}Threats to Validity}{39}{section.4.5}
+\contentsline {section}{\numberline {4.6}Chapter Summary}{39}{section.4.6}
+\contentsline {chapter}{\numberline {5}Preventing Code Clone Insertion At Commit-Time}{41}{chapter.5}
+\contentsline {section}{\numberline {5.1}Introduction}{41}{section.5.1}
+\contentsline {section}{\numberline {5.2}Approach}{42}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Commit}{43}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}Pre-Commit Hook}{43}{subsection.5.2.2}
+\contentsline {subsection}{\numberline {5.2.3}Extract and Save Blocks}{44}{subsection.5.2.3}
+\contentsline {subsection}{\numberline {5.2.4}Compare Extracted Blocks}{46}{subsection.5.2.4}
+\contentsline {subsection}{\numberline {5.2.5}Output and Decision}{49}{subsection.5.2.5}
+\contentsline {section}{\numberline {5.3}Experimental Setup}{50}{section.5.3}
+\contentsline {section}{\numberline {5.4}Empirical Validation }{54}{section.5.4}
+\contentsline {section}{\numberline {5.5}Threats to Validity}{56}{section.5.5}
+\contentsline {section}{\numberline {5.6}Chapter Summary}{57}{section.5.6}
+\contentsline {chapter}{\numberline {6}Preventing Bug Insertion Using Clone Detection At Commit-Time}{58}{chapter.6}
+\contentsline {section}{\numberline {6.1}Introduction}{58}{section.6.1}
+\contentsline {section}{\numberline {6.2}Approach}{60}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}Clustering Project Repositories}{61}{subsection.6.2.1}
+\contentsline {subsection}{\numberline {6.2.2}Building a Database of Code Blocks of Defect-Commits and Fix-Commits}{62}{subsection.6.2.2}
+\contentsline {subsection}{\numberline {6.2.3}Analysing New Commits Using Pre-Commit Hooks}{63}{subsection.6.2.3}
+\contentsline {section}{\numberline {6.3}Experimental Setup}{64}{section.6.3}
+\contentsline {subsection}{\numberline {6.3.1}Project Repository Selection}{64}{subsection.6.3.1}
+\contentsline {subsection}{\numberline {6.3.2}Project Dependency Analysis}{65}{subsection.6.3.2}
+\contentsline {subsection}{\numberline {6.3.3}Building a Database of Defect-Commits and Fix-Commits for Performances Evaluation}{66}{subsection.6.3.3}
+\contentsline {subsection}{\numberline {6.3.4}Process of Comparing New Commits}{67}{subsection.6.3.4}
+\contentsline {subsection}{\numberline {6.3.5}Evaluation Measures}{68}{subsection.6.3.5}
+\contentsline {section}{\numberline {6.4}Empirical Validation}{69}{section.6.4}
+\contentsline {subsection}{\numberline {6.4.1}Baseline Classifier Comparison}{71}{subsection.6.4.1}
+\contentsline {subsection}{\numberline {6.4.2}Performance of BIANCA}{72}{subsection.6.4.2}
+\contentsline {subsubsection}{Otto by Square (F\(_1\)-measure = 96.5\%)}{72}{section*.5}
+\contentsline {subsubsection}{JStorm by Alibaba (F\(_1\)-measure = 88.96\%)}{73}{section*.6}
+\contentsline {subsubsection}{Auto by Google (F\(_1\)-measure = 86.76\%)}{73}{section*.7}
+\contentsline {subsubsection}{Openhab by Openhab (F\(_1\)-measure = 13.33\%)}{73}{section*.8}
+\contentsline {subsubsection}{Che by Eclipse (F\(_1\)-measure = 10.05\%)}{74}{section*.9}
+\contentsline {subsubsection}{Annotations by Excilys (F\(_1\)-measure = 3.13\%)}{74}{section*.10}
+\contentsline {subsection}{\numberline {6.4.3}Analysis of the Quality of the Fixes Proposed by BIANCA}{74}{subsection.6.4.3}
+\contentsline {section}{\numberline {6.5}Threats to Validity}{81}{section.6.5}
+\contentsline {section}{\numberline {6.6}Chapter Summary}{84}{section.6.6}
+\contentsline {chapter}{\numberline {7}Combining Code Metrics with Clone Detection for Just-In-Time Fault Prevention and Resolution}{85}{chapter.7}
+\contentsline {section}{\numberline {7.1}Introduction}{85}{section.7.1}
+\contentsline {section}{\numberline {7.2}Approach}{87}{section.7.2}
+\contentsline {subsection}{\numberline {7.2.1}Clustering Projects}{89}{subsection.7.2.1}
+\contentsline {subsection}{\numberline {7.2.2}Building a Database of Code Blocks of Defect-Commits and Fix-Commits}{91}{subsection.7.2.2}
+\contentsline {subsection}{\numberline {7.2.3}Building a Metric-Based Model}{91}{subsection.7.2.3}
+\contentsline {subsection}{\numberline {7.2.4}Comparing Code Blocks}{92}{subsection.7.2.4}
+\contentsline {subsection}{\numberline {7.2.5}Classifying Incoming Commits}{92}{subsection.7.2.5}
+\contentsline {subsection}{\numberline {7.2.6}Proposing Fixes}{93}{subsection.7.2.6}
+\contentsline {section}{\numberline {7.3}Experimental Setup}{93}{section.7.3}
+\contentsline {subsection}{\numberline {7.3.1}Project Repository Selection}{93}{subsection.7.3.1}
+\contentsline {subsection}{\numberline {7.3.2}Project Dependency Analysis}{94}{subsection.7.3.2}
+\contentsline {subsection}{\numberline {7.3.3}Building a Database of Defect-Commits and Fix-Commits}{94}{subsection.7.3.3}
+\contentsline {subsection}{\numberline {7.3.4}Process of Comparing New Commits}{94}{subsection.7.3.4}
+\contentsline {section}{\numberline {7.4}Empirical Validation}{95}{section.7.4}
+\contentsline {subsection}{\numberline {7.4.1}Performance of CLEVER}{95}{subsection.7.4.1}
+\contentsline {subsection}{\numberline {7.4.2}Analysis of the Quality of the Fixes Proposed by CLEVER}{96}{subsection.7.4.2}
+\contentsline {section}{\numberline {7.5}University-Industry Research Collaboration}{99}{section.7.5}
+\contentsline {subsection}{\numberline {7.5.1}Deep understanding of the project requirements}{99}{subsection.7.5.1}
+\contentsline {subsection}{\numberline {7.5.2}Understanding the benefits of the project to both parties}{99}{subsection.7.5.2}
+\contentsline {subsection}{\numberline {7.5.3}Focusing in the Beginning on Low-Hanging Fruits}{100}{subsection.7.5.3}
+\contentsline {subsection}{\numberline {7.5.4}Communicating effectively}{100}{subsection.7.5.4}
+\contentsline {subsection}{\numberline {7.5.5}Managing change}{101}{subsection.7.5.5}
+\contentsline {section}{\numberline {7.6}Threats to Validity}{101}{section.7.6}
+\contentsline {section}{\numberline {7.7}Chapter Summary}{102}{section.7.7}
+\contentsline {chapter}{\numberline {8}Bug Reproduction Using Crash Traces and Directed Model Checking}{104}{chapter.8}
+\contentsline {section}{\numberline {8.1}Preliminaries}{105}{section.8.1}
+\contentsline {section}{\numberline {8.2}Approach}{109}{section.8.2}
+\contentsline {subsection}{\numberline {8.2.1}Collecting Crash Traces}{110}{subsection.8.2.1}
+\contentsline {subsection}{\numberline {8.2.2}Preprocessing}{111}{subsection.8.2.2}
+\contentsline {subsection}{\numberline {8.2.3}Building the Backward Static Slice}{112}{subsection.8.2.3}
+\contentsline {subsection}{\numberline {8.2.4}Directed Model Checking}{117}{subsection.8.2.4}
+\contentsline {subsection}{\numberline {8.2.5}Validation}{119}{subsection.8.2.5}
+\contentsline {subsection}{\numberline {8.2.6}Generating Test Cases for Bug Reproduction}{120}{subsection.8.2.6}
+\contentsline {section}{\numberline {8.3}Experimental Setup}{122}{section.8.3}
+\contentsline {subsection}{\numberline {8.3.1}Targeted Systems}{122}{subsection.8.3.1}
+\contentsline {subsection}{\numberline {8.3.2}Bug Selection and Crash Traces}{125}{subsection.8.3.2}
+\contentsline {section}{\numberline {8.4}Empirical Validation}{125}{section.8.4}
+\contentsline {subsection}{\numberline {8.4.1}Successfully Reproduced}{127}{subsection.8.4.1}
+\contentsline {subsection}{\numberline {8.4.2}Partially Reproduced}{131}{subsection.8.4.2}
+\contentsline {subsection}{\numberline {8.4.3}Not Reproduced}{132}{subsection.8.4.3}
+\contentsline {section}{\numberline {8.5}Threats to Validity}{134}{section.8.5}
+\contentsline {section}{\numberline {8.6}Chapter Summary}{135}{section.8.6}
+\contentsline {chapter}{\numberline {9}Towards a Classification of Bugs Based on the Location of the Corrections: An Empirical Study}{137}{chapter.9}
+\contentsline {section}{\numberline {9.1}Introduction}{137}{section.9.1}
+\contentsline {section}{\numberline {9.2}Experimental Setup}{139}{section.9.2}
+\contentsline {subsection}{\numberline {9.2.1}Context Selection}{139}{subsection.9.2.1}
+\contentsline {subsection}{\numberline {9.2.2}Dataset Analysis}{141}{subsection.9.2.2}
+\contentsline {subsubsection}{Duplicate}{142}{section*.11}
+\contentsline {subsubsection}{Fixing time}{142}{section*.12}
+\contentsline {subsubsection}{Comments}{146}{section*.13}
+\contentsline {subsubsection}{Bug Reopening}{146}{section*.14}
+\contentsline {subsubsection}{Severity}{146}{section*.15}
+\contentsline {subsubsection}{Files impacted}{147}{section*.16}
+\contentsline {subsubsection}{Changesets}{147}{section*.17}
+\contentsline {subsubsection}{Hunks}{147}{section*.18}
+\contentsline {subsubsection}{Churns}{148}{section*.19}
+\contentsline {section}{\numberline {9.3}Empirical Validation}{148}{section.9.3}
+\contentsline {subsection}{\numberline {9.3.1}Are T4 bug predictable at submission time?}{148}{subsection.9.3.1}
+\contentsline {subsection}{\numberline {9.3.2}What are the best predictors of type 4 bugs?}{157}{subsection.9.3.2}
+\contentsline {subsubsection}{Ambari}{157}{section*.20}
+\contentsline {subsubsection}{Cassandra}{158}{section*.21}
+\contentsline {subsubsection}{Flume}{159}{section*.22}
+\contentsline {subsubsection}{HBase}{159}{section*.23}
+\contentsline {subsubsection}{Hive}{159}{section*.24}
+\contentsline {subsubsection}{Cnd}{160}{section*.25}
+\contentsline {subsubsection}{Editor}{160}{section*.26}
+\contentsline {subsubsection}{Java}{161}{section*.27}
+\contentsline {subsubsection}{JavaEE}{162}{section*.28}
+\contentsline {subsubsection}{Platform}{162}{section*.29}
+\contentsline {section}{\numberline {9.4}Threats to Validity}{163}{section.9.4}
+\contentsline {section}{\numberline {9.5}Chapter Summary}{163}{section.9.5}
+\contentsline {chapter}{\numberline {10}Conclusion and Future Work}{165}{chapter.10}
+\contentsline {section}{\numberline {10.1}Summary of the Findings}{165}{section.10.1}
+\contentsline {section}{\numberline {10.2}Closing Remarks}{167}{section.10.2}
+\contentsline {section}{\numberline {10.3}Future Work}{168}{section.10.3}
+\contentsline {subsection}{\numberline {10.3.1}Current Limitations}{168}{subsection.10.3.1}
+\contentsline {subsection}{\numberline {10.3.2}Other Possible Opportunities for Future Research}{169}{subsection.10.3.2}
+\contentsline {chapter}{\numberline {11}Appendices}{170}{chapter.11}
+\contentsline {section}{\numberline {11.1}Lists of the top-level open-source projects}{170}{section.11.1}
+\contentsline {subsection}{\numberline {11.1.1}Parsers}{170}{subsection.11.1.1}
+\contentsline {subsection}{\numberline {11.1.2}Databases}{170}{subsection.11.1.2}
+\contentsline {subsection}{\numberline {11.1.3}Web and Services}{172}{subsection.11.1.3}
+\contentsline {subsection}{\numberline {11.1.4}Cloud and Big data}{174}{subsection.11.1.4}
+\contentsline {subsection}{\numberline {11.1.5}Messaging and Logging}{176}{subsection.11.1.5}
+\contentsline {subsection}{\numberline {11.1.6}Graphics}{176}{subsection.11.1.6}
+\contentsline {subsection}{\numberline {11.1.7}Dependency Management and build systems}{177}{subsection.11.1.7}
+\contentsline {subsection}{\numberline {11.1.8}Networking}{177}{subsection.11.1.8}
+\contentsline {subsection}{\numberline {11.1.9}File systems and repository}{177}{subsection.11.1.9}
+\contentsline {subsection}{\numberline {11.1.10}Misc}{178}{subsection.11.1.10}
+\contentsline {chapter}{Bibliography}{198}{section*.30}

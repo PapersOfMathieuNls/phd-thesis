@@ -101,11 +101,11 @@ These systems are also used by development teams to keep track of the modificati
 \begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.7]{media/bzLifecycle.png}
-	\caption{Lifecyle of a report \cite{Bugzilla2008}}
+	\caption{Lifecyle of a report}
 	\label{fig:bug-lifecyle}
 \end{figure}
 
-Figure \ref{fig:bug-lifecyle} presents the life cycle of a report.
+Figure \ref{fig:bug-lifecyle} presents the life cycle of a report [@Bugzilla2008].
 When an end-user submits a report, it is set to the `UNCONFIRMED` state until it receives enough votes or that a user with the proper permissions modifies its status to `NEW`.
 The report is then assigned to a developer to be fixed.
 When the report is in the `ASSIGNED` state, the assigned developer(s) starts working on the report.
