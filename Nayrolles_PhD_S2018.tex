@@ -61,7 +61,7 @@ breaklinks=true
 \usepackage{todonotes}
 
 \author{Mathieu Nayrolles}
-\title{Software Maintenance at Commit Time}
+\title{Software Maintenance at Commit-Time}
 
 \titleOfPhDAuthor{Mr.}          % or Ms., Mrs., Miss, etc. (only for PhD's)
 \PhD                            % Masters by default
@@ -83,26 +83,22 @@ breaklinks=true
   attributable to several factors including the increase in software
   complexity, the lack of traceability between the various artifacts of
   the software development process, the lack of proper documentation, and
-  the unavailability of the original developers of the systems. The large
-  adoption of these tools by practitioners remains limited, and factors
-  that prevent such adoption are still an open question. In this thesis,
-  we propose to address some of the issues mentioned above by focusing on
-  developing techniques and tools that support software maintainers at
+  the unavailability of the original developers of the systems. In this thesis,
+  we propose several techniques and tools that support software maintainers at
   commit-time. As part of the developer's workflow, a commit marks the end
   of a given task or subtask as the developer is ready to version the
-  source code. Commits are bite-sized units of work that are potentially
-  ready to be shared with the rest of the organization. We propose three
-  approaches named PRECINCT, BIANCA and CLEVER. PRECINCT prevents the
-  insertion of new software clones at commit-time while BIANCA and CLEVER
-  prevent the introduction of new defects at commit-time. BIANCA and
-  CLEVER also propose potential fixes to identified defects in order to
-  support the developer. We also propose JCHARMING that can reproduce
-  on-field crashes in case commit-time approaches failed to prevent the
-  introduction of a defect in the system. Overall, our approaches have
-  been tested on over 400 open- and closed- sources systems with high
-  levels of precision and recall while being scalable and non-intrusive
-  for developers. Finally, we also propose a taxonomy of software fault
-  that can help researchers to categorize the research in the various
+  source code. We propose three
+  approaches, namely PRECINCT [Wahab: I think you should develop these acronyms], BIANCA and CLEVER. PRECINCT prevents the
+  insertion of new software clones at commit-time, while BIANCA and CLEVER
+  prevent the introduction of new defects. BIANCA and
+  CLEVER also propose potential fixes in order to
+  support developers. We also propose JCHARMING, an approach for reproducing
+  on-field crashes in case commit-time approaches fail to prevent the
+  introduction of defects in a system. Our approaches have
+  been tested on over 400 open- and closed- source systems, resulting in high
+  levels of precision and recall, while being scalable and non-intrusive
+  for developers. Finally, we also propose a taxonomy of software faults
+  to help researchers and practitioners categorize the research in the various
   areas related to software maintenance.
 \end{abstract}
 
@@ -130,18 +126,19 @@ unavailability of the original developers of the systems.
 The last decades have seen increased attention in research in various
 software maintenance fields including mining software repository,
 default prevention, clone detection, program comprehension, etc. The
-main goal is to improve the productivity of software maintainers as they
+main goal is to improve the productivity of software developers as they
 undertake maintenance tasks. There exist several tools to help with
 important software development tasks that can ease the maintenance
 burden. These include tools for clone detection (e.g., {[}14, 48,
 89{]}), bug prevention (e.g., {[}67, 91{]}), and bug reproduction (e.g.,
-{[}31, 162, 219{]}). Although these tools have been shown to be useful,
+{[}31, 162, 219{]}). 
+
+Although these tools have been shown to be useful,
 they operate in an offline fashion (i.e., after the changes to the
 systems have been made). Software developers might be reluctant to use
-these tools as part of the continuous development process, unless they
+them as part of a continuous development process, unless they
 are involved in a major refactoring effort. Johnson et al. {[}85{]}
-showed that one of the main challenges with these tools lies in the fact
-that they do not integrate well with the workflow of developers. Lewis
+showed that one of the main challenges with existing software maintenance tools lies in their lack of integration with the workflow of developers. Lewis
 et al. and Foss et al. {[}58, 117{]} added that developers tend to be
 reluctant to install external tools, which typically require extensive
 settings and a high learning curve. Another issue with existing
@@ -161,12 +158,9 @@ unwanted modifications to the system before these modifications reach
 the central code repository. By doing so, we do not only propose
 solutions that integrate well with developers' workflow, but also
 eliminate the need for software developers to use any other external
-tools. In addition, shall these approaches failed at preventing defect
-to be introduced in the central code repository, we propose an approach
-to reproduce on-field crashes in a controlled environment. It is agreed
-upon that reproducing a bug is the first step towards fixing it.
-Finally, we provide a bug classification that can help classify the
-research.
+tools. In addition,  we propose an approach
+to reproduce on-field crashes in a controlled environment. Reproducing a bug is the first step towards fixing it.
+Finally, we provide a bug classification scheme to help reason about bugs using the location of fixes. 
 
 \section{Research Contributions}\label{research-contributions}
 
@@ -180,7 +174,7 @@ In this thesis, we make the following contributions:
   Metarepository for dEvelopers and Researchers), a web-based
   infrastructure that can be used by software developers and researchers
   to access data from diverse repositories using natural language
-  queries transparently, regardless of where the data was created and
+  queries, regardless of where the data was created and
   hosted {[}136{]}. The idea behind BUMPER is that it can connect to any
   bug tracking and version control systems and download the data into a
   single database. We created a common schema that represents data,
@@ -190,7 +184,7 @@ In this thesis, we make the following contributions:
   way, users can focus on the analysis itself and not on the way the
   data is represented or located. BUMPER supports many features
   including: (1) the ability to use multiple bug tracking and control
-  version systems, (2) the ability to search very efficiently large data
+  version systems, (2) the ability to efficiently search large data
   repositories using both natural language and a specialized query
   language, (3) the mapping between the bug reports and the fixes, and
   (4) the ability to export the search results in JSON, CSV and XML
@@ -199,44 +193,44 @@ In this thesis, we make the following contributions:
   reports, (b) it proposes a clear and concise JSON API that anyone can
   use to support their approaches or tools.
 \item
-  Online and incremental clone detection at commit-time (Chapter 5).
+  Online and incremental clone detection at commit-time (Chapter 5):
   Code clones appear when developers reuse code with little to no
   modification to the original code. Studies have shown that clones can
   account for about 7\% to 50\% of the code in a given software system
-  {[}14, 48{]}. Nevertheless, clones are considered a bad practice in
-  software development since they can introduce new bugs in code
+  {[}14, 48{]}. Clones are considered a bad practice in
+  software development since they may introduce new bugs
   {[}89{]}. If a bug is discovered in one segment of the code that has
   been copied and pasted several times, then the developers will have to
   remember the places where this segment has been reused to fix the bug
   in each place. In this research, we present PRECINCT (PREventing
   Clones INsertion at Commit-Time) that focuses on preventing the
-  insertion of clones at commit time, i.e., before they reach the
+  insertion of clones at commit-time, i.e., before they reach the
   central code repository. PRECINCT is an online clone detection
   technique that relies on the use of pre-commit hooks capabilities of
   modern source code version control systems.
 \item
   An approach for preventing bug insertion at commit-time using clone
-  detection and dependency analysis (Chapter 6). We propose an approach
-  for preventing the introduction of bugs at commit-time. Many tools
-  exist to prevent a developer from shipping \emph{bad} code {[}75{]}.
+  detection and dependency analysis (Chapter 6): We propose an approach
+  for preventing the introduction of bugs at commit-time. There exist tools
+  that prevent developers from shipping \emph{bad} code {[}75{]}.
   Our approach, called BIANCA (Bug Insertion ANticipation by Clone
   Analysis at commit-time), is different than existing approaches
   because it mines and analyses the change patterns in commits and
-  matches them against past commits known to have introduced a defect in
+  matches them against past commits known to have introduced defects in
   the code (or that have just been replaced by better implementation).
 \item
   An approach for preventing bug insertion at commit-time using metrics
-  and code matching (Chapter 7). Clone-based bug detection approaches
+  and code matching (Chapter 7): Clone-based bug detection approaches
   suffer from scalability issues, hindering their application in
   industrial settings, where several repositories receive hundreds of
   commits per day. We created a two-step classifier that leverages the
-  performances of metric based detection and the expressiveness of
-  clone-based detection and resolution called CLEVER {[}135{]}. This
-  work has been conducted in partnership with Ubisoft, one of the
+  performance of metric-based detection and the expressiveness of
+  clone-based detection and resolution {[}135{]}. This
+  work was conducted in collaboration with Ubisoft, one of the
   largest video games company in the world.
 \item
   An approach for crash reproduction using crash traces and model
-  checking (Chapter 8). Crash reproduction is an expensive task because
+  checking (Chapter 8): Crash reproduction is an expensive task because
   the data provided by end users is often scarce {[}32{]}. It is,
   therefore, important to invest in techniques and tools for automatic
   bug reproduction to ease the maintenance process and accelerate the
@@ -251,7 +245,7 @@ In this thesis, we make the following contributions:
   guide a model checking engine to uncover the statements that caused
   the crash. Such outputs are often found in bug reports.
 \item
-  A classification of bugs based on the location of fixes (Chapter 9).
+  A classification of bugs based on the location of fixes (Chapter 9):
   In recent years, there has been an increase in attention in techniques
   and tools that mine large bug repositories to help software developers
   understand the causes of bugs and speed up the fixing process. These
@@ -277,16 +271,11 @@ In this thesis, we make the following contributions:
 
 \section{Thesis Organization}\label{thesis-organization}
 
-The thesis organization is as follows; in Chapter 2, we provide
+The thesis organization is as follows; In Chapter 2, we provide
 background information about the version control systems and project
-tracking systems. In Chapter 3, we present the works related to ours.
-The works related to clone detection, fault-detection, fault-fixing and
-crash reproduction is extensive as researchers have been focusing on
-these areas for more than 20 years. We focus, however, on the works that
-are the most related to ours. Chapters 4, 5, 6, 7, 8 and, 9 are
-dedicated to the main contributions of this thesis we mentioned in the
-previous section. Finally, Chapter 10 presents closing remarks and a
-conclusion accompanied by avenues for future works, respectively.
+tracking systems. In Chapter 3, we present the studies related to ours Chapters 4, 5, 6, 7, 8 and, 9 are
+dedicated to the main contributions of this thesis that we mentioned in the
+previous section. Finally, we conclude the thesis in Chapter 10, following with future directions and closing remarks.
 
 \section{Related Publications}\label{related-publications}
 
@@ -354,6 +343,7 @@ applications.
   e-Technologies 2015: 269-284.
 \end{enumerate}
 
+[Wahab: You may want to put the Globe and mail, the financial post, etc.]
 In addition, we seized the opportunity to disseminate the best practices
 discovered from our extensive investigation of software ecosystems in
 several books aimed at practitioners. Appendices of this thesis list the
@@ -379,9 +369,8 @@ open-source systems that have been studied for our works.
   Optimization How-to. (pp.~56). Packt Publishing.
 \end{enumerate}
 
-Finally, the work presented in this thesis also attracted media-coverage
-for its impact at Ubisoft, one of the world largest video game
-publisher. A google search for ``commit+assistant+ubisoft'' yields more
+The work presented in this thesis also attracted media coverage
+for its impact at Ubisoft. A google search for ``commit+assistant+ubisoft'' yields more
 than 114,000 results at the time of writing. Here is a curated list of
 the most interesting press articles.
 
@@ -469,13 +458,13 @@ In this thesis, we use the following definitions that are based on
   Crash report: A crash report is issued as the last thing that a
   software system does before crashing. Crash reports are usually
   reported automatically (crash reporting systems are implemented as
-  part of the software). A crash report contains data (that can be
+  part of the software application). A crash report contains data (that can be
   proprietary) to help developers understand the causes of the crash
   (e.g., memory dump,\ldots{}).
 \end{itemize}
 
 In the remaining of this section, we introduce the two types of software
-repositories: version control and project tracking system.
+repositories that are used in this theses: Version control and project tracking systems.
 
 \section{\texorpdfstring{Version control
 systems\label{sec:version-control}}{Version control systems}}\label{version-control-systems}
@@ -3746,19 +3735,18 @@ with the developer's workflow through the commit mechanism. CLEVER is
 still in its infancy and we expect it to be available this year to
 thousands of developers.
 
-In the next chapter, we present JCHARMING, an approach to reproduce bugs
-using stacktraces contained in bug report. JCHARMING is meant to be used
+In the next chapter, we present JCHARMING, an approach for reproducing bugs
+using stack traces. JCHARMING is meant to be used
 by developers when the commit-time approaches presented in Chapters 4, 6
-and 7 did not manage to prevent the introduction of a defect.
+and 7 did not manage to prevent the introduction of defects.
 
 \chapter{Bug Reproduction Using Crash Traces and Directed Model
 Checking}\label{bug-reproduction-using-crash-traces-and-directed-model-checking}
 
 In previous chapters, we presented three approaches (PRECINCT, BIANCA
-and, CLEVER) that aim to improve the code quality by performing
+and, CLEVER) that aim to improve code quality by performing
 maintenance operations at commit-time. While these approaches have shown
-good performances, they never will be 100\% accurate in preventing
-defects from reaching the customers and field crash will happen.
+to be effective, they can never be 100\% accurate. Therefore, we need to contribute with methods that can help fix crashes after they occur.
 
 The first (and perhaps main) step in understanding the cause of a field
 crash is to reproduce the bug that caused the system to fail. A survey
@@ -5063,7 +5051,7 @@ bug was 19 minutes, which is quite reasonable, given the complexity of
 reproducing bugs that cause field crashes.
 
 This said, JCHARMING suffers from three main limitations. The first one
-is that JCHARMING cannot reproduce bugs caused by multi-threading. We
+is that it cannot reproduce bugs caused by multi-threading. We
 can overcome this limitation by using advanced features of the JPF model
 checker such as the \emph{jpf-ltl} listener. The \emph{jpf-ltl} listener
 was designed to check temporal properties of concurrent Java programs.
@@ -5078,9 +5066,6 @@ the crash traces into the bug description. A better practice would be to
 automatically append the crash trace to the bug report, for example, in
 a different field than the bug description.
 
-This chapter concludes our work targeted to software maintenance. In the
-next chapter, we propose a taxonomy of bugs that aims to categorize the
-research in this area.
 
 \chapter{Towards a Classification of Bugs Based on the Location of the
 Corrections: An Empirical
@@ -5088,20 +5073,12 @@ Study}\label{towards-a-classification-of-bugs-based-on-the-location-of-the-corre
 
 \section{Introduction}\label{introduction-5}
 
-In the previous chapters, we investigated how to prevent clones and
-defect, proposes fixes at commit-time and reproduce field-crash.
+In previous chapters, we showed how to prevent clones and
+defects at commit-time, and reproduce on-field crashes.
 
-Our works {[}120, 135--139{]}) treat bug as equal in a sense that they
-do not assume any underlying classification of bugs. It also the case
-for other studies. By a fix, we mean a modification (adding or deleting
-lines of code) to an existing file that is used to solve the bug.
+These techniques, however, treat all bugs as the same.  This is also the case for other studies in the literature (e.g., {[}198, 212{]}). For example, a bug that requires only one fix is analyzed the same way as a bug that necessitates multiple fixes. Similarly, if multiple bugs are fixed by modifying the exact same locations in the code, then we should investigate how these bugs are related in order to predict them in the future. Note here that we do not refer to duplicate bugs. Duplicate bugs are marked as duplicate (and not fixed) and only the master bug is fixed.
 
-For example, there have been several studies (e.g., {[}198, 212{]}) that
-study the factors that influence the bug fixing time. These studies
-empirically investigate the relationship between bug report attributes
-(description, severity, etc.) and the fixing time. Other studies take
-bug analysis to another level by investigating techniques and tools for
-bug prediction and reproduction (e.g., {[}32, 101{]}).
+[Wahab: I think you should put the example we have in the SQUADE paper]
 
 With this in mind, the relationship between bugs and fixes can be
 modelled using the UML diagram in Figure \ref{fig:bug-taxo-diag}. The
@@ -5135,18 +5112,12 @@ Note that T3 and T4 bugs are not duplicates, they may occur when
 different features of the system fail due to the same root causes
 (faults).
 
-In our dataset, composed of 388 projects and presented in section
-\ref{context-selection}, the proportion of each type of bug is as
-follows: T1 6.8 \%, T2 3.7 \%, T3 28.3 \% and T4 61.2\%. Also, classical
-measures of complexity such as duplication, fixing time, number of
-comments, number of time a bug is reopened, files impacted, severity,
-changesets, hunks, and chunks, also presented in section
-\ref{context-selection}, show that type 4 are significantly more complex
-than types 1, 2 and 3.
+In our dataset, composed of 388 projects and presented in Section
+\ref{context-selection}, the proportion of each type of bugs is as
+follows: T1 6.8 \%, T2 3.7 \%, T3 28.3 \% and T4 61.2\%. We also show that T4  bugs are significantly more complex than the other types (see Section [Wahab: please complete this]).
 
 The existence of a high number of T4 bugs and the fact that they are
-more complex call for techniques that can effectively tag bug report as
-T4 at submission time for enhanced triaging. More particularly, we are
+more complex call for techniques to effectively detect Type 4 bugs at submission time for enhanced bug report triaging. More particularly, we are
 interested in the following research questions:
 
 \begin{itemize}
@@ -5158,9 +5129,9 @@ interested in the following research questions:
   classifiers predicting the bug type at submission time will allow
   improving the triaging and the bug handling process.
 \item
-  \textbf{RQ2:} \emph{What are the best predictors of type 4 bugs ?}
+  \textbf{RQ2:} \emph{What are the best predictors of T4 bugs?}
   This second research question aims to investigate what are the markups
-  that allow for accurate prediction of type 4 bugs.
+  that allow for accurate prediction of T4 bugs.
 \end{itemize}
 
 Our objective is to propose a classification that can allow researchers
@@ -5173,13 +5144,12 @@ classification, on the file system module of the Linux operating system.
 This clone taxonomy continues to be used by researchers to build better
 approaches for detecting a given clone type and being able to compare
 approaches with each other effectively. Moreover, we build upon this
-proposed classification and predict the type of incoming bugs with a
-65.40\% precision 94.16\% recall for \(f_1\) measure of 77.19\%.
+proposed classification and predict the type of incoming bugs with 
+65.40\% precision, 94.16\% recall, and an \(F_1\) measure of 77.19\%.
 
 \section{Experimental Setup}\label{experimental-setup-4}
 
-In this section, we present our datasets in length. In this
-presentation, we explore the proportion of each type of bug as well as
+In this section, we present our datasets and quantify the proportion of each type of bugs as well as
 the complexity of each type.
 
 \subsection{\texorpdfstring{Context
@@ -5283,8 +5253,8 @@ independence tests are considered statistically significant at = 0.05.
 If p-value \(\leq\) 0.05, we can conclude that the proportion of each
 type is significantly different.
 
-We analyse the complexity of each bug regarding duplication, fixing
-time, number of comments, number of time a bug is reopened, files
+We analyse the complexity of each bug with respect to duplication, fixing
+time, number of comments, number of times a bug is reopened, files
 impacted, severity, changesets, hunks, and chunks.
 
 Complexity metrics are divided into two groups: (a) process and (b) code
@@ -5363,7 +5333,7 @@ When combining both ecosystems, the results are:
 
 \subsubsection{Bug Reopening}\label{bug-reopening}
 
-The bug is reopening metric counts how many times a given bug gets
+The bug reopening metric counts how many times a given bug gets
 reopened.If a bug report is reopened, it means that the fix was arguably
 hard to come up with or the report was hard to understand {[}119, 172,
 217{]}.
@@ -5431,7 +5401,7 @@ is a relationship between the number of files modified and the hunks.
 The number of code blocks modified is likely to rise as to the number of
 modified files as the hunks metric will be at least 1 per file.
 
-We found that T2 and T4 bugs, that requires many files to get fixed, are
+We found that T2 and T4 bugs, that require many files to get fixed, are
 the ones that have significantly higher scores for the hunks metric;
 Apache ecosystem:
 \(T4_{hunks}^1 \gg T2_{hunks}^2 \gg T3_{hunks}^3 \gg T1_{hunks}^4\),
@@ -5466,8 +5436,8 @@ calculation, and multiply both values. The complexity scores we
 calculated are as follows: 1330, 1750, 2580 and 7120 for T1, T2, T3 and
 T4 bugs, respectively.
 
-Considering that type 4 bugs are (a) the most common, (b) the most
-complex and (c) not a type we intuitively know about; we decided to kick
+Considering that Type 4 bugs are (a) the most common, (b) the most
+complex and (c) not a type we intuitively know about, we decided to kick
 start our research into the different type of bugs and their impact by
 predicting whether an incoming bug report type 4 or not.
 
@@ -5547,7 +5517,7 @@ recall = \frac{TP+FN \cap TP+FP}{TP+FN}
 f_1 = \frac{2TP}{2TP + FP + FN}
 \end{equation}
 
-The performances of each classifier are compared to a tenth classifier.
+The performance of each classifier is compared to a tenth classifier.
 This last classifier is a random classifier that randomly predicts the
 type of a bug. As we are in a two classes system (T4 and non-T4), 50\%
 of the reports are classified as T4 by the random classifier. The
@@ -6055,32 +6025,32 @@ is the fact that we did not incorporate developers' opinions enough in
 our studies. Indeed, we only gathered developers opinions' in two
 separate occasions (BUMPER, Chapter 4 and CLEVER, Chapter 7). While
 their opinions were positives, we should continue to ask practitioners
-for their feedbacks on our works.
+for their feedbacks on our work.
 
 Another limitation of our work is that most of the approaches (BUMPER,
 BIANCA and, CLEVER) will most likely be ineffective if applied to a
 single-system. Indeed, these approaches rely on the large amount of data
-acquired from multiple software ecosystems to perform.
+acquired from multiple software ecosystems.
 
 This leads to the scalability issues of our work. The model required to
 operate BIANCA took nearly three months using 48 Amazon Virtual Private
 Servers running in parallel to built and tested. While CLEVER addresses
 some of the scalability issues with its two-step classifier, the search
-of potential solution is still computationally expansive.
+of a potential solution is still computationally expansive.
 
 \subsection{Other Possible Opportunities for Future
 Research}\label{other-possible-opportunities-for-future-research}
 
-To build on this work, we additional experiment with additional (and
+To build on this work, we need to conduct experiment with additional (and
 larger) systems with the dual aim of fine-tuning the approach, and
 assessing the scalability of our approach when applied to even larger
-systems could be conducted. Also, we want to improving PRECINCT to
-support Type 4 clones will be a significant advantage over other
-clone-detectors. In addition, conducting user studies with developers to
-assess the concrete effectiveness of PRECINCT compared to remote and
+systems could be conducted. Also, we want to improve PRECINCT to
+support Type 4 clones, which will be a significant advantage over other
+clone detectors. In addition, conducting user studies with developers to
+assess the effectiveness of PRECINCT compared to remote and
 local clone detection techniques.
 
-Conducting human studies with developers in order to gather their
+Conducting user studies with developers in order to gather their
 feedback on BIANCA and CLEVER would be beneficial. The feedback obtained
 could help fine-tune the approaches. Also, examining the relationship
 between project cluster measures (such as betweenness) and the
@@ -6107,7 +6077,7 @@ core mechanism of JCHARMING.
 \section{Lists of the top-level open-source
 projects}\label{lists-of-the-top-level-open-source-projects}
 
-Lists all the top-level open-source projects we analysed for our works.
+Lists all the top-level open-source projects we analysed for our work.
 
 \subsection{Parsers}\label{parsers}
 
