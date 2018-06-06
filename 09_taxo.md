@@ -2,14 +2,46 @@
 
 ## Introduction
 
-In the previous chapters, we investigated how to prevent clones and defect, proposes fixes at commit-time and reproduce field-crash. 
+In previous chapters, we showed how to prevent clones and defects, proposes fixes at commit-time and reproduce on-field crashes.
+
+These techniques, however, treat all bugs as the same.  This is also the case for other studies in the literature (e.g.,  [@Weiß2007; @Zhang2013]). For example, a bug that requires only one fix is analyzed the same way as a bug that necessitates multiple fixes. Similarly, if multiple bugs are fixed by modifying the exact same locations in the code, then we should investigate how these bugs are related in order to predict them in the future. Note here that we do not refer to duplicate bugs. Duplicate bugs are marked as duplicate (and not fixed) and only the master bug is fixed.
 
 Our works [@Nayrolles2016d; @Nayrolles2016b; @Maiga2015; @Nayrolles2015g; @Nayrolles2018; @Nayrolles2015]) treat bug as equal in a sense that they do not assume any underlying classification of bugs. It also the case for other studies.
-By a fix, we mean a modification (adding or deleting lines of code) to an existing file that is used to solve the bug. 
+By a fix, we mean a modification (adding or deleting lines of code) to an existing file that is used to solve the bug.
 
-For example, there have been several studies (e.g., [@Weiß2007; @Zhang2013]) that study the factors that influence the bug fixing time.
-These studies empirically investigate the relationship between bug report attributes (description, severity, etc.) and the fixing time.
-Other studies take bug analysis to another level by investigating techniques and tools for bug prediction and reproduction (e.g., [@Chen2013; @Kim2007a]).
+As a motivating example, consider Bugs #AMQ-5066 and #AMQ-5092 from the Apache Software Foundation bug report
+management system (used to build one of the datasets in this
+paper). Bug #AMQ-5066 was reported on February 19, 2014 and
+solved with a patch provided by the reporter. The solution
+involves a relatively complex patch that modifies
+`MQTTProtocolConverter.java`, `MQTTSubscription.java` and
+`MQTTTest.java` files. The description of the bug is as follows:
+
+_"When a client sends a SUBSCRIBE message with the same Topic/Filter as a previous SUBSCRIBE message but a different QoS, the Server MUST discard the older subscription, and resend all retained messages limited to the new Subscription QoS."_
+
+A few months later, another bug, Bug #AMQ-5092 was reported:
+
+_"MQTT protocol converters does not correctly generate unique packet ids for retained and non-retained publish messages sent to clients. […] Although retained messages published on creation of client subscriptions are copies of retained messages, they must carry a unique packet id when dispatched to clients. ActiveMQ re-uses the retained message's packet id, which makes it difficult to acknowledge these messages when wildcard topics are used. ActiveMQ also sends the same non-retained message multiple times for every matching subscription for overlapping subscriptions. These messages also re-use the publisher's message id as the packet id, which breaks client acknowledgment."_
+
+This bug was assigned and fixed by a different person than the
+one who fixed bug #AMQ-5066. The fix consists of modifying
+slightly the same lines of the code in the exact files used to fix
+Bug #AMQ-5066. In fact, Bug #5092 could have been avoided
+altogether if the first developer provided a more comprehensive
+fix to #AMQ-5066 (a task that is easier said than done). These two
+bugs are not duplicates since, according to their description, they
+deal with different types of problems and yet they can be fixed by
+providing a similar patch. The failures are different while the root
+causes (faults in the code) are more or less the same.
+From the bug handling perspective, if we can develop a way
+to detect such related bug reports during triaging then we can
+achieve considerable time saving in the way bug reports are
+processed, for example, by assigning them to the same developers.
+We also conjecture that detecting such related bugs can help with
+other tasks such as bug reproduction. We can reuse the 
+2
+reproduction of an already fixed bug to reproduce an incoming
+and related bug. 
 
 With this in mind, the relationship between bugs and fixes can be modelled using the UML diagram in Figure \ref{fig:bug-taxo-diag}. 
 The diagram only includes bug reports that are fixed and not, for example, duplicate reports.
@@ -42,18 +74,17 @@ Also, classical measures of complexity such as duplication, fixing time, number 
 The existence of a high number of T4 bugs and the fact that they are more complex call for techniques that can effectively tag bug report as T4 at submission time for enhanced triaging. More particularly, we are interested in the following research questions:
 
 - **RQ1:** *Are T4 bug predictable at submission time?* In this research question, we investigate if and how to predict the type of a bug report at submission time. Being able to build accurate classifiers predicting the bug type at submission time will allow improving the triaging and the bug handling process.
-- **RQ2:** *What are the best predictors of type 4 bugs ?* This second research question aims to investigate what are the markups that allow for accurate prediction of type 4 bugs. 
+- **RQ2:** *What are the best predictors of T4 bugs ?* This second research question aims to investigate what are the markups that allow for accurate prediction of T4 bugs.
 
 Our objective is to propose a classification that can allow researchers in the field of mining bug repositories to use the taxonomy as a new criterion in triaging, prediction, and reproduction of bugs.
 By analogy, we can look at the proposed bug taxonomy similarly as the clone taxonomy presented by Kapser and Godfrey [@CoryKapser].
 The authors proposed seven types of source code clones and then conducted a case study, using their classification, on the file system module of the Linux operating system.
 This clone taxonomy continues to be used by researchers to build better approaches for detecting a given clone type and being able to compare approaches with each other effectively.
-Moreover, we build upon this proposed classification and predict the type of incoming bugs with a 65.40% precision 94.16% recall for $f_1$ measure of 77.19%.
+Moreover, we build upon this proposed classification and predict the type of incoming bugs with a 65.40% precision 94.16% recall, and an $f_1$ measure of 77.19%.
 
 ## Experimental Setup
 
-In this section, we present our datasets in length.
-In this presentation, we explore the proportion of each type of bug as well as the complexity of each type.
+In this section, we present our datasets and quantify the proportion of each type of bugs as well as the complexity of each type.
 
 ### Context Selection\label{sec:context-selection}
 
@@ -113,7 +144,7 @@ Pearson's chi-squared independence test is used to analyse the relationship betw
 The results of Pearson's chi-square independence tests are considered statistically significant at = 0.05. 
 If p-value $\leq$ 0.05, we can conclude that the proportion of each type is significantly different.
 
-We analyse the complexity of each bug regarding duplication, fixing time, number of comments, number of time a bug is reopened, files impacted, severity, changesets, hunks, and chunks.
+We analyse the complexity of each bug with respect to duplication, fixing time, number of comments, number of times a bug is reopened, files impacted, severity, changesets, hunks, and chunks.
 
 Complexity metrics are divided into two groups: (a) process and (b) code metrics.
 Process metrics refer to metrics that have been extracted from the project tracking system (i.e., fixing time, comments, reopening and severity).
@@ -147,7 +178,7 @@ Overall, the complexity of bug types in terms of the number of duplicates is as 
 The fixing time metric represents the time it took for the bug report to go from the  *new* state to the  *closed* state.
 If the bug report is reopened, then the time it took for the bug to go from the  *assigned* state to the  *closed* state is added to the first time.
 A bug report can be reopened several times and all the times are added.
-In this section, the time is expressed in days [@Weiss2007; @Zhang2012; @Zhang2013].
+In this section, the time is expressed in days [@Weiß2007; @Zhang2012; @Zhang2013].
 
 When combined, both ecosystem amounts in the following order $T2_{time}^4 > T4_{time}^1 \gg T1_{time}^3 \gg T3_{time}^2$.
 These findings contradict the finding of Saha  *et al.*, however, they did not study the Netbeans ecosystem in their paper [@Saha2014].
@@ -163,7 +194,7 @@ When combining both ecosystems, the results are: $T4_{comment}^1 \gg T2_{comment
 
 #### Bug Reopening
 
-The bug is reopening metric counts how many times a given bug gets reopened.If a bug report is reopened, it means that the fix was arguably hard to come up with or the report was hard to understand [@Zimmermann2012; @Shihab2010; @Lo2013].
+The bug reopening metric counts how many times a given bug gets reopened.If a bug report is reopened, it means that the fix was arguably hard to come up with or the report was hard to understand [@Zimmermann2012; @Shihab2010; @Lo2013].
 
 When combined, however, the order does change: $T4_{reop}^1 > T2_{reop}^4  > T1_{reop}^3 \gg T3_{reop}^2$.
 
@@ -204,7 +235,7 @@ This metric is widely used for bug insertion prediction [@Kim2006; @Jung2009; @R
 In our ecosystems, there is a relationship between the number of files modified and the hunks.
 The number of code blocks modified is likely to rise as to the number of modified files as the hunks metric will be at least 1 per file.
 
-We found that T2 and T4 bugs, that requires many files to get fixed, are the ones that have significantly higher scores for the hunks metric; Apache ecosystem: $T4_{hunks}^1 \gg T2_{hunks}^2 \gg T3_{hunks}^3 \gg T1_{hunks}^4$, Netbeans ecosystem: $T4_{hunks}^1 \gg T2_{hunks}^3 \gg T3_{hunks}^2 \gg T1_{hunks}^4$, and overall $T4_{hunks}^1 \gg T2_{hunks}^2 \gg T1_{hunks}^4 \gg T3_{hunks}^3$.
+We found that T2 and T4 bugs, that require many files to get fixed, are the ones that have significantly higher scores for the hunks metric; Apache ecosystem: $T4_{hunks}^1 \gg T2_{hunks}^2 \gg T3_{hunks}^3 \gg T1_{hunks}^4$, Netbeans ecosystem: $T4_{hunks}^1 \gg T2_{hunks}^3 \gg T3_{hunks}^2 \gg T1_{hunks}^4$, and overall $T4_{hunks}^1 \gg T2_{hunks}^2 \gg T1_{hunks}^4 \gg T3_{hunks}^3$.
 
 #### Churns
 
@@ -219,7 +250,7 @@ To determine which type is the most complex, we counted how many times each bug 
 We did the same simple analysis of the rank of each type for each metric, to take into account the frequency of bug types in our calculation, and multiply both values.
 The complexity scores we calculated are as follows: 1330, 1750, 2580 and 7120 for T1, T2, T3 and T4 bugs, respectively.
 
-Considering that type 4 bugs are (a) the most common, (b) the most complex and (c) not a type we intuitively know about; we decided to kick start our research into the different type of bugs and their impact by predicting whether an incoming bug report type 4 or not.
+Considering that Type 4 bugs are (a) the most common, (b) the most complex and (c) not a type we intuitively know about; we decided to kick start our research into the different type of bugs and their impact by predicting whether an incoming bug report type 4 or not.
 
 ## Empirical Validation
 
@@ -247,7 +278,7 @@ The 60% part is used for training purposes while the 40% is used for testing pur
 During the training process we use the ten-folds technique iteratively and, for each iteration, we change the parameters used by the classifier building process (cost, mtry, etc).
 At the end of the iterations, we select the best classifier and exercise it against the second part of 40%.
 The results we report in this section are the performances of the nine classifiers trained on 60% of the data and classifying the remaining 40%.
-The performances of each classifier are examined in terms of true positive, true negative, false negative and false positive classifications.
+The performance of each classifier are examined in terms of true positive, true negative, false negative and false positive classifications.
 True positives and negative numbers refer to the cases where the classifier correctly classify a report.
 The false negative represents the number of reports that are classified as non-T4 while they are and false positive represents the number of reports classified as T4 while they are not.
 These numbers allow us to derive three common metrics: precision, recall and f_1 measure.
@@ -264,10 +295,10 @@ recall = \frac{TP+FN \cap TP+FP}{TP+FN}
 f_1 = \frac{2TP}{2TP + FP + FN}
 \end{equation}
 
-The performances of each classifier are compared to a tenth classifier. 
+The performance of each classifier is compared to a tenth classifier. 
 This last classifier is a random classifier that randomly predicts the type of a bug.
 As we are in a two classes system (T4 and non-T4), 50% of the reports are classified as T4 by the random classifier.
-The performances of the random classifier itself are presented in table \ref{tab:random}.
+The performance of the random classifier itself are presented in table \ref{tab:random}.
 
 Finally, we compute the Cohen's Kappa metric [@Fleiss1973] for each classifier. 
 The Kappa metric compares the observed accuracy and the expected accuracy to provide a less misleading assessment of the classifier performance than precision alone.

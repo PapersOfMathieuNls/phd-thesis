@@ -61,7 +61,7 @@ breaklinks=true
 \usepackage{todonotes}
 
 \author{Mathieu Nayrolles}
-\title{Software Maintenance at Commit Time}
+\title{Software Maintenance at Commit-Time}
 
 \titleOfPhDAuthor{Mr.}          % or Ms., Mrs., Miss, etc. (only for PhD's)
 \PhD                            % Masters by default
@@ -80,7 +80,18 @@ breaklinks=true
 \end{abstract}
 
 \begin{acknowledgments}
-  $acknowledgments$
+My deepest gratitude goes to Dr. Wahab Hamou-Lhadj for accepting to enrol me as a Ph.D student, believing in my ideas, and helping me grow as a person and a researcher. Your guidance and availability never failed me during these challenging years. 
+
+Thanks to Yves Jacquier, Olivier Pomarez, Julien Kauffmann and Nicolas Fleury from Ubisoft that first saw value in my work and allowed me to study their systems. Also, I would like to thank all the employees at Ubisoft that supported me during this adventure; especially Florent Jousset, Luc Bouchard and, Chadi Lebbos.
+
+Thanks to the members of SBA, ISyLM and, La Forge research labs for the brainstorming sessions and their feedbacks on my work.
+
+I am also grateful to the Concordia School of Graduate Studies and the \textit{The Fonds de recherche du Qu\'ebec – Nature et technologies (FRQNT)} for their continuous financial support during my graduate studies. 
+
+Sheryl Tablan, the Graduate Program Coordinator - Ph.D. Program, who allowed me to navigate various administrative ambushes. 
+
+
+Finally, Lakm\'e Gremillet, for her unwavering support that carried me through ups and downs, successes and failures. There is no doubt in my mind that none of this will have been possible without her.
 \end{acknowledgments}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

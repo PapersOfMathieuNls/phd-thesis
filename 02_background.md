@@ -10,9 +10,9 @@ In this thesis, we use the following definitions that are based on  [@Avizienis2
 - Failure: The inability of a software system or component to perform its required functions within specified requirements.
 - Crash: The software system encountered a fault (defect) that triggered a fatal failure from which the system could not recover from/overcome. As a result, the system stops.
 - Bug report: A bug report describes a behaviour observed in the field and considered abnormal by the reporter. Bug reports are submitted manually to bug report systems (bugzilla/jira). There is no mandatory format to report a bug. Nevertheless, a bug report should have the version of the software system, OS, and platform, steps to reproduce the bug, screen shots, stack trace and anything that could help a developer assess the internal state of the software system.
-- Crash report: A crash report is issued as the last thing that a software system does before crashing. Crash reports are usually reported automatically (crash reporting systems are implemented as part of the software). A crash report contains data (that can be proprietary) to help developers understand the causes of the crash (e.g., memory dump,...).
+- Crash report: A crash report is issued as the last thing that a software system does before crashing. Crash reports are usually reported automatically (crash reporting systems are implemented as part of the software application). A crash report contains data (that can be proprietary) to help developers understand the causes of the crash (e.g., memory dump,...).
 
-In the remaining of this section, we introduce the two types of software repositories: version control and project tracking system.
+In the remaining of this section, we introduce the two types of software repositories that are used in this thesis: version control and project tracking systems.
 
 ## Version control systems\label{sec:version-control}
 
@@ -64,7 +64,7 @@ The second commit `98ca9` have `34ac2` as a parent.
 
 Branches point to a commit.
 In a task-branching environment, a branch is created via a checkout operation for each task.
-Tasks can be to fix the root cause of a crash or bug report or features to implement.
+Tasks can be created to fix the root cause of a crash or bug report or features to implement.
 In figure \ref{fig:two-branches}, the `master` branch and the `1_fix_overflow` point on commit `98ca9`.
 
 \begin{figure}[h!]
@@ -86,7 +86,7 @@ In Figure \ref{fig:merge}, the `master` branch points on `a13ab2` while the `1_f
 
 ## Providers\label{sec:revision-provider}
 
-In this proposal, we mainly refer to three version control systems: `Svn`, `Git` and, to a lesser extent, `Mercurial`.
+In this thesis, we mainly refer to three version control systems: `Svn`, `Git` and, to a lesser extent, `Mercurial`.
 `SVN` is distributed by the Apache Foundation and is a centralized concurrent version system that can handle conflicts in the different versions of different developers. SVN  is widely used in industry.
 At the opposite, `Git` is a distributed revision control system --- originally developed by Linus Torvald --- where revisions can be kept locally for a while and then shared with the rest of the team.
 Finally, `Mercurial` is also a distributed revision system, but shares many concepts with `SVN`.
@@ -119,7 +119,7 @@ A fixed report moves to the `RESOLVED` state. Developers have five different pos
 
 Finally, the report is `CLOSED` after it is resolved.
 A report can be reopened (sent to the `REOPENED` state) and then assigned again if the initial fix was not adequate (the fix did not resolve the problem).
-The elapsed time between the report marked as the new one and the resolved status is known as the _fixing time_, usually in days.
+The elapsed time between the report marked as new and the resolved status is known as the _fixing time_, usually in days.
 In case of task branching, the branch associated with the report is marked as ready to be merged.
 Then, the person in charge (quality assurance team, manager, ect...) will be able to merge the branch with the mainline.
 If the report is reopened: the days between the time the report is reopened and the time it is marked again as `RESOLVED/FIXED` are cumulated.

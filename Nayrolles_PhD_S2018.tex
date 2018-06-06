@@ -77,33 +77,43 @@ breaklinks=true
 
 \begin{abstract}
   Software maintenance activities such as debugging and feature
-  enhancement are known to be challenging and costly. Studies have shown
-  that the cost of software maintenance can reach up to 70\% of the
-  overall cost of the software development life cycle. Much of this is
-  attributable to several factors including the increase in software
-  complexity, the lack of traceability between the various artifacts of
-  the software development process, the lack of proper documentation, and
-  the unavailability of the original developers of the systems. In this thesis,
-  we propose several techniques and tools that support software maintainers at
-  commit-time. As part of the developer's workflow, a commit marks the end
-  of a given task or subtask as the developer is ready to version the
-  source code. We propose three
-  approaches, namely PRECINCT [Wahab: I think you should develop these acronyms], BIANCA and CLEVER. PRECINCT prevents the
-  insertion of new software clones at commit-time, while BIANCA and CLEVER
-  prevent the introduction of new defects. BIANCA and
-  CLEVER also propose potential fixes in order to
-  support developers. We also propose JCHARMING, an approach for reproducing
-  on-field crashes in case commit-time approaches fail to prevent the
-  introduction of defects in a system. Our approaches have
-  been tested on over 400 open- and closed- source systems, resulting in high
-  levels of precision and recall, while being scalable and non-intrusive
-  for developers. Finally, we also propose a taxonomy of software faults
-  to help researchers and practitioners categorize the research in the various
-  areas related to software maintenance.
+  enhancement are known to be challenging and costly, which explains an
+  ever growing line of research in software maintenance areas including
+  mining software repository, default prevention, clone detection, and bug
+  reproduction. The main goal is to improve the productivity of software
+  developers as they undertake maintenance tasks. Existing tools, however,
+  operate in an offline fashion, i.e., after the changes to the systems
+  have been made. Studies have shown that software developers tend to be
+  reluctant to use these tools as part of a continuous development
+  process. This is because they require installation and training,
+  hindering their integration with developers' workflow, which in turn
+  limits their adoption. In this thesis, we propose novel approaches to
+  support software developers at commit-time. As part of the developer's
+  workflow, a commit marks the end of a given task. We show how commits
+  can be used to catch unwanted modifications to the system, and prevent
+  the introduction of clones and bugs, before these modifications reach
+  the central code repository. We also propose a bug reproduction
+  technique that is based on model checking and crash traces. Furthermore,
+  we propose a new way for classifying bugs based on the location of fixes
+  that can serve as the basis for future research in this field of study.
+  The techniques proposed in this thesis have been tested on over 400 open
+  and closed (industrial) systems, resulting in high levels of precision
+  and recall. They are also scalable and non-intrusive.
 \end{abstract}
 
 \begin{acknowledgments}
-  acknowledgments
+My deepest gratitude goes to Dr. Wahab Hamou-Lhadj for accepting to enrol me as a Ph.D student, believing in my ideas, and helping me grow as a person and a researcher. Your guidance and availability never failed me during these challenging years. 
+
+Thanks to Yves Jacquier, Olivier Pomarez, Julien Kauffmann and Nicolas Fleury from Ubisoft that first saw value in my work and allowed me to study their systems. Also, I would like to thank all the employees at Ubisoft that supported me during this adventure; especially Florent Jousset, Luc Bouchard and, Chadi Lebbos.
+
+Thanks to the members of SBA, ISyLM and, La Forge research labs for the brainstorming sessions and their feedbacks on my work.
+
+I am also grateful to the Concordia School of Graduate Studies and the \textit{The Fonds de recherche du Qu\'ebec – Nature et technologies (FRQNT)} for their continuous financial support during my graduate studies. 
+
+Sheryl Tablan, the Graduate Program Coordinator - Ph.D. Program, who allowed me to navigate various administrative ambushes. 
+
+
+Finally, Lakm\'e Gremillet, for her unwavering support that carried me through ups and downs, successes and failures. There is no doubt in my mind that none of this will have been possible without her.
 \end{acknowledgments}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -115,9 +125,9 @@ breaklinks=true
 \section{Problem and Motivations}\label{problem-and-motivations}
 
 Software maintenance activities such as debugging and feature
-enhancement are known to be challenging and costly {[}157{]}. Studies
+enhancement are known to be challenging and costly {[}158{]}. Studies
 have shown that the cost of software maintenance can reach up to 70\% of
-the overall cost of the software development life cycle {[}69{]}. This
+the overall cost of the software development life cycle {[}70{]}. This
 is due to many factors including the increase in software complexity,
 the lack of traceability between the various artifacts of the software
 development process, the lack of proper documentation, and the
@@ -129,26 +139,26 @@ default prevention, clone detection, program comprehension, etc. The
 main goal is to improve the productivity of software developers as they
 undertake maintenance tasks. There exist several tools to help with
 important software development tasks that can ease the maintenance
-burden. These include tools for clone detection (e.g., {[}14, 48,
-89{]}), bug prevention (e.g., {[}67, 91{]}), and bug reproduction (e.g.,
-{[}31, 162, 219{]}). 
+burden. These include tools for clone detection (e.g., {[}14, 49,
+90{]}), bug prevention (e.g., {[}68, 92{]}), and bug reproduction (e.g.,
+{[}32, 163, 219{]}).
 
-Although these tools have been shown to be useful,
-they operate in an offline fashion (i.e., after the changes to the
-systems have been made). Software developers might be reluctant to use
-them as part of a continuous development process, unless they
-are involved in a major refactoring effort. Johnson et al. {[}85{]}
-showed that one of the main challenges with existing software maintenance tools lies in their lack of integration with the workflow of developers. Lewis
-et al. and Foss et al. {[}58, 117{]} added that developers tend to be
-reluctant to install external tools, which typically require extensive
-settings and a high learning curve. Another issue with existing
-techniques, especially bug prevention methods, is that they do not
-provide recommendations to developers on how to fix the detected bugs.
-They simply return measurements that are often difficult to interpret by
-developers. Finally, developers also expressed concerns regarding the
-numbers of warnings, the general heaviness of information provided by
-software maintenance tools and the lack of clear corrective actions to
-fix a given warning.
+Although these tools have been shown to be useful, they operate in an
+offline fashion (i.e., after the changes to the systems have been made).
+Software developers might be reluctant to use them as part of a
+continuous development process, unless they are involved in a major
+refactoring effort. Johnson et al. {[}86{]} showed that one of the main
+challenges with these tools lies in their lack of integration with the
+workflow of developers. Lewis et al. and Foss et al. {[}59, 118{]} added
+that developers tend to be reluctant to install external tools, which
+typically require extensive settings and a high learning curve. Another
+issue with existing techniques, especially bug prevention methods, is
+that they do not provide recommendations to developers on how to fix the
+detected bugs. They simply return measurements that are often difficult
+to interpret by developers. Finally, developers also expressed concerns
+regarding the numbers of warnings, the general heaviness of information
+provided by software maintenance tools and the lack of clear corrective
+actions to fix a given warning.
 
 In this thesis, we propose novel approaches to support software
 developers at commit-time. As part of the developer's workflow, a commit
@@ -158,9 +168,11 @@ unwanted modifications to the system before these modifications reach
 the central code repository. By doing so, we do not only propose
 solutions that integrate well with developers' workflow, but also
 eliminate the need for software developers to use any other external
-tools. In addition,  we propose an approach
-to reproduce on-field crashes in a controlled environment. Reproducing a bug is the first step towards fixing it.
-Finally, we provide a bug classification scheme to help reason about bugs using the location of fixes. 
+tools. In addition, shall these approaches fail at preventing defect
+introduction, we propose an approach to reproduce on-field crashes in a
+controlled environment. Reproducing a bug is the first step towards
+fixing it. Finally, we provide a bug classification scheme to help
+reason about bugs using the location of fixes.
 
 \section{Research Contributions}\label{research-contributions}
 
@@ -174,9 +186,9 @@ In this thesis, we make the following contributions:
   Metarepository for dEvelopers and Researchers), a web-based
   infrastructure that can be used by software developers and researchers
   to access data from diverse repositories using natural language
-  queries, regardless of where the data was created and
-  hosted {[}136{]}. The idea behind BUMPER is that it can connect to any
-  bug tracking and version control systems and download the data into a
+  queries, regardless of where the data was created and hosted
+  {[}137{]}. The idea behind BUMPER is that it can connect to any bug
+  tracking and version control systems and download the data into a
   single database. We created a common schema that represents data,
   stored in various bug tracking and version control systems. BUMPER
   uses a web-based interface to allow users to search the aggregated
@@ -184,12 +196,12 @@ In this thesis, we make the following contributions:
   way, users can focus on the analysis itself and not on the way the
   data is represented or located. BUMPER supports many features
   including: (1) the ability to use multiple bug tracking and control
-  version systems, (2) the ability to efficiently search large data
+  version systems, (2) the ability to efficiently search very large data
   repositories using both natural language and a specialized query
   language, (3) the mapping between the bug reports and the fixes, and
   (4) the ability to export the search results in JSON, CSV and XML
   formats. In addition, BUMPER differs from other approaches such as Boa
-  {[}50{]} because (a) it updates itself every day with the new closed
+  {[}51{]} because (a) it updates itself every day with the new closed
   reports, (b) it proposes a clear and concise JSON API that anyone can
   use to support their approaches or tools.
 \item
@@ -197,9 +209,9 @@ In this thesis, we make the following contributions:
   Code clones appear when developers reuse code with little to no
   modification to the original code. Studies have shown that clones can
   account for about 7\% to 50\% of the code in a given software system
-  {[}14, 48{]}. Clones are considered a bad practice in
-  software development since they may introduce new bugs
-  {[}89{]}. If a bug is discovered in one segment of the code that has
+  {[}14, 49{]}. Nevertheless, clones are considered a bad practice in
+  software development since they may introduce new bugs in code
+  {[}90{]}. If a bug is discovered in one segment of the code that has
   been copied and pasted several times, then the developers will have to
   remember the places where this segment has been reused to fix the bug
   in each place. In this research, we present PRECINCT (PREventing
@@ -211,8 +223,8 @@ In this thesis, we make the following contributions:
 \item
   An approach for preventing bug insertion at commit-time using clone
   detection and dependency analysis (Chapter 6): We propose an approach
-  for preventing the introduction of bugs at commit-time. There exist tools
-  that prevent developers from shipping \emph{bad} code {[}75{]}.
+  for preventing the introduction of bugs at commit-time. There exist
+  tools that prevent developers from shipping \emph{bad} code {[}76{]}.
   Our approach, called BIANCA (Bug Insertion ANticipation by Clone
   Analysis at commit-time), is different than existing approaches
   because it mines and analyses the change patterns in commits and
@@ -224,21 +236,21 @@ In this thesis, we make the following contributions:
   suffer from scalability issues, hindering their application in
   industrial settings, where several repositories receive hundreds of
   commits per day. We created a two-step classifier that leverages the
-  performance of metric-based detection and the expressiveness of
-  clone-based detection and resolution {[}135{]}. This
-  work was conducted in collaboration with Ubisoft, one of the
-  largest video games company in the world.
+  performances of metric-based detection and the expressiveness of
+  clone-based detection and resolution called CLEVER {[}136{]}. This
+  work was conducted in collaboration with Ubisoft, one of the largest
+  video games company in the world.
 \item
   An approach for crash reproduction using crash traces and model
   checking (Chapter 8): Crash reproduction is an expensive task because
-  the data provided by end users is often scarce {[}32{]}. It is,
+  the data provided by end users is often scarce {[}33{]}. It is,
   therefore, important to invest in techniques and tools for automatic
   bug reproduction to ease the maintenance process and accelerate the
   rate of bug fixes and patches. We propose an approach, called
   JCHARMING (Java CrasH Automatic Reproduction by directed Model
   checkING) that uses a combination of crash traces and model checking
-  to reproduce bugs that caused field failures automatically {[}137,
-  138{]}. Unlike existing techniques, JCHARMING does not require
+  to reproduce bugs that caused field failures automatically {[}138,
+  139{]}. Unlike existing techniques, JCHARMING does not require
   instrumentation of the code. It does not need access to the content of
   the heap either. Instead, JCHARMING uses a list of functions output
   when an uncaught exception in Java occurs (i.e., the crash trace) to
@@ -271,11 +283,13 @@ In this thesis, we make the following contributions:
 
 \section{Thesis Organization}\label{thesis-organization}
 
-The thesis organization is as follows; In Chapter 2, we provide
+The thesis organization is as follows; in Chapter 2, we provide
 background information about the version control systems and project
-tracking systems. In Chapter 3, we present the studies related to ours Chapters 4, 5, 6, 7, 8 and, 9 are
-dedicated to the main contributions of this thesis that we mentioned in the
-previous section. Finally, we conclude the thesis in Chapter 10, following with future directions and closing remarks.
+tracking systems. In Chapter 3, we present the works related to ours.
+Chapters 4, 5, 6, 7, 8 and, 9 are dedicated to the main contributions of
+this thesis we mentioned in the previous section. Finally, we conclude
+the thesis in Chapter 10, following with future directions and closing
+remarks.
 
 \section{Related Publications}\label{related-publications}
 
@@ -343,7 +357,6 @@ applications.
   e-Technologies 2015: 269-284.
 \end{enumerate}
 
-[Wahab: You may want to put the Globe and mail, the financial post, etc.]
 In addition, we seized the opportunity to disseminate the best practices
 discovered from our extensive investigation of software ecosystems in
 several books aimed at practitioners. Appendices of this thesis list the
@@ -352,6 +365,9 @@ open-source systems that have been studied for our works.
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \setcounter{enumi}{8}
+\item
+  \textbf{Mathieu Nayrolles} (2018). Angular 2 Design Patterns and Best
+  Practices. (pp.~504). Packt Publishing.
 \item
   \textbf{Mathieu Nayrolles}, Rajesh Gunasundaram, Sridhar Rao (2017).
   Expert Angular. (pp.~454). Packt Publishing.
@@ -369,14 +385,15 @@ open-source systems that have been studied for our works.
   Optimization How-to. (pp.~56). Packt Publishing.
 \end{enumerate}
 
-The work presented in this thesis also attracted media coverage
-for its impact at Ubisoft. A google search for ``commit+assistant+ubisoft'' yields more
+Finally, the work presented in this thesis also attracted media-coverage
+for its impact at Ubisoft, one of the world largest video game
+publisher. A google search for ``commit+assistant+ubisoft'' yields more
 than 114,000 results at the time of writing. Here is a curated list of
 the most interesting press articles.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{13}
+\setcounter{enumi}{14}
 \item
   Sinclair, B. (2018). Ubisoft's ``Minority Report of programming'' -
   GamesIndustry.
@@ -420,7 +437,7 @@ CLEVER (Chapter 7).
 \section{\texorpdfstring{Definitions\label{sec:version-control}}{Definitions}}\label{definitions}
 
 In this thesis, we use the following definitions that are based on
-{[}10, 30, 156, 158, 201{]}.
+{[}10, 30, 157, 159, 201{]}.
 
 \begin{itemize}
 \tightlist
@@ -458,13 +475,14 @@ In this thesis, we use the following definitions that are based on
   Crash report: A crash report is issued as the last thing that a
   software system does before crashing. Crash reports are usually
   reported automatically (crash reporting systems are implemented as
-  part of the software application). A crash report contains data (that can be
-  proprietary) to help developers understand the causes of the crash
-  (e.g., memory dump,\ldots{}).
+  part of the software application). A crash report contains data (that
+  can be proprietary) to help developers understand the causes of the
+  crash (e.g., memory dump,\ldots{}).
 \end{itemize}
 
 In the remaining of this section, we introduce the two types of software
-repositories that are used in this theses: Version control and project tracking systems.
+repositories that are used in this thesis: version control and project
+tracking systems.
 
 \section{\texorpdfstring{Version control
 systems\label{sec:version-control}}{Version control systems}}\label{version-control-systems}
@@ -510,7 +528,7 @@ developers that are on other branches.
 
 Branching has been used for more than testing hazardous refactoring or
 testing framework upgrades. Task branching is an agile branching
-strategy where a new branch is created for each task {[}124{]}. It is
+strategy where a new branch is created for each task {[}125{]}. It is
 common to see a branch named \lstinline!123_implement_X! where
 \lstinline!123! is the \lstinline!#id! of task \lstinline!X! given by
 the project tracking system. Project tracking systems are presented in
@@ -549,9 +567,9 @@ have \lstinline!34ac2! as a parent.
 \end{figure}
 
 Branches point to a commit. In a task-branching environment, a branch is
-created via a checkout operation for each task. Tasks can be to fix the
-root cause of a crash or bug report or features to implement. In figure
-\ref{fig:two-branches}, the \lstinline!master! branch and the
+created via a checkout operation for each task. Tasks can be created to
+fix the root cause of a crash or bug report or features to implement. In
+figure \ref{fig:two-branches}, the \lstinline!master! branch and the
 \lstinline!1_fix_overflow! point on commit \lstinline!98ca9!.
 
 \begin{figure}[h!]
@@ -575,7 +593,7 @@ on \lstinline!ahj23k!.
 
 \section{\texorpdfstring{Providers\label{sec:revision-provider}}{Providers}}\label{providers}
 
-In this proposal, we mainly refer to three version control systems:
+In this thesis, we mainly refer to three version control systems:
 \lstinline!Svn!, \lstinline!Git! and, to a lesser extent,
 \lstinline!Mercurial!. \lstinline!SVN! is distributed by the Apache
 Foundation and is a centralized concurrent version system that can
@@ -614,7 +632,7 @@ is in the \lstinline!ASSIGNED! state, the assigned developer(s) starts
 working on the report. A fixed report moves to the \lstinline!RESOLVED!
 state. Developers have five different possibilities to resolve a report:
 \lstinline!FIXED!, \lstinline!DUPLICATE!, \lstinline!WONTFIX!,
-\lstinline!WORKSFORME! and \lstinline!INVALID! {[}105{]}.
+\lstinline!WORKSFORME! and \lstinline!INVALID! {[}106{]}.
 
 \begin{itemize}
 \tightlist
@@ -639,13 +657,13 @@ state. Developers have five different possibilities to resolve a report:
 Finally, the report is \lstinline!CLOSED! after it is resolved. A report
 can be reopened (sent to the \lstinline!REOPENED! state) and then
 assigned again if the initial fix was not adequate (the fix did not
-resolve the problem). The elapsed time between the report marked as the
-new one and the resolved status is known as the \emph{fixing time},
-usually in days. In case of task branching, the branch associated with
-the report is marked as ready to be merged. Then, the person in charge
-(quality assurance team, manager, ect\ldots{}) will be able to merge the
-branch with the mainline. If the report is reopened: the days between
-the time the report is reopened and the time it is marked again as
+resolve the problem). The elapsed time between the report marked as new
+and the resolved status is known as the \emph{fixing time}, usually in
+days. In case of task branching, the branch associated with the report
+is marked as ready to be merged. Then, the person in charge (quality
+assurance team, manager, ect\ldots{}) will be able to merge the branch
+with the mainline. If the report is reopened: the days between the time
+the report is reopened and the time it is marked again as
 \lstinline!RESOLVED/FIXED! are cumulated. Reports can be reopened many
 times.
 
@@ -729,17 +747,17 @@ syntactic analysis for clone detection. Syntactic analyses consist of
 building abstract syntax trees (AST) and analyze them with a set of
 dedicated metrics or searching for identical sub-trees. Many existing
 AST-based approaches rely on sub-tree comparison to detect clone,
-including the work of Baxter et al.{[}18{]}, Wahleret et al. {[}195{]},
-and the work of Jian et al. with Deckard {[}82{]}. An AST-based approach
+including the work of Baxter et al.{[}18{]}, Wahleret et al. {[}196{]},
+and the work of Jian et al. with Deckard {[}83{]}. An AST-based approach
 compares metrics computed on the AST, rather than the code itself, to
-identify clones {[}15, 154{]}.
+identify clones {[}15, 155{]}.
 
 Text-based techniques use the code and compare sequences of code blocks
 to each other to identify potential clones. Johnson was perhaps the
-first one to use fingerprints to detect clones {[}86, 87{]}. Blocks of
+first one to use fingerprints to detect clones {[}87, 88{]}. Blocks of
 code are hashed, producing fingerprints that can be compared. If two
 blocks share the same fingerprint, they are considered as clones. Manber
-et al. {[}121{]} and Ducasse et al. {[}48{]} refined the fingerprint
+et al. {[}122{]} and Ducasse et al. {[}49{]} refined the fingerprint
 technique by using leading keywords and dot-plots.
 
 Another approach for detecting clones is to use static analysis and to
@@ -748,17 +766,17 @@ techniques rely on program dependency graphs, where nodes are statements
 and edges are dependencies. Then, the problem of finding clones is
 reduced to the problem of finding identical sub-groups in the program
 dependency graph. Examples of existing techniques that fall into this
-category are the ones presented by Krinke et al.{[}107{]} and Gabel et
-al. {[}60{]}.
+category are the ones presented by Krinke et al.{[}108{]} and Gabel et
+al. {[}61{]}.
 
 Many clone detection tools resort to lexical approaches for clone
 detection. Here, the code is transformed into a series of tokens. If
 sub-series repeat themselves, it means that a potential clone is in the
 code. Some popular tools that use this technique include Dup {[}14{]},
-CCFinder {[}92{]}, and CP-Miner {[}118{]}.
+CCFinder {[}93{]}, and CP-Miner {[}119{]}.
 
 In 2010, Hummel et al. proposed an approach that is both incremental and
-scalable using index-based clone detection {[}76{]}. Incremental clone
+scalable using index-based clone detection {[}77{]}. Incremental clone
 detection is a technique where only the changes from one version to
 another are analysed. Thus, the required computational time is greatly
 reduced. Using more than 100 machines in a cluster, they managed to drop
@@ -771,7 +789,7 @@ achieve such performance. In our opinion, it is unlikely that standard
 practitioners have access to such computational power. Moreover, the
 authors' approach only targets Type 1 and 2 clones. Higo et al. proposed
 an incremental clone detection approach based on program dependency
-graphs (PDG) {[}72{]}. Using PDG is arguably more complex than text
+graphs (PDG) {[}73{]}. Using PDG is arguably more complex than text
 comparison and allows the detection of clone structures that are
 scattered in the program. They were able to analyze 5,903 revisions in
 15 hours in Apache Ant.
@@ -810,7 +828,7 @@ reconstruct the mind-map required for clone removal.
 
 \subsection{Local Detection of Clones}\label{local-detection-of-clones}
 
-Gode and Koschke {[}62{]} proposed an incremental clone detector that
+Gode and Koschke {[}63{]} proposed an incremental clone detector that
 relies on the results of analysis from past versions of a system to only
 analyze the new changes. Their clone detector takes the form of an IDE
 plugin that alerts developers as soon as a clone is inserted into the
@@ -822,30 +840,30 @@ Their approach uses a k-difference hybrid suffix tree algorithm. It can
 detect clones in real-time and propose a semi-automated refactoring
 process.
 
-Robert el al. {[}180{]} proposed another IDE plugin for Eclipse called
+Robert el al. {[}181{]} proposed another IDE plugin for Eclipse called
 CloneDR based on ASTs that introduced novel visualization for clone
 detection such as scatter-plots.
 
 IDE-based methods tend to issue many warnings to developers that may
-interrupt their work, hence hindering their productivity {[}103{]}. In
-addition, Latoza et al. {[}112{]} found that there exist six different
+interrupt their work, hence hindering their productivity {[}104{]}. In
+addition, Latoza et al. {[}113{]} found that there exist six different
 reasons that trigger the use of clones (e.g., copy and paste of code
 examples, reimplementations of the same functionality in different
 languages, etc. ). Developers are aware that they are creating clones in
 five out of six situations. In such cases, warnings provided by
 IDE-based local detection techniques can be quite disturbing.
 
-Nguyen et al. {[}146{]} proposed an advanced clone-aware source code
+Nguyen et al. {[}147{]} proposed an advanced clone-aware source code
 management system called Clever. Their approach uses abstract syntax
 trees to detect, update, and manage clones. While efficient, their
 approach does not prevent the introduction of clones, and it is not
 incremental. Developers have to run a project-wide detection for each
-version of the program. The same teams {[}145{]} conducted follow-up
+version of the program. The same teams {[}146{]} conducted follow-up
 study by making Clever incremental. Their new tool, JSync, is an
 incremental clone detector that will only perform the detection of
 clones on the new changes.
 
-Niko el al. {[}147{]} proposed techniques revolving around hashing to
+Niko el al. {[}148{]} proposed techniques revolving around hashing to
 obtain a quick answer while detecting Type 1, Type 2, and Type 3 clones
 in Squeaksource. While their approach works on a single system (i.e.,
 detecting clones on one version of one system), they found that more
@@ -858,7 +876,7 @@ GB of RAM. While these results are promising, especially because the
 approach detects clones across projects and versions, the computing
 power required is still considerable.
 
-Similarly, Saini et al. {[}169{]} and Sajnani et al. {[}170{]} proposed
+Similarly, Saini et al. {[}170{]} and Sajnani et al. {[}171{]} proposed
 an approach, called SourcererCC. SourcererCC targets fast clone
 detection on developers' workstation (12 GB RAM). SourcererCC is a
 token-based clone detector that uses an optimized inverted-index. It was
@@ -866,7 +884,7 @@ tested on 25K projects cumulating 250 MLOC. The technique achieves a
 precision of 86\% and a recall of 86\%-100\% for clones of Type 1, 2 and
 3.
 
-Toomey el al. {[}189{]} also proposed an efficient token based approach
+Toomey el al. {[}190{]} also proposed an efficient token based approach
 for detecting clones called ctcompare. Their tokenization is, however,
 different than most approaches as they used lexical analysis to produce
 sequences of tokens that can be transformed into token tuples. ctcompare
@@ -878,8 +896,8 @@ relationships}\label{reports-and-source-code-relationships}
 Mining bug repositories is perhaps one of the most active research
 fields today. The reason is that the analysis of bug reports (BRs)
 provides useful insight that can help with many maintenance activities
-such as bug fixing {[}168, 198{]} bug reproduction {[}9, 32, 83{]},
-fault analysis {[}142{]}, etc. This increase of attention can be further
+such as bug fixing {[}169, 198{]} bug reproduction {[}9, 33, 84{]},
+fault analysis {[}143{]}, etc. This increase of attention can be further
 justified by the emergence of many open source bug tracking systems,
 allowing software teams to make their bug reports available online to
 researchers.
@@ -894,88 +912,88 @@ future.
 Researchers have been studying the relationships between the bug and
 source code repositories since more than two decades. To the best of our
 knowledge, the first ones who conducted this type of study on a
-significant scale were Perry and Stieg {[}155{]}. In these two decades,
+significant scale were Perry and Stieg {[}156{]}. In these two decades,
 many aspects of these relationships have been studied in length. For
 example, researchers were interested in improving the bug reports
 themselves by proposing guidelines {[}22{]}, and by further simplifying
-existing bug reporting models {[}71{]}.
+existing bug reporting models {[}72{]}.
 
 Another field of study consists of assigning these bug reports,
 automatically if possible, to the right developers during triaging {[}3,
-25, 81, 181{]}. Another set of approaches focus on how long it takes to
-fix a bug {[}24, 168, 212{]} and where it should be fixed {[}208,
+25, 82, 182{]}. Another set of approaches focus on how long it takes to
+fix a bug {[}24, 169, 212{]} and where it should be fixed {[}208,
 213{]}. With the rapidly increasing number of bugs, the community was
-also interested in prioritizing bug reports {[}97{]}, and in predicting
-the severity of a bug {[}110{]}. Finally, researchers proposed
-approaches to predict which bug will get reopened {[}119, 217{]}, which
-bug report is a duplicate of another one {[}23, 79, 186{]} and which
-locations are likely to yield new bugs {[}99, 101{]}.
+also interested in prioritizing bug reports {[}98{]}, and in predicting
+the severity of a bug {[}111{]}. Finally, researchers proposed
+approaches to predict which bug will get reopened {[}120, 217{]}, which
+bug report is a duplicate of another one {[}23, 80, 187{]} and which
+locations are likely to yield new bugs {[}100, 102{]}.
 
 \section{Fault Prediction}\label{fault-prediction}
 
 The majority of previous file/module-level prediction work used code or
 process metrics. Approaches using code metrics only use information from
 the code itself and do not use any historical data. Chidamber and
-Kemerer published the well-known CK metrics suite {[}34{]} for object
+Kemerer published the well-known CK metrics suite {[}35{]} for object
 oriented designs and inspired Moha et al. to publish similar metrics for
-service-oriented programs {[}128{]}. Another famous metric suite for
+service-oriented programs {[}129{]}. Another famous metric suite for
 assessing the quality of a given software design is Briand's coupling
 metrics {[}26{]}.
 
 The CK and Briand's metrics suites have been used, for example, by
-Basili et al. {[}16{]}, El Emam et al. {[}53{]}, Subramanyam et al.
-{[}176{]} and Gyimothy et al. {[}64{]} for object-oriented designs.
+Basili et al. {[}16{]}, El Emam et al. {[}54{]}, Subramanyam et al.
+{[}177{]} and Gyimothy et al. {[}65{]} for object-oriented designs.
 Service oriented designs have been far less studied than object oriented
-design as they are relatively new, but, Nayrolles et al. {[}140, 141{]},
-Demange et al. {[}47{]} and Palma et al. {[}152{]} used Moha et al.
+design as they are relatively new, but, Nayrolles et al. {[}141, 142{]},
+Demange et al. {[}48{]} and Palma et al. {[}153{]} used Moha et al.
 metric suites to detect software defects. All these approaches, proved
 software metrics to be useful at detecting software fault for object
 oriented and service oriented designs, respectively. More recently,
-Nagappan et al. {[}129, 131{]} and Zimmerman et al. {[}216, 218{]}
+Nagappan et al. {[}130, 132{]} and Zimmerman et al. {[}216, 218{]}
 further refined metrics-based detection by using statical analysis and
 call-graph analysis.
 
 Other approaches use historical development data, often referred to as
-process metrics. Naggapan and Ball {[}130{]} studied the feasibility of
+process metrics. Naggapan and Ball {[}131{]} studied the feasibility of
 using relative churn metrics to prediction buggy modules in the Windows
 Server 2003. Other work by Hassan et al. and Ostrand et al. used past
-changes and defects to predict buggy locations (e.g., {[}66{]},
-{[}151{]}). Hassan and Holt proposed an approach that highlights the top
+changes and defects to predict buggy locations (e.g., {[}67{]},
+{[}152{]}). Hassan and Holt proposed an approach that highlights the top
 ten most susceptible locations to have a bug using heuristics based on
-file-level metrics {[}66{]}. They find that locations that have been
+file-level metrics {[}67{]}. They find that locations that have been
 recently modified and fixed locations are the most defect-prone.
-Similarly, Ostrand et al. {[}151{]} predict future crash location by
+Similarly, Ostrand et al. {[}152{]} predict future crash location by
 combining the data from changed and past defect locations. They validate
 their approach on industrial systems at AT\&T. They showed that data
 from prior changes and defects can effectively predict defect-prone
-locations for open-source and industrial systems. Kim et al. {[}101{]}
+locations for open-source and industrial systems. Kim et al. {[}102{]}
 proposed the bug cache approach, which is an improved technique over
-Hassan and Holt's approach {[}66{]}. Rahman and Devanbu found that, in
+Hassan and Holt's approach {[}67{]}. Rahman and Devanbu found that, in
 general, process-based metrics perform as good as or better than
-code-based metrics {[}159{]}.
+code-based metrics {[}160{]}.
 
 Other work focused on the prediction of risky changes. Kim et al.
 proposed the change classification problem, which predicts whether a
-change is buggy or clean {[}178{]}. Hassan {[}67{]} used the entropy of
+change is buggy or clean {[}179{]}. Hassan {[}68{]} used the entropy of
 changes to predict risky changes. They find that the more complex a
 change is, the more likely it is to introduce a defect. Kamei et al.
 performed a large-scale empirical study on change classification
-{[}91{]}. The studies above find that size of a change and the history
+{[}92{]}. The studies above find that size of a change and the history
 of the files being changed (i.e., how buggy they were in the past) are
 the best indicators of risky changes.
 
 \section{Automatic Patch Generation}\label{automatic-patch-generation}
 
-Pan et al. {[}153{]} identified 27 bug fixing patterns that can be
+Pan et al. {[}154{]} identified 27 bug fixing patterns that can be
 applied to fix software bugs in Java programs. They showed that between
 45.7 - 63.6\% of the bugs could be fixed with their patterns. Later, Kim
-et al. {[}96{]} generated patches from human-written patches and showed
+et al. {[}97{]} generated patches from human-written patches and showed
 that their tool, PAR, successfully generated patches for 27 of 119 bugs.
-Tao et al. {[}182{]} also showed that automatically generated patches
+Tao et al. {[}183{]} also showed that automatically generated patches
 can assist developers in debugging tasks. Other work also focused on
 determining how to best generate acceptable and high quality patches,
-e.g. {[}42, 114{]}, and determine what bugs are best fit for automatic
-patch generation {[}115{]}.
+e.g. {[}43, 115{]}, and determine what bugs are best fit for automatic
+patch generation {[}116{]}.
 
 Our work differs from the work on automated patch generation in that we
 do not generate patches; rather we use clone detection to determine the
@@ -987,8 +1005,8 @@ developer the fixes of the prior risky changes.
 In this section, we put the emphasis on how crash traces are used in
 crash reproduction tasks. Existing studies can be divided into two
 distinct categories: (A) on-field record and in-house replay techniques
-{[}9, 133, 162, 175{]}, and (B) on-house crash understanding {[}31, 83,
-84, 137, 219{]}.
+{[}9, 134, 163, 176{]}, and (B) on-house crash understanding {[}32, 84,
+85, 138, 219{]}.
 
 These two categories yield varying results depending on the selected
 approach and are mainly differentiated by the need for instrumentation.
@@ -997,43 +1015,43 @@ The first category of techniques oversees -- by means of instrumentation
 the crashes in-house, whereas tools and approaches belonging to the
 second category only use data produced by the crash such as the crash
 stack or the core dump at crash time. In the first category, tools
-record different types of data such as the invoked methods {[}133{]},
-try-catch exceptions {[}164{]}, or objects {[}80{]}. In the second
+record different types of data such as the invoked methods {[}134{]},
+try-catch exceptions {[}165{]}, or objects {[}81{]}. In the second
 category, existing tools and approaches are aimed towards understanding
 the causes of a crash, using data produced by the crash itself, such as
-a crash stack {[}31{]}, previous -- and controlled -- execution
+a crash stack {[}32{]}, previous -- and controlled -- execution
 {[}219{]}, etc.
 
 Tools and approaches that rely on instrumentation face common
 limitations such as the need to instrument the source code in order to
-introduce logging mechanisms{[}9, 80, 133{]}, which is known to slow
+introduce logging mechanisms{[}9, 81, 134{]}, which is known to slow
 down the subject system. In addition, recording system behavior by means
 of instrumentation may yield privacy concerns. Tools and approaches that
 only use data about a crash -- such as core dump or exception stack
 crashes -- face a different set of limitations. They have to reconstruct
-the timeline of events that have led to the crash {[}31, 137{]}.
+the timeline of events that have led to the crash {[}32, 138{]}.
 Computing all the paths from the initial state of the software to the
 crash point is an NP-complete problem, and may cause state space
-explosion {[}31, 36{]}.
+explosion {[}32, 37{]}.
 
 In order to overcome these limitations, some researchers have proposed
-to use various SMT (satisfiability modulo theories) solvers {[}49{]} and
-model checking techniques {[}193{]}. However, these techniques require
+to use various SMT (satisfiability modulo theories) solvers {[}50{]} and
+model checking techniques {[}194{]}. However, these techniques require
 knowledge that goes beyond traditional software engineering, which
-hinders their adoption {[}194{]}.
+hinders their adoption {[}195{]}.
 
 It is worth mentioning that both categories share a common limitation.
 It is possible for the required condition to reproduce a crash to be
 purely external such as the reading of a file that is only present on
 the hard drive of the customer or the reception of a faulty network
-packet {[}31, 137{]}. It is almost impossible to reproduce the bug
+packet {[}32, 138{]}. It is almost impossible to reproduce the bug
 without this input.
 
 \subsection{On-field Record and In-house
 Replay}\label{on-field-record-and-in-house-replay}
 
 Jaygarl et al. created OCAT (Object Capture based Automated Testing)
-{[}80{]}. The authors' approach starts by capturing objects created by
+{[}81{]}. The authors' approach starts by capturing objects created by
 the program when it runs on-field in order to provide them with an
 automated test process. The coverage of automated tests is often low due
 to lack of correctly constructed objects. Also, the objects can be
@@ -1043,7 +1061,7 @@ improve the code coverage. While not directly targeting the reproduction
 of a bug, OCAT is an approach that was used as the main mechanism for
 bug reproduction systems.
 
-Narayanasamy et al. {[}133{]} proposed BugNet, a tool that continuously
+Narayanasamy et al. {[}134{]} proposed BugNet, a tool that continuously
 records program execution for deterministic replay debugging. According
 to the authors, the size of the recorded data needed to reproduce a bug
 with high accuracy is around 10MB. This recording is then sent to the
@@ -1052,7 +1070,7 @@ argued that with nowadays Internet bandwidth the size of the recording
 is not an issue during the transmission of the recorded data.
 
 Another approach in this category was proposed by Clause et al.
-{[}36{]}. The approach records the execution of the program on the
+{[}37{]}. The approach records the execution of the program on the
 client side and compresses the generated data. Moreover, the approach
 keeps compressed traces of all accessed documents in the operating
 system. This data is sent to the developers to replay the execution of
@@ -1070,7 +1088,7 @@ Dolos. Dolos captures and reuses user inputs and network responses to
 deterministically replay a field crash. Also, both Timelapse and Dolos
 allow developers to use conventional tools such as breakpoints and
 classical debuggers. Similar to the approach proposed by Clause et al.
-{[}36{]}, private data are recorded without obfuscation of any sort.
+{[}37{]}, private data are recorded without obfuscation of any sort.
 
 Another approach was proposed by Artzi et al. and named ReCrash. ReCrash
 records the object states of the targeted programs {[}9{]}. The authors
@@ -1086,7 +1104,7 @@ the crash has to occur at least once so they could use the information
 causing the crash to identify the methods surrounding it.ReCrash was
 able to reproduce 100\% (11/11) of the submitted bugs.
 
-Similar to ReCrash, JRapture {[}175{]} is a capture/replay tool for
+Similar to ReCrash, JRapture {[}176{]} is a capture/replay tool for
 observation-based testing. The tool captures the execution of Java
 programs to replay it in-house. To capture the execution of a Java
 program, the creators of JRapture used their own version of the Java
@@ -1103,7 +1121,7 @@ instrumentation because it imposes the installation of another JVM that
 can also monitor other software systems than the intended ones. RECORE
 (REconstructing CORE dumps) is a tool proposed by Robler et al. The tool
 instruments Java byte code to wrap every method in a try-catch block
-while keeping a quasi-null overhead {[}164{]}. RECORE starts from the
+while keeping a quasi-null overhead {[}165{]}. RECORE starts from the
 core dump and tries (with evolutionary algorithms) to reproduce the same
 dump by executing the subject program many times. When the generated
 dump matches the collected one, the approach has found the set of inputs
@@ -1112,7 +1130,7 @@ submitted bugs.
 
 The approaches presented at this point operate at the code level. There
 exist also techniques that focus on recording user-GUI interactions
-{[}70, 162{]}. Roehm et al. extract the recorded data using delta
+{[}71, 163{]}. Roehm et al. extract the recorded data using delta
 debugging {[}209{]}, sequential pattern mining, and their combination to
 reproduce between 75\% and 90\% of the submitted bugs while pruning 93\%
 of the actions.
@@ -1137,7 +1155,7 @@ to the on-house crash explanation (or understanding), which are fewer
 but newer than on-field record and replaying tools.
 
 Jin et al. proposed BugRedux for reproducing field failures for in-house
-debugging {[}83{]}. The tool aims to synthesize in-house executions that
+debugging {[}84{]}. The tool aims to synthesize in-house executions that
 mimic field failures. To do so, the authors use several types of data
 collected in the field such as stack traces, crash stack at points of
 failure, and call sequences. The data that successfully reproduced the
@@ -1150,7 +1168,7 @@ executions suffer from the same limitation as unit testing, i.e., the
 executions are based on the developer's knowledge and ability to develop
 exceptional scenarios in addition to the normal ones. Based on the
 success of BugRedux, the authors built F3 (Fault localization for Field
-Failures) {[}84{]} and MIMIC {[}219{]}. F3 performs many executions of a
+Failures) {[}85{]} and MIMIC {[}219{]}. F3 performs many executions of a
 program on top of BugRedux in order to cover different paths that are
 leading to the fault. It then generates many \emph{pass} and \emph{fail}
 paths, which can lead to a better understanding of the bug. They also
@@ -1178,20 +1196,20 @@ core dump and may not always contain the components that caused the
 crash.
 
 To the best of our knowledge, the most complete work in this category is
-the one of Chen in his PhD thesis {[}31{]}. Chen proposed an approach
+the one of Chen in his PhD thesis {[}32{]}. Chen proposed an approach
 named STAR (Stack Trace based Automatic crash Reproduction). Using only
 the crash stack, STAR starts from the crash line and goes backward
 towards the entry point of the program. During the backward process,
 STAR computes the required condition using an SMT solver named Yices
-{[}49{]}. The objects that satisfy the required conditions are generated
+{[}50{]}. The objects that satisfy the required conditions are generated
 and orchestrated inside a JUnit test case. The test is run, and the
 resulting crash stack is compared to the original one. If both match,
 the bug is said to be reproduced. STAR aims to tackle the state
 explosion problem of reproducing a bug by reconstructing the events in a
 backward fashion and therefore saving numerous states to explore. STAR
 was able to reproduce 38 bugs out of 64 (54.6\%). Also, STAR is
-relatively easy to implement as it uses Yices {[}49{]} and potentially
-Z3 {[}45{]} (stated in their future work) that are well-supported SMT
+relatively easy to implement as it uses Yices {[}50{]} and potentially
+Z3 {[}46{]} (stated in their future work) that are well-supported SMT
 solvers.
 
 Except for STAR, existing approaches that target the reproduction of
@@ -1208,31 +1226,31 @@ information.
 Researchers have been studying the relationships between the bug and
 source code repositories for more than two decades. To the best of our
 knowledge, the first ones who conducted this type of study on a
-significant scale were Perry and Stieg {[}155{]}. In these two decades,
+significant scale were Perry and Stieg {[}156{]}. In these two decades,
 many aspects of these relationships have been studied in length. For
 example, researchers were interested in improving the bug reports
 themselves by proposing guidelines {[}22{]}, and by further simplifying
-existing bug reporting models {[}71{]}.
+existing bug reporting models {[}72{]}.
 
 Another field of study consists of assigning these bug reports,
 automatically if possible, to the right developers during triaging {[}3,
-25, 81, 181{]}. Another set of approaches focus on how long it takes to
-fix a bug {[}24, 168, 212{]} and where it should be fixed {[}208,
+25, 82, 182{]}. Another set of approaches focus on how long it takes to
+fix a bug {[}24, 169, 212{]} and where it should be fixed {[}208,
 213{]}. With the rapidly increasing number of bugs, the community was
-also interested in prioritizing bug reports {[}97{]}, and in predicting
-the severity of a bug {[}110{]}. Finally, researchers proposed
-approaches to predict which bug will get reopened {[}119, 217{]}, which
-bug report is a duplicate of another one {[}23, 79, 186{]} and which
-locations are likely to yield new bugs {[}99, 102, 191{]}. However, to
+also interested in prioritizing bug reports {[}98{]}, and in predicting
+the severity of a bug {[}111{]}. Finally, researchers proposed
+approaches to predict which bug will get reopened {[}120, 217{]}, which
+bug report is a duplicate of another one {[}23, 80, 187{]} and which
+locations are likely to yield new bugs {[}100, 103, 192{]}. However, to
 the best of our knowledge, there are not many attempts to classify bugs
-the way we present in this paper. In her PhD thesis {[}54{]}, Sigrid
+the way we present in this paper. In her PhD thesis {[}55{]}, Sigrid
 Eldh discussed the classification of trouble reports concerning a set of
 fault classes that she identified. Fault classes include computational
 logical faults, ressource faults, function faults, etc. She conducted
 studies on Ericsson systems and showed the distributions of trouble
 reports with respect to these fault classes. A research paper was
-published on the topic in {[}54{]}. or safety critical{[}65{]}. Hamill
-et al.{[}65{]} proposed a classification of faults and failures in
+published on the topic in {[}55{]}. or safety critical{[}66{]}. Hamill
+et al.{[}66{]} proposed a classification of faults and failures in
 critical safety systems. They proposed several types of faults and
 showed how failures in critical safety systems relate to these classes.
 They found that only a few fault types were responsible for the majority
@@ -1246,12 +1264,12 @@ bugs and their fixes across a wide range of systems, programming
 languages, and purposes. This is done independently from a specific
 class of faults (such as coding faults, resource faults, etc.). This is
 because our aim is not to improve testing as it is the case in the work
-of Eldh {[}54{]} and Hamill et al. {[}65{]}. Our objective is to propose
+of Eldh {[}55{]} and Hamill et al. {[}66{]}. Our objective is to propose
 a classification that can allow researchers in the filed of mining bug
 repositories to use the taxonomy as a new criterion in triaging,
 prediction, and reproduction of bugs. By analogy, we can look at the
 proposed bug taxonomy similarly to the clone taxonomy presented by
-Kapser and Godfrey {[}95{]}. The authors proposed seven types of source
+Kapser and Godfrey {[}96{]}. The authors proposed seven types of source
 code clones and then conducted a case study, using their classification,
 on the file system module of the Linux operating system. This clone
 taxonomy continues to be used by researchers to build better approaches
@@ -1266,7 +1284,7 @@ Researchers}\label{an-aggregated-bug-repository-for-developers-and-researchers}
 Program debugging, an important software maintenance activity, is known
 to be challenging and labor-intensive. Studies have shown that the cost
 of software maintenance can reach up to 70\% of the overall cost of the
-software development process {[}157{]}.
+software development process {[}158{]}.
 
 When facing a new bug, one might want to leverage decades of open source
 software history to find a suitable solution. The chances are that a
@@ -1293,8 +1311,8 @@ organized in the form of question-response where a developer submits a
 problem and receives answers from the community. While the answers are
 often accurate and precise, they do not leverage the history of open
 source software that has been shown to provide useful insights to help
-with many maintenance activities such as bug fixing {[}168{]}, bug
-reproduction {[}137{]}, fault analysis {[}142{]}, etc.
+with many maintenance activities such as bug fixing {[}169{]}, bug
+reproduction {[}138{]}, fault analysis {[}143{]}, etc.
 
 In this paper, we introduce BUMPER (BUg Metarepository for dEvelopers
 and Researchers), a web-based infrastructure that can be used by
@@ -1639,7 +1657,7 @@ populated with 1,930 projects, more than 732,406 resolved/fixed and with
 Software foundation. The speed of BUMPER allows developers to use it as
 a way to leverage decades of history scattered over hundreds of software
 projects in order to find existing solutions to their problems. There
-exist tools such as Codemine {[}40{]} and Boa {[}50{]} that enable the
+exist tools such as Codemine {[}41{]} and Boa {[}51{]} that enable the
 mining and reporting of code repositories. These tools, however, will
 require the download of all the data and process the mining for each
 installation. To the best of our knowledge, no attempt has been made
@@ -1661,26 +1679,26 @@ Commit-Time}\label{preventing-code-clone-insertion-at-commit-time}
 
 Code clones appear when developers reuse code with little to no
 modification to the original code. Studies have shown that clones can
-account for up to 50\% of code in a given software system {[}14, 48{]}.
-Although developers often reuse code on purpose {[}98{]}, code cloning
+account for up to 50\% of code in a given software system {[}14, 49{]}.
+Although developers often reuse code on purpose {[}99{]}, code cloning
 is generally considered as a bad practice in software development
-because clones may introduce bugs {[}89, 94, 118{]}.
+because clones may introduce bugs {[}90, 95, 119{]}.
 
 In the last two decades, there have been many studies and tools that aim
 at detecting clones. They can be grouped into two categories depending
 on whether they operate locally on a developer's workstation (e.g.,
-{[}170, 214{]}) or remotely on a server (e.g., {[}204, 211{]}).
+{[}171, 214{]}) or remotely on a server (e.g., {[}204, 211{]}).
 
 Local clone detection approaches are typically implemented as IDE
 plugins or external tools. IDE-based methods tend to issue many warnings
 to developers that may interrupt their work, hence hindering their
-productivity {[}103{]}. Developers may be reluctant to use external
+productivity {[}104{]}. Developers may be reluctant to use external
 tools unless they are involved in a major refactoring effort. These
 tools cause overhead because of the context switching they provoke
-{[}19, 160, 161{]}. This problem is somehow similar to the problem of
+{[}19, 161, 162{]}. This problem is somehow similar to the problem of
 adopting bug identification tools. Studies have shown that these tools
 are challenging to use because they do not integrate well with the
-day-to-day workflow of developers {[}11, 58, 85, 113, 117{]}. The
+day-to-day workflow of developers {[}11, 59, 86, 114, 118{]}. The
 problem with remote approaches is that the detection occurs too late in
 the development process. Once the clones reach the central repository,
 they can be pulled by other members of the development team, further
@@ -1704,7 +1722,7 @@ changed.
 
 To the best of our knowledge, PRECINCT is the first clone detection
 technique that operates at commit-time. In this study, we focus on Type
-3 clones as they are more challenging to detect {[}21, 93, 104{]}. Since
+3 clones as they are more challenging to detect {[}21, 94, 105{]}. Since
 Type 3 clones include Type 1 and 2 clones, then these types could be
 detected by PRECINCT as well. We evaluated the effectiveness of PRECINCT
 on three systems, written in C and Java. The results show that PRECINCT
@@ -1727,11 +1745,11 @@ commit by the central repository. The second step is the pre-commit
 hook, which kicks in as the first operation when one wants to commit.
 The pre-commit hook has access to the changes regarding the files that
 have been modified, more specifically, the lines that have been
-modified. The modified lines of the files are sent to TXL {[}38{]} for
+modified. The modified lines of the files are sent to TXL {[}39{]} for
 block extraction. Then, the blocks are compared to previously extracted
 blocks to identify candidate clones using the comparison engine of NICAD
-{[}39{]}. We chose NICAD engine because it has been shown to provide
-high accuracy {[}39{]}. The tool is also readily available, easy to use,
+{[}40{]}. We chose NICAD engine because it has been shown to provide
+high accuracy {[}40{]}. The tool is also readily available, easy to use,
 customizable, and works with TXL. Note, however, that PRECINCT can also
 work with other engines for comparing code fragments if need be.
 Finally, the output of NICAD is further refined and presented to the
@@ -1749,7 +1767,7 @@ version, unless they wish to retrieve a previous version of the source
 code in the repository. Version control systems allow rolling back to
 previous versions easily. Commits contain bite-sized units of work that
 are potentially ready to be shared with the rest of the organisation
-{[}148{]}.
+{[}149{]}.
 
 \subsection{Pre-Commit Hook}\label{pre-commit-hook}
 
@@ -1782,9 +1800,9 @@ applicable to other version control systems.
 
 A block is a set of consecutive lines of code that will be compared to
 all other blocks to identify clones. To achieve this critical part of
-PRECINCT, we rely on TXL {[}38{]}, which is a first-order functional
+PRECINCT, we rely on TXL {[}39{]}, which is a first-order functional
 programming over linear term rewriting, developed by Cordy et al.
-{[}38{]}. For TXL to work, one has to write a grammar describing the
+{[}39{]}. For TXL to work, one has to write a grammar describing the
 syntax of the source language and the transformations needed. TXL has
 three main phases: \emph{parse, transform}, \emph{unparse}. In the parse
 phase, the grammar controls not only the input but also the output form.
@@ -1810,7 +1828,7 @@ Then, the \emph{transform} phase will, as the name suggests, apply
 transformation rules that can, for example, normalize or abstract the
 source code. Finally, the third phase of TXL called \emph{unparse},
 unparses the transformed parsed input to output it. Also, TXL supports
-what the creators call \emph{Agile Parsing} {[}46{]}, which allows
+what the creators call \emph{Agile Parsing} {[}47{]}, which allows
 developers to redefine the rules of the grammar and, therefore, apply
 different rules than the original ones.
 
@@ -1887,9 +1905,9 @@ resort to text-based techniques. This is because lexical and syntactic
 analysis approaches (alternatives to text-based comparisons) would
 require a complete program to work, a program that compiles. In the
 relatively wide-range of tools and techniques that exist to detect
-clones by considering code as text {[}48, 86, 87, 121, 123, 200{]}, we
+clones by considering code as text {[}49, 87, 88, 122, 124, 200{]}, we
 selected NICAD as the main text-based method for comparing clones
-{[}39{]} for several reasons. First, NICAD is built on top of TXL, which
+{[}40{]} for several reasons. First, NICAD is built on top of TXL, which
 we also used in the previous step. Second, NICAD can detect Type 1, 2
 and 3 clones.
 
@@ -1910,14 +1928,14 @@ context where the new code is used. This pretty-printing process ensures
 that all code will have the same spacing and formatting, which renders
 the comparison of code fragments easier. Furthermore, in the
 pretty-printing process, statements can be broken down into several
-lines. Table \ref{tab:pretty-printing} {[}165{]} shows how this can
+lines. Table \ref{tab:pretty-printing} {[}167{]} shows how this can
 improve the accuracy of clone detection with three \lstinline!for!
 statements, \lstinline!for (i=0; i<10; i++)!,
 \lstinline!for (i=1; i<10; i++)! and \lstinline!for (j=2; j<100; j++)!.
 The pretty-printing allows NICAD to detect Segments 1 and 2 as a clone
 pair because only the initialization of \(i\) is changed. This specific
 example would not have been marked as a clone by other tools we tested
-such as Duploc {[}48{]}. In addition to the pretty-printing, the code
+such as Duploc {[}49{]}. In addition to the pretty-printing, the code
 can be normalized and filtered to detect different classes of clones and
 match user preferences.
 
@@ -1925,7 +1943,7 @@ match user preferences.
 
 Finally, the extracted, pretty-printed, normalized and filtered blocks
 are marked as potential clones using a Longest Common Subsequence (LCS)
-algorithm {[}77{]}. Then, a percentage of unique statements can be
+algorithm {[}78{]}. Then, a percentage of unique statements can be
 computed and, depending on a given threshold (see Section
 \ref{sec:precinct-experimentations}), the blocks are marked as clones.
 
@@ -1957,7 +1975,7 @@ detail of the detection result such as the total number of potential
 clones, the total number of lines, the total number of unique line text
 chars, the total number of unique lines, and so on. We think that so
 many details might make it hard for developers to react to these
-results. A problem that was also raised by Johnson et al. {[}85{]} when
+results. A problem that was also raised by Johnson et al. {[}86{]} when
 examining bug detection tools. Then the potential clones are stored in
 XML files that can be viewed using an Internet browser or a text editor.
 
@@ -2015,7 +2033,7 @@ for the past decade. Consequently, it has a large number of revisions.
 Also, this tool is used in many other popular tools such as Aspirin,
 Muffin and Scarab. Dnsjava is composed of 1637 revisions, 233 files; the
 latest revision contains 47 Kloc. We have chosen this system because we
-are familiar with it as we used it before {[}137, 138{]}.
+are familiar with it as we used it before {[}138, 139{]}.
 
 \begin{table}[]
 \centering
@@ -2051,7 +2069,7 @@ To validate the results obtained by PRECINCT, we needed to use a
 reliable clone detection approach to extract clones from the target
 systems and use these clones as a baseline for comparison. For this, we
 turned to NICAD because of its popularity, high accuracy, and
-availability {[}39{]}. This means, we run NICAD on the revisions of the
+availability {[}40{]}. This means, we run NICAD on the revisions of the
 system to obtain the clones then we used NICAD clones as a baseline for
 comparing the results achieved by PRECINCT.
 
@@ -2250,7 +2268,7 @@ effectively and efficiently.
 One particular (and growing) line of research focuses on the problem of
 preventing the introduction of bugs by detecting risky commits
 (preferably before the commits reach the central repository). Recent
-approaches (e.g., {[}119, 132{]}) rely on training models based on code
+approaches (e.g., {[}120, 133{]}) rely on training models based on code
 and process metrics (e.g., code complexity, experience of the
 developers, etc.) that are used to classify new commits as risky or not.
 Metrics, however, may vary from one project to another, hindering the
@@ -2260,7 +2278,7 @@ share dependencies, such as the reuse of common libraries. This makes
 them potentially vulnerable to similar faults. A solution to a bug
 provided by the developers of one project may help fix a bug that occurs
 in another (and dependent) project. Moreover, as noted by Lewis \emph{et
-al.} {[}117{]} and Johnson \emph{et al.} {[}85{]}, techniques based
+al.} {[}118{]} and Johnson \emph{et al.} {[}86{]}, techniques based
 solely on metrics are perceived by developers as black box solutions
 because they do not provide any insights on the causes of the risky
 commits or ways for improving them. As a result, developers are less
@@ -2278,10 +2296,10 @@ not only by comparing them to commits of a single project but also to
 those belonging to other projects that share common dependencies. This
 is important because complex software systems are not designed
 monolithically. They have dependencies that make them vulnerable to
-similar faults. For example, Apache BatchEE {[}183{]} and GraphWalker
-{[}63{]} both depend on JUNG (Java Universal Network/Graph Framework)
-{[}88{]}. BatchEE provides an implementation of the jsr-352 (Batch
-Applications for the Java Platform) specification {[}35{]} while
+similar faults. For example, Apache BatchEE {[}184{]} and GraphWalker
+{[}64{]} both depend on JUNG (Java Universal Network/Graph Framework)
+{[}89{]}. BatchEE provides an implementation of the jsr-352 (Batch
+Applications for the Java Platform) specification {[}36{]} while
 GraphWalker is an open source model-based testing tool for test
 automation. These two systems are designed for different purposes.
 BatchEE is used to do batch processing in Java, whereas GraphWalker is
@@ -2374,13 +2392,13 @@ Google, Apple, and Github.
 
 Once the project dependency graph is extracted, we use a clustering
 algorithm to partition the graph. To this end, we choose the
-Girvan--Newman algorithm {[}61, 143{]}, used to detect communities by
+Girvan--Newman algorithm {[}62, 144{]}, used to detect communities by
 progressively removing edges from the original network. Instead of
 trying to construct a measure that identifies the edges that are the
 most central to communities, the Girvan--Newman algorithm focuses on
 edges that are most likely ``between'' communities. This algorithm is
 very effective at discovering community structure in both
-computer-generated and real-world network data {[}143{]}. Other
+computer-generated and real-world network data {[}144{]}. Other
 clustering algorithms can also be used.
 
 \subsection{Building a Database of Code Blocks of Defect-Commits and
@@ -2401,8 +2419,8 @@ explicit. In an ideal situation, developers would add a reference to the
 issue they work on inside the description of the commit. However, this
 good practice is not always followed. To link fix-commits and their
 related issues, we turn to a modified version of the back-end of
-commit-guru {[}163{]}. Commit-guru is a tool, developed by Rosen
-\emph{et al.} {[}163{]} to detect \emph{risky commits}. In order to
+commit-guru {[}164{]}. Commit-guru is a tool, developed by Rosen
+\emph{et al.} {[}164{]} to detect \emph{risky commits}. In order to
 identify risky commits, Commit-guru builds a statistical model using
 change metrics (i.e., amount of lines added, amount of lines deleted,
 amount of files modified, etc.) from past commits known to have
@@ -2413,19 +2431,19 @@ and prediction. We reuse the ingestion and the analysis part for BIANCA.
 The ingestion component is responsible for ingesting (i.e., downloading)
 a given repository. Once the repository is entirely downloaded on a
 local server, each commit is analysed. Commits are classified using the
-list of keywords proposed by Hindle \emph{et al.} {[}73{]}. Commit-guru
-implements the SZZ algorithm {[}100{]} to detect risky changes, where it
+list of keywords proposed by Hindle \emph{et al.} {[}74{]}. Commit-guru
+implements the SZZ algorithm {[}101{]} to detect risky changes, where it
 performs the SCM blame/annotate function on all the modified lines of
 code for their corresponding files on the fix-commit's parents. This
 returns the commits that previously modified these lines of code and are
 flagged as the defect introducing commits (i.e., the defect-commits).
 Prior work showed that commit-guru is effective in identifying
-defect-commits and their corresponding fixing commits {[}91{]} and the
+defect-commits and their corresponding fixing commits {[}92{]} and the
 SZZ algorithm, used by commit-guru, is shown to be effective in
-detecting risky commits {[}91, 163{]}. Note that we could use a simpler
+detecting risky commits {[}92, 164{]}. Note that we could use a simpler
 and more established approach such as Relink {[}202{]} to link the
 commits to their issues and re-implement the classification proposed by
-Hindle \emph{et al.} {[}73{]} on top of it. However, commit-guru has the
+Hindle \emph{et al.} {[}74{]} on top of it. However, commit-guru has the
 advantage of being open-source, making it possible to modify it to fit
 our needs by fine-tuning its performance.
 
@@ -2456,7 +2474,7 @@ our special grammar and algorithm (Algorithm \ref{alg:precinct-extract}
 presented in the previous chapter.
 
 Then, the blocks are compared to previously extracted blocks known to
-introduce a defect using the comparison engine of NICAD {[}39{]}.
+introduce a defect using the comparison engine of NICAD {[}40{]}.
 
 To compare the extracted blocks to the ones in the database, we use a
 similar strategy as the one presented in the previous chapter.
@@ -2468,8 +2486,8 @@ corresponding to the matching defect-commit and present it to the
 developer. We believe that this makes BIANCA a practical approach for
 the developers as they will know why a given modification has been
 reported as risky in terms of code; this is something that is not
-supported by techniques based on statistical models (e.g., {[}91,
-163{]}).\\
+supported by techniques based on statistical models (e.g., {[}92,
+164{]}).\\
 A tool that supports BIANCA should have enough flexibility to allow
 developers to enable or disable the recommendations made by BIANCA.
 Furthermore, because BIANCA acts before the commit reach the central
@@ -2551,12 +2569,12 @@ BIANCA, we use the same process as discussed in Section
 of each project and label commits as defect-commits if they appear to be
 linked to a closed issue. The process used by Commit-guru to identify
 commits that introduce a defect is simple and reliable in terms of
-accuracy and computation time {[}91{]}. We use the commit-guru labels as
+accuracy and computation time {[}92{]}. We use the commit-guru labels as
 the baseline to compute the precision and recall of BIANCA. Each time
 BIANCA classifies a commit as \emph{risky}, we can check if the
 \emph{risky} commit is in the database of defect-introducing commits.
-The same evaluation process is used by related studies {[}24, 53, 106,
-116{]}.
+The same evaluation process is used by related studies {[}24, 54, 107,
+117{]}.
 
 \subsection{Process of Comparing New Commits}\label{sec:newcommits}
 
@@ -2596,7 +2614,7 @@ dataset and checked the results by varying \(\alpha\) from 1 to 100\%.
 Figure \ref{fig:alpha-deter} shows the results. The best trade-off
 between precision and recall is obtained when \(\alpha\) = 35\%.
 
-This threshold is not in line with the findings of Roy et al. {[}39,
+This threshold is not in line with the findings of Roy et al. {[}40,
 166{]} who showed through empirical studies that using NICAD with a
 threshold of around 70\%.
 
@@ -2611,7 +2629,7 @@ in our experiments.
 
 \subsection{Evaluation Measures}\label{evaluation-measures}
 
-Similar to prior work focusing on risky commits (e.g., {[}91, 178{]}),
+Similar to prior work focusing on risky commits (e.g., {[}92, 179{]}),
 we used precision, recall, and F\(_1\)-measure to evaluate our approach.
 They are computed using TP (true positives), FP (false positives), FN
 (false negatives), which are defined as follows:
@@ -2639,7 +2657,7 @@ It is worth mentioning that, in the case of defect prevention, false
 positives can be hard to identify as the defects could be in the code
 but not yet reported through a bug report (or issue). To address this,
 we did not include the last six months of history. Following similar
-studies {[}33, 91, 163, 173{]}, if a defect is not reported within six
+studies {[}34, 92, 164, 174{]}, if a defect is not reported within six
 months, then it is not considered.
 
 \section{Empirical Validation}\label{empirical-validation-2}
@@ -2708,14 +2726,14 @@ Comparison}\label{baseline-classifier-comparison}
 
 Although our average F\(_1\) measure of 52.72\% may seem low at first
 glance, achieving a high F\(_1\) measure for unbalanced data is very
-difficult {[}127{]}. Therefore, a common approach to ground detection
+difficult {[}128{]}. Therefore, a common approach to ground detection
 results is to compare it to a simple baseline.
 
 To the best of our knowledge, this is the first approach that relies on
 code similarity instead of code metrics or process metrics for the
 detection of risky commits. Comparing it to other approaches will not be
 accurate. In addition, existing metric-based techniques (e.g.,
-{[}132{]}) detect risky commits within single projects only. BIANCA, on
+{[}133{]}) detect risky commits within single projects only. BIANCA, on
 the other hand, operates across projects. We compared BIANCA with a
 random classifier to have a baseline and show that we perform better
 than a simple baseline.
@@ -2812,7 +2830,7 @@ project against which BIANCA could have checked for matching defects is
 Openhab itself. BIANCA was able to detect 2/28 bugs for Openhab. We
 believe that if we had other home-automation projects in our dataset
 (such as \emph{HomeAutomation} a component based for smart home systems
-{[}171{]}) then we would have achieved a better F\(_1\)-measure.
+{[}172{]}) then we would have achieved a better F\(_1\)-measure.
 
 \subsubsection{\texorpdfstring{Che by Eclipse (F\(_1\)-measure =
 10.05\%)}{Che by Eclipse (F\_1-measure = 10.05\%)}}\label{che-by-eclipse-fux5f1-measure-10.05}
@@ -2857,8 +2875,8 @@ proposed and actual fixes. Then, the blocks of the actual fixes and the
 proposed fixes can be compared with our clone comparison engine.
 
 Similar to other studies recommending fixes, we assess the quality of
-the first three and five proposed fixes {[}42, 96, 114, 115, 153,
-182{]}. The average similarity of the first three fixes is 44.17\% while
+the first three and five proposed fixes {[}43, 97, 115, 116, 154,
+183{]}. The average similarity of the first three fixes is 44.17\% while
 the similarity of the first five fixes is 40.78\%. Results are reported
 in Table \ref{tab:results}.
 
@@ -2964,7 +2982,7 @@ In both cases, the code has been modified to avoid the appending of
 \texttt{shouldCollapseAttribute}, which checks for empty values. In
 Orientdb, the same operation is performed by a simple null check on the
 string named \texttt{right}. Note that this kind of \textit{bug} would
-not have been spotted by a static analysis tool such as PMD {[}43{]}
+not have been spotted by a static analysis tool such as PMD {[}44{]}
 because it is \textit{legal} to pass a null string as a parameter of
 function expecting a string. In both cases, however, the developers were
 tasked to avoid the appending of null strings.
@@ -2982,7 +3000,7 @@ on a single system will most likely be ineffective; it is unlikely to
 have a large number of similar bugs within the same system. For single
 systems, we recommend the use of statistical models based on process and
 code metrics for the detection of risky commits such as the ones
-developed by Kamei et al. and Rosen et al. {[}91, 163{]}. A metric-based
+developed by Kamei et al. and Rosen et al. {[}92, 164{]}. A metric-based
 solution, however, may turn to be ineffective when applied across
 systems because of the difficulty associated with identifying common
 thresholds that are applicable to a wide range of systems.
@@ -3068,19 +3086,18 @@ Resolution}\label{combining-code-metrics-with-clone-detection-for-just-in-time-f
 In the previous chapter, we presented BIANCA, an approach that relies on
 clone-detection to detect risky commits and propose fixes. While the
 performances of BIANCA are satisfactory, it still has major limitations.
-For instance, it only supports the Java programming language (tough ut
-could be expanded to support other languages) and building the model
-supporting it is incredibly expansive.
+For instance, it only supports the Java programming language and
+building the model supporting it is incredibly expansive.
 
 There exist techniques that aim to detect risky commits (e.g., {[}26,
-34, 176{]}), among which the most recent approach is the one proposed by
-Rosen et al. {[}163{]}. The authors developed an approach and a
+35, 177{]}), among which an interesting approach is the one proposed by
+Rosen et al. {[}164{]}. The authors developed an approach and a
 supporting tool, Commit-guru, that relies on building models from
 historical commits using code and process metrics (e.g., code
 complexity, the experience of the developers, etc.) as main features.
 These models are used to classify new commits as risky or not.
 Commit-guru has been shown to outperform previous techniques (e.g.,
-{[}91, 106{]}).
+{[}92, 107{]}).
 
 However, Commit-guru and similar tools suffer from some limitations.
 First, they tend to generate high false positive rates by classifying
@@ -3101,11 +3118,11 @@ shortcomming of Commit-Guru is that it only uses the commit-message to
 determinate if a commit is a fix rather than the issue control system.
 This is problematic because developers leverage shortcut hardcoded in
 commit-message to close issues automatically. For example, the following
-commit-message \lstinline!fix #7! would be interpreted by Commit-Guru as
-a bug-fixing commit regardless of the fact issue \#7, on the issue
-control system could be categorized as a feature to implement. In this
-case, the word \lstinline!fix! was merely used to trigger the automatic
-closing of the issue.
+commit-message: ``fix \#7'' would be interpreted by Commit-Guru as a
+bug-fixing commit regardless of the fact issue \#7, on the issue control
+system could be categorized as a feature to implement. In this case, the
+word \lstinline!fix! was merely used to trigger the automatic closing of
+the issue.
 
 Finally, they have been mainly validated using open source systems.
 Their effectiveness, when applied to industrial systems, has yet to be
@@ -3120,14 +3137,15 @@ similar to existing approaches. The next phase relies on clone detection
 to compare code blocks extracted from suspicious risky commits, detected
 in the first phase, with those of known historical fault-introducing
 commits. This additional phase provides CLEVER with two apparent
-advantages over Commit-guru. First, as we will show in the evaluation
-section, CLEVER is able to reduce the number of false positives by
-relying on code matching instead of mere metrics. The second advantage
-is that, with CLEVER, it is possible to use commits that were used to
-fix faults introduced by previous commits to suggest recommendations to
-developers on how to improve the risky commits at hand. This way, CLEVER
-goes one step further than Commit-guru (and similar techniques) by
-providing developers with a potential fix for their risky commits.
+advantages over Commit-guru and other similar approaches. First, as we
+will show in the evaluation section, CLEVER is able to reduce the number
+of false positives by relying on code matching instead of mere metrics.
+The second advantage is that, with CLEVER, it is possible to use commits
+that were used to fix faults introduced by previous commits to suggest
+recommendations to developers on how to improve the risky commits at
+hand. This way, CLEVER goes one step further than Commit-guru (and
+similar techniques) by providing developers with a potential fix for
+their risky commits.
 
 Another important aspect of CLEVER is its ability to detect risky
 commits not only by comparing them to commits of a single project but
@@ -3205,7 +3223,7 @@ compare them to code blocks of known fault-introducing commits.
 \subsection{Clustering Projects}\label{sec:clustering}
 
 We cluster projects using the same technic as BIANCA (i.e.~Newman
-algorithm {[}61, 143{]} on the dependcies) for the same reasons
+algorithm {[}62, 144{]} on the dependcies) for the same reasons
 (i.e.~projects that share dependencies are most likely to contain
 defects caused by misuse of these dependencies).
 
@@ -3240,9 +3258,9 @@ our refined version of TXL and NICAD.
 
 \subsection{Building a Metric-Based Model}\label{sec:metric-based}
 
-We adapted Commit-guru {[}163{]} for building the metric-based model.
+We adapted Commit-guru {[}164{]} for building the metric-based model.
 Commit-guru uses a list of keywords proposed by Hindle \emph{et al.}
-{[}73{]} to classify commit in terms of \emph{maintenance},
+{[}74{]} to classify commit in terms of \emph{maintenance},
 \emph{feature} or \emph{fix}. Then, it uses the SZZ algorithm to find
 the defect-commit linked to the fix-commit. For each defect-commit,
 Commit-guru computes the following code metrics: \emph{la} (lines
@@ -3275,7 +3293,7 @@ corresponding files on the fix-commit's parents. This returns the
 commits that previously modified these lines of code and are flagged as
 defect-commits. Another modification consists of the actual
 classification algorithm. We did not use linear regression but instead
-the random forest algorithm {[}187, 188{]}. The random forest algorithm
+the random forest algorithm {[}188, 189{]}. The random forest algorithm
 turned out to be more effective as described in Section
 \ref{sec:result-bianca}. Finally, we had to rewrite Commit-guru in
 GoLang for performance and internal reasons.
@@ -3324,7 +3342,7 @@ by extracting from the database the fix-commit corresponding to the top
 that this makes CLEVER a practical approach. Developers can understand
 why a given modification has been reported as risky by looking at code
 instead of simple metrics as in the case of the studies reported in
-{[}91, 163{]}.
+{[}92, 164{]}.
 
 Finally, using the fixes of past defects, we can provide a solution, in
 the form of a contextualised diff, to developers. A contextualised diff
@@ -3384,11 +3402,11 @@ To build the database that we can use to assess the performance of
 CLEVER, we use the same process as discussed in Section
 \ref{sec:offline}. We retrieve the full history of each project and
 label commits as defect-commits if they appear to be linked to a closed
-issue using the SZZ algorithm {[}100{]}. This baseline is used to
+issue using the SZZ algorithm {[}101{]}. This baseline is used to
 compute the precision and recall of CLEVER. Each time CLEVER classifies
 a commit as \emph{risky}; we can check if the \emph{risky} commit is in
 the database of defect-introducing commits. The same evaluation process
-is used by related studies {[}24, 53, 91, 106, 116{]}.
+is used by related studies {[}24, 54, 92, 107, 117{]}.
 
 \subsection{Process of Comparing New Commits}\label{sec:newcommits}
 
@@ -3421,9 +3439,9 @@ model built, it took, on average, 3.75 seconds to analyse an incoming
 commit on our cluster.
 
 In the following subsections, we provide insights on the performance of
-CLEVER by comparing it to Commit-guru {[}163{]} alone, i.e., an approach
+CLEVER by comparing it to Commit-guru {[}164{]} alone, i.e., an approach
 that relies only on metric-based models. We chose Commit-guru because it
-has been shown to outperform other techniques (e.g., {[}91, 106{]}).
+has been shown to outperform other techniques (e.g., {[}92, 107{]}).
 Commit-guru is also open source and easy to use.
 
 \subsection{Performance of CLEVER}\label{performance-of-clever}
@@ -3735,18 +3753,21 @@ with the developer's workflow through the commit mechanism. CLEVER is
 still in its infancy and we expect it to be available this year to
 thousands of developers.
 
-In the next chapter, we present JCHARMING, an approach for reproducing bugs
-using stack traces. JCHARMING is meant to be used
-by developers when the commit-time approaches presented in Chapters 4, 6
-and 7 did not manage to prevent the introduction of defects.
+In the next chapter, we present JCHARMING, an approach for reproducing
+bugs using stack traces. JCHARMING is meant to be used by developers
+when the commit-time approaches presented in Chapters 4, 6 and 7 did not
+manage to prevent the introduction of defects.
 
 \chapter{Bug Reproduction Using Crash Traces and Directed Model
 Checking}\label{bug-reproduction-using-crash-traces-and-directed-model-checking}
 
+\section{Introduction}\label{introduction-5}
+
 In previous chapters, we presented three approaches (PRECINCT, BIANCA
-and, CLEVER) that aim to improve code quality by performing
-maintenance operations at commit-time. While these approaches have shown
-to be effective, they can never be 100\% accurate. Therefore, we need to contribute with methods that can help fix crashes after they occur.
+and, CLEVER) that aim to improve code quality by performing maintenance
+operations at commit-time. While these approaches have shown good
+performances, they never will be 100\% accurate in preventing defects
+from reaching the customers and on-field crashes will happen.
 
 The first (and perhaps main) step in understanding the cause of a field
 crash is to reproduce the bug that caused the system to fail. A survey
@@ -3758,24 +3779,23 @@ one that can help reproduce it {[}22{]}.
 Bug reproduction is, however, a challenging task because of the limited
 amount of information provided by the end users. There exist several bug
 reproduction techniques. They can be grouped into two categories: (a)
-On-field record and in-house replay {[}9, 80, 133{]}, and (b) In-house
-crash explanation {[}{[}122{]}; chandra2009snugglebug{]}. The first
-category relies on instrumenting the system in order to capture objects
-and other system components at run-time. When a faulty behavior occurs
-in the field, the stored objects, as well as the entire heap, are sent
-to the developers along with the faulty methods to reproduce the crash.
-These techniques tend to be simple to implement and yield good results,
-but they suffer from two main limitations. First, code instrumentation
-comes with a non-negligible overhead on the system. The second
-limitation is that the collected objects may contain sensitive
-information causing customer privacy issues. The second category is
-composed of tools leveraging proprietary data in order to provide hints
-on potential causes. While these techniques are efficient in improving
-our comprehension of the bugs, they are not designed with the purpose of
-reproducing them.
+On-field record and in-house replay {[}9, 81, 134{]}, and (b) In-house
+crash explanation {[}31, 123{]}. The first category relies on
+instrumenting the system in order to capture objects and other system
+components at run-time. When a faulty behavior occurs in the field, the
+stored objects, as well as the entire heap, are sent to the developers
+along with the faulty methods to reproduce the crash. These techniques
+tend to be simple to implement and yield good results, but they suffer
+from two main limitations. First, code instrumentation comes with a
+non-negligible overhead on the system. The second limitation is that the
+collected objects may contain sensitive information causing customer
+privacy issues. The second category is composed of tools leveraging
+proprietary data in order to provide hints on potential causes. While
+these techniques are efficient in improving our comprehension of the
+bugs, they are not designed with the purpose of reproducing them.
 
 JCHARMING (Java CrasH Automatic Reproduction by directed Model checkING)
-{[}137{]} is a hybrid approach that uses a combination of crash traces
+{[}138{]} is a hybrid approach that uses a combination of crash traces
 and model checking to reproduce bugs that caused field failures
 automatically. Unlike existing techniques, JCHARMING does not require
 instrumentation of the code. It does not need access to the content of
@@ -3802,10 +3822,10 @@ The accuracy of JCHARMING, when applied to 30 bugs, is 80\%.
 \section{\texorpdfstring{Preliminaries\label{sec:prelimenaries}}{Preliminaries}}\label{preliminaries}
 
 Model checking (also known as property checking) will, given a formally
-defined system (that could be software {[}193{]} or hardware based
-{[}109{]}), check if the system meets a specification by testing
+defined system (that could be software {[}194{]} or hardware based
+{[}110{]}), check if the system meets a specification by testing
 exhaustively all the states of the system under test (SUT), which can be
-represented by a Kripke {[}108{]} structure:
+represented by a Kripke {[}109{]} structure:
 
 \begin{equation}
 SUT = <S, S_0, T, L>
@@ -3919,7 +3939,7 @@ Model checking, on the other hand, explores each and every state of the
 program (Figure \ref{fig:checking-toy}), which makes it complete, but
 impractical for real-world and large systems. To overcome the state
 explosion problem of model checking, directed (or guided) model checking
-has been introduced {[}51, 52{]}. Directed model checking uses insights
+has been introduced {[}52, 53{]}. Directed model checking uses insights
 --- generally heuristics --- about the SUT in order to reduce the number
 of states that need to be examined. Figure \ref{fig:dchecking-toy}
 explores only the states that may lead to a specific location, in our
@@ -3981,7 +4001,7 @@ It is common in Java to have crash traces that contain wrapped
 exceptions. Such crash traces are incomplete in the sense that they do
 not show all the method calls that are invoked from the entry point of
 the program to the crash point. According to the Java documentation
-{[}150{]}, line 8 of Figure \ref{fig:jcarming-traces} should be
+{[}151{]}, line 8 of Figure \ref{fig:jcarming-traces} should be
 interpreted as follows: \_``This line indicates that the remainder of
 the stack trace for this exception matches the indicated number of
 frames from the bottom of the stack trace of the exception that was
@@ -4080,10 +4100,10 @@ states and the states that are needed to reach them.
 \end{figure}
 
 In JCHARMING, we use a particular static slicing known as backward
-static slicing {[}44{]}. A backward slice contains all possible branches
+static slicing {[}45{]}. A backward slice contains all possible branches
 that may lead to a point \emph{n} in the program from a point \emph{m}
 as well as the definition of the variables that control these branches
-{[}44{]}. In other words, the slice of a program point \emph{n} is the
+{[}45{]}. In other words, the slice of a program point \emph{n} is the
 program subset that may influence the reachability of point \emph{n}
 starting from point \emph{m}. The backward slice containing the branches
 and the definition of the variables leading to \emph{n} from \emph{m} is
@@ -4246,7 +4266,7 @@ contained crash traces that were damaged enough for this fall back
 mechanism to be used.
 
 In order to compute the backward slice, we implement our algorithm as an
-add-on to the T. J. Watson Libraries for Analysis (WALA) {[}78{]}, which
+add-on to the T. J. Watson Libraries for Analysis (WALA) {[}79{]}, which
 provide static analysis capabilities for Java Byte code and JavaScript.
 WALA offers a very comprehensive API to perform static backward slicing
 on Java Byte code from a specific point to another. We did not need to
@@ -4292,14 +4312,14 @@ fail.
 \subsection{Directed Model Checking}\label{directed-model-checking}
 
 The model checking engine we use in this paper is called JPF (Java
-PathFinder) {[}194{]}, which is an extensible JVM for Java byte code
+PathFinder) {[}195{]}, which is an extensible JVM for Java byte code
 verification. This tool was first created as a front-end for the SPIN
-model checker {[}74{]} in 1999 before being open-sourced in 2005. The
+model checker {[}75{]} in 1999 before being open-sourced in 2005. The
 JPF model checker can execute all the byte code instructions through a
 custom JVM --- known as JVM\textsuperscript{\textit{JPF}}. Furthermore,
-JPF is an explicit state model checker, very much like SPIN {[}74{]}.
+JPF is an explicit state model checker, very much like SPIN {[}75{]}.
 This is contrasted with a symbolic model checker based on binary
-decision diagrams {[}125{]}. JPF designers have opted for a depth-first
+decision diagrams {[}126{]}. JPF designers have opted for a depth-first
 traversal with backtracking because of its ability to check for temporal
 liveness properties.
 
@@ -4380,7 +4400,7 @@ preprocessing). If the two exceptions match, we conclude that the
 conditions needed to trigger the failure have been met and the bug is
 reproduced.
 
-However, as argued by Kim et al. in {[}96{]}, the same failure can be
+However, as argued by Kim et al. in {[}97{]}, the same failure can be
 reached from different paths of the program. Although the states
 executed to reach the defect are not exactly the same, they might be
 useful to enhance the understanding of the bug by software developers
@@ -4545,7 +4565,7 @@ While it is mainly known for Java applications, Apache Ant also allows
 building C and C++ applications. We choose to analyze Apache Ant because
 other researchers in similar studies have used it.
 
-ArgoUML {[}37{]} is one of the major players among the open source UML
+ArgoUML {[}38{]} is one of the major players among the open source UML
 modeling tools. It has many years of bug management and, similar to
 Apache Ant, it has been extensively used as a test subject in many
 studies.
@@ -4557,12 +4577,12 @@ interesting case subject because it has been well maintained for the
 past decade. Also, this tool is used in many other popular tools such as
 Aspirin, Muffin and Scarab.
 
-JfreeChart {[}149{]} is a well-known library that enables the creation
+JfreeChart {[}150{]} is a well-known library that enables the creation
 of professional charts. Similar to dnsjava, it has been maintained over
 a very long period of time. JfreeChart was created in 2005. It is a
 relatively large application.
 
-Apache Log4j {[}184{]} is a logging library for Java. This is not a very
+Apache Log4j {[}185{]} is a logging library for Java. This is not a very
 large library, but thousands of programs extensively use it. As other
 Apache projects, this tool is well maintained by a strong open source
 community and allows developers to submit bugs. The bugs that are in the
@@ -4570,7 +4590,7 @@ bug reporting system of Log4j are generally well documented. In
 addition, the majority of bugs contain crash traces, which makes Log4j a
 good candidate system for this study.
 
-MCT {[}134{]} stands for Mission Control technologies and was developed
+MCT {[}135{]} stands for Mission Control technologies and was developed
 by the NASA Ames Research Center (the creators of JPF) for use in
 spaceflight mission operation. This tool benefits from two years of
 history and targets a very critical domain, Spacial Mission Control.
@@ -4594,7 +4614,7 @@ Hadoop. We used Mahout version 0.11, which was released in August 2015.
 Mahout supports various machine learning algorithms with a focus on
 collaborative filtering, clustering, and classification.
 
-Finally, ActiveMQ {[}174{]} is an open source messaging server that
+Finally, ActiveMQ {[}175{]} is an open source messaging server that
 allows applications written in Java, C, C++, C\#, Ruby, Perl or PHP to
 exchange messages using various protocols. ActiveMQ has been actively
 maintained since it became an Apache Software Foundation project in
@@ -5051,8 +5071,8 @@ bug was 19 minutes, which is quite reasonable, given the complexity of
 reproducing bugs that cause field crashes.
 
 This said, JCHARMING suffers from three main limitations. The first one
-is that it cannot reproduce bugs caused by multi-threading. We
-can overcome this limitation by using advanced features of the JPF model
+is that it cannot reproduce bugs caused by multi-threading. We can
+overcome this limitation by using advanced features of the JPF model
 checker such as the \emph{jpf-ltl} listener. The \emph{jpf-ltl} listener
 was designed to check temporal properties of concurrent Java programs.
 The second limitation is that JCHARMING cannot be used if external
@@ -5066,19 +5086,74 @@ the crash traces into the bug description. A better practice would be to
 automatically append the crash trace to the bug report, for example, in
 a different field than the bug description.
 
-
 \chapter{Towards a Classification of Bugs Based on the Location of the
 Corrections: An Empirical
 Study}\label{towards-a-classification-of-bugs-based-on-the-location-of-the-corrections-an-empirical-study}
 
-\section{Introduction}\label{introduction-5}
+\section{Introduction}\label{introduction-6}
 
-In previous chapters, we showed how to prevent clones and
-defects at commit-time, and reproduce on-field crashes.
+In previous chapters, we showed how to prevent clones and defects,
+proposes fixes at commit-time and reproduce on-field crashes.
 
-These techniques, however, treat all bugs as the same.  This is also the case for other studies in the literature (e.g., {[}198, 212{]}). For example, a bug that requires only one fix is analyzed the same way as a bug that necessitates multiple fixes. Similarly, if multiple bugs are fixed by modifying the exact same locations in the code, then we should investigate how these bugs are related in order to predict them in the future. Note here that we do not refer to duplicate bugs. Duplicate bugs are marked as duplicate (and not fixed) and only the master bug is fixed.
+These techniques, however, treat all bugs as the same. This is also the
+case for other studies in the literature (e.g., {[}198, 212{]}). For
+example, a bug that requires only one fix is analyzed the same way as a
+bug that necessitates multiple fixes. Similarly, if multiple bugs are
+fixed by modifying the exact same locations in the code, then we should
+investigate how these bugs are related in order to predict them in the
+future. Note here that we do not refer to duplicate bugs. Duplicate bugs
+are marked as duplicate (and not fixed) and only the master bug is
+fixed.
 
-[Wahab: I think you should put the example we have in the SQUADE paper]
+Our works {[}121, 136--140{]}) treat bug as equal in a sense that they
+do not assume any underlying classification of bugs. It also the case
+for other studies. By a fix, we mean a modification (adding or deleting
+lines of code) to an existing file that is used to solve the bug.
+
+As a motivating example, consider Bugs \#AMQ-5066 and \#AMQ-5092 from
+the Apache Software Foundation bug report management system (used to
+build one of the datasets in this paper). Bug \#AMQ-5066 was reported on
+February 19, 2014 and solved with a patch provided by the reporter. The
+solution involves a relatively complex patch that modifies
+\lstinline!MQTTProtocolConverter.java!,
+\lstinline!MQTTSubscription.java! and \lstinline!MQTTTest.java! files.
+The description of the bug is as follows:
+
+\emph{``When a client sends a SUBSCRIBE message with the same
+Topic/Filter as a previous SUBSCRIBE message but a different QoS, the
+Server MUST discard the older subscription, and resend all retained
+messages limited to the new Subscription QoS.''}
+
+A few months later, another bug, Bug \#AMQ-5092 was reported:
+
+\emph{``MQTT protocol converters does not correctly generate unique
+packet ids for retained and non-retained publish messages sent to
+clients. {[}\ldots{}{]} Although retained messages published on creation
+of client subscriptions are copies of retained messages, they must carry
+a unique packet id when dispatched to clients. ActiveMQ re-uses the
+retained message's packet id, which makes it difficult to acknowledge
+these messages when wildcard topics are used. ActiveMQ also sends the
+same non-retained message multiple times for every matching subscription
+for overlapping subscriptions. These messages also re-use the
+publisher's message id as the packet id, which breaks client
+acknowledgment.''}
+
+This bug was assigned and fixed by a different person than the one who
+fixed bug \#AMQ-5066. The fix consists of modifying slightly the same
+lines of the code in the exact files used to fix Bug \#AMQ-5066. In
+fact, Bug \#5092 could have been avoided altogether if the first
+developer provided a more comprehensive fix to \#AMQ-5066 (a task that
+is easier said than done). These two bugs are not duplicates since,
+according to their description, they deal with different types of
+problems and yet they can be fixed by providing a similar patch. The
+failures are different while the root causes (faults in the code) are
+more or less the same. From the bug handling perspective, if we can
+develop a way to detect such related bug reports during triaging then we
+can achieve considerable time saving in the way bug reports are
+processed, for example, by assigning them to the same developers. We
+also conjecture that detecting such related bugs can help with other
+tasks such as bug reproduction. We can reuse the 2 reproduction of an
+already fixed bug to reproduce an incoming and related bug.
 
 With this in mind, the relationship between bugs and fixes can be
 modelled using the UML diagram in Figure \ref{fig:bug-taxo-diag}. The
@@ -5112,12 +5187,18 @@ Note that T3 and T4 bugs are not duplicates, they may occur when
 different features of the system fail due to the same root causes
 (faults).
 
-In our dataset, composed of 388 projects and presented in Section
-\ref{context-selection}, the proportion of each type of bugs is as
-follows: T1 6.8 \%, T2 3.7 \%, T3 28.3 \% and T4 61.2\%. We also show that T4  bugs are significantly more complex than the other types (see Section [Wahab: please complete this]).
+In our dataset, composed of 388 projects and presented in section
+\ref{context-selection}, the proportion of each type of bug is as
+follows: T1 6.8 \%, T2 3.7 \%, T3 28.3 \% and T4 61.2\%. Also, classical
+measures of complexity such as duplication, fixing time, number of
+comments, number of time a bug is reopened, files impacted, severity,
+changesets, hunks, and chunks, also presented in section
+\ref{context-selection}, show that type 4 are significantly more complex
+than types 1, 2 and 3.
 
 The existence of a high number of T4 bugs and the fact that they are
-more complex call for techniques to effectively detect Type 4 bugs at submission time for enhanced bug report triaging. More particularly, we are
+more complex call for techniques that can effectively tag bug report as
+T4 at submission time for enhanced triaging. More particularly, we are
 interested in the following research questions:
 
 \begin{itemize}
@@ -5129,28 +5210,28 @@ interested in the following research questions:
   classifiers predicting the bug type at submission time will allow
   improving the triaging and the bug handling process.
 \item
-  \textbf{RQ2:} \emph{What are the best predictors of T4 bugs?}
-  This second research question aims to investigate what are the markups
-  that allow for accurate prediction of T4 bugs.
+  \textbf{RQ2:} \emph{What are the best predictors of T4 bugs ?} This
+  second research question aims to investigate what are the markups that
+  allow for accurate prediction of T4 bugs.
 \end{itemize}
 
 Our objective is to propose a classification that can allow researchers
 in the field of mining bug repositories to use the taxonomy as a new
 criterion in triaging, prediction, and reproduction of bugs. By analogy,
 we can look at the proposed bug taxonomy similarly as the clone taxonomy
-presented by Kapser and Godfrey {[}95{]}. The authors proposed seven
+presented by Kapser and Godfrey {[}96{]}. The authors proposed seven
 types of source code clones and then conducted a case study, using their
 classification, on the file system module of the Linux operating system.
 This clone taxonomy continues to be used by researchers to build better
 approaches for detecting a given clone type and being able to compare
 approaches with each other effectively. Moreover, we build upon this
-proposed classification and predict the type of incoming bugs with 
-65.40\% precision, 94.16\% recall, and an \(F_1\) measure of 77.19\%.
+proposed classification and predict the type of incoming bugs with a
+65.40\% precision 94.16\% recall, and an \(f_1\) measure of 77.19\%.
 
 \section{Experimental Setup}\label{experimental-setup-4}
 
-In this section, we present our datasets and quantify the proportion of each type of bugs as well as
-the complexity of each type.
+In this section, we present our datasets and quantify the proportion of
+each type of bugs as well as the complexity of each type.
 
 \subsection{\texorpdfstring{Context
 Selection\label{sec:context-selection}}{Context Selection}}\label{context-selection}
@@ -5194,7 +5275,7 @@ architectures, and (iii) different development bases and processes.
 Apache projects vary significantly in terms of the size of the
 development team, purpose and technical choices {[}17{]}. On the other
 side, Netbeans has a relatively stable list of core developers and a
-common vision shared by the 39 related projects {[}196{]}.
+common vision shared by the 39 related projects {[}197{]}.
 
 Cumulatively, these datasets span from 2001 to 2014. In summary, our
 consolidated dataset contains 102,707 closed issues, 229,153 changesets,
@@ -5208,7 +5289,7 @@ source code alone, excluding binaries, images, and other non-text files,
 is 163 GB.
 
 To assign commits to issues, we used the regular expression based
-approach proposed by Fischer et al. {[}56{]}, which matches the issue ID
+approach proposed by Fischer et al. {[}57{]}, which matches the issue ID
 in the commit note to the commit. Using this technique, we were able to
 link almost 40\% (40,493 out of 102,707) of our resolved/fixed issues to
 229,153 commits. Note that an issue can be fixed using several commits.
@@ -5253,9 +5334,9 @@ independence tests are considered statistically significant at = 0.05.
 If p-value \(\leq\) 0.05, we can conclude that the proportion of each
 type is significantly different.
 
-We analyse the complexity of each bug with respect to duplication, fixing
-time, number of comments, number of times a bug is reopened, files
-impacted, severity, changesets, hunks, and chunks.
+We analyse the complexity of each bug with respect to duplication,
+fixing time, number of comments, number of times a bug is reopened,
+files impacted, severity, changesets, hunks, and chunks.
 
 Complexity metrics are divided into two groups: (a) process and (b) code
 metrics. Process metrics refer to metrics that have been extracted from
@@ -5267,7 +5348,7 @@ abstraction of the actual complexity of a given bug as they cannot
 account for the actual thought process and expertise required to craft a
 fix. However, we believe that they are an accurate abstraction.
 Moreover, they are used in several studies in the field to approximate
-the complexity of a bug {[}3, 130, 132, 168, 198{]}.
+the complexity of a bug {[}3, 131, 133, 169, 198{]}.
 
 Tables \ref{tab:apache-eco}, \ref{tab:netbeans-eco} and
 \ref{tab:overall-eco} present descriptive statistics about each metric
@@ -5295,7 +5376,7 @@ be resolved using the \emph{duplicate} label and referencing bug\(\_b\),
 bug\(\_b\) does not have to be resolved itself. Indeed, bug\(\_b\) could
 be under investigation (i.e. \emph{unconfirmed}) or being fixed (i.e.
 \emph{new} or \emph{assigned}). Automatically detecting duplicate bug
-report is a very active research field {[}23, 79, 144, 167, 177, 186{]}
+report is a very active research field {[}23, 80, 145, 168, 178, 187{]}
 and a well-known measure of bug impact.
 
 Overall, the complexity of bug types in terms of the number of
@@ -5309,13 +5390,13 @@ go from the \emph{new} state to the \emph{closed} state. If the bug
 report is reopened, then the time it took for the bug to go from the
 \emph{assigned} state to the \emph{closed} state is added to the first
 time. A bug report can be reopened several times and all the times are
-added. In this section, the time is expressed in days {[}197, 210,
+added. In this section, the time is expressed in days {[}198, 210,
 212{]}.
 
 When combined, both ecosystem amounts in the following order
 \(T2_{time}^4 > T4_{time}^1 \gg T1_{time}^3 \gg T3_{time}^2\). These
 findings contradict the finding of Saha \emph{et al.}, however, they did
-not study the Netbeans ecosystem in their paper {[}168{]}.
+not study the Netbeans ecosystem in their paper {[}169{]}.
 
 \subsubsection{Comments}\label{comments}
 
@@ -5326,7 +5407,7 @@ if it takes more comments (explanation) from the reporter or the
 assignee to provide a fix, then the bug must be more complex to
 understand. The number of comments has been shown to be useful in
 assessing the complexity of bugs {[}210, 212{]}. It is also used in bug
-prediction approaches {[}24, 41{]}.
+prediction approaches {[}24, 42{]}.
 
 When combining both ecosystems, the results are:
 \(T4_{comment}^1 \gg T2_{comment}^4 > T3_{comment}^2 \gg T1_{comment}^3\).
@@ -5335,7 +5416,7 @@ When combining both ecosystems, the results are:
 
 The bug reopening metric counts how many times a given bug gets
 reopened.If a bug report is reopened, it means that the fix was arguably
-hard to come up with or the report was hard to understand {[}119, 172,
+hard to come up with or the report was hard to understand {[}120, 173,
 217{]}.
 
 When combined, however, the order does change:
@@ -5345,7 +5426,7 @@ When combined, however, the order does change:
 
 The severity metric reports the degree of impact of the report on the
 software. Predicting the severity of a given report is an active
-research field {[}68, 110, 126, 185, 192{]} and it helps to
+research field {[}69, 111, 127, 186, 193{]} and it helps to
 prioritization of fixes {[}203{]}. The severity is a textual value
 (blocker, critical, major, normal, minor, trivial) and the Mann-Whitney
 test only accepts numerical input. Consequently, we had to assign
@@ -5385,8 +5466,8 @@ Overall, T4 bugs are the most complex bugs regarding the number of
 submitted changesets
 (\(T4_{changesets}^1 \gg T2_{changesets}^3 \gg T3_{changesets}^2 \gg T1_{changesets}^4\)).
 
-While results have been published on the bug-fix patterns {[}153{]},
-smell introduction {[}55, 191{]}, to the best of our knowledge, no one
+While results have been published on the bug-fix patterns {[}154{]},
+smell introduction {[}56, 192{]}, to the best of our knowledge, no one
 interested themselves in how many iterations of a patch was required to
 close a bug report beside us.
 
@@ -5395,11 +5476,12 @@ close a bug report beside us.
 The hunks metric counts the number of consecutive code blocks of
 modified, added or deleted lines in textual files. Hunks are used to
 determine, in each file, how many different places a developer has
-modified. This metric is widely used for bug insertion prediction {[}90,
-99, 163{]} and bug-fix comprehension {[}153{]}. In our ecosystems, there
-is a relationship between the number of files modified and the hunks.
-The number of code blocks modified is likely to rise as to the number of
-modified files as the hunks metric will be at least 1 per file.
+modified. This metric is widely used for bug insertion prediction {[}91,
+100, 164{]} and bug-fix comprehension {[}154{]}. In our ecosystems,
+there is a relationship between the number of files modified and the
+hunks. The number of code blocks modified is likely to rise as to the
+number of modified files as the hunks metric will be at least 1 per
+file.
 
 We found that T2 and T4 bugs, that require many files to get fixed, are
 the ones that have significantly higher scores for the hunks metric;
@@ -5415,7 +5497,7 @@ overall
 The last metric, churns, counts the number of lines modified. The churn
 value for a line change should be at least two as the line has to be
 deleted first and then added back with the modifications. Once again,
-this is a widely used metric in the field {[}90, 99, 153, 163{]}.
+this is a widely used metric in the field {[}91, 100, 154, 164{]}.
 
 Once again, T4 and T2 are the ones with the most churns; Apache
 ecosystem
@@ -5437,7 +5519,7 @@ calculated are as follows: 1330, 1750, 2580 and 7120 for T1, T2, T3 and
 T4 bugs, respectively.
 
 Considering that Type 4 bugs are (a) the most common, (b) the most
-complex and (c) not a type we intuitively know about, we decided to kick
+complex and (c) not a type we intuitively know about; we decided to kick
 start our research into the different type of bugs and their impact by
 predicting whether an incoming bug report type 4 or not.
 
@@ -5456,7 +5538,7 @@ description contained in a bug report. We removed he stopwords
 experimented with 1-gram, 2-gram, and 3-gram words weighted using
 tf-idf. To build the classifier, we examined three machine learning
 techniques that have shown to yield satisfactory results in related
-studies: SVM, Random forest and linear regression {[}1, 132, 198{]}.
+studies: SVM, Random forest and linear regression {[}1, 133, 198{]}.
 
 To answer \textbf{RQ\(_1\)}, we analyse the accuracy of predictors
 aiming at determining the type of a bug at submission time (i.e.~when
@@ -5495,7 +5577,7 @@ change the parameters used by the classifier building process (cost,
 mtry, etc). At the end of the iterations, we select the best classifier
 and exercise it against the second part of 40\%. The results we report
 in this section are the performances of the nine classifiers trained on
-60\% of the data and classifying the remaining 40\%. The performances of
+60\% of the data and classifying the remaining 40\%. The performance of
 each classifier are examined in terms of true positive, true negative,
 false negative and false positive classifications. True positives and
 negative numbers refer to the cases where the classifier correctly
@@ -5521,10 +5603,10 @@ The performance of each classifier is compared to a tenth classifier.
 This last classifier is a random classifier that randomly predicts the
 type of a bug. As we are in a two classes system (T4 and non-T4), 50\%
 of the reports are classified as T4 by the random classifier. The
-performances of the random classifier itself are presented in table
+performance of the random classifier itself are presented in table
 \ref{tab:random}.
 
-Finally, we compute the Cohen's Kappa metric {[}57{]} for each
+Finally, we compute the Cohen's Kappa metric {[}58{]} for each
 classifier. The Kappa metric compares the observed accuracy and the
 expected accuracy to provide a less misleading assessment of the
 classifier performance than precision alone.
@@ -5594,7 +5676,7 @@ constant as the random classifier predicts 50\% of the reports as T4 and
 0.27 to 0.32. While there is no unified way to interpret the result of
 the Cohen's kappa statistic, Landis and Koch considers 0-0.20 as slight,
 0.21-0.40 as fair, 0.41-0.60 as moderate, 0.61-0.80 as substantial, and
-0.81-1 as almost perfect {[}111{]}. Consequently, all of our classifiers
+0.81-1 as almost perfect {[}112{]}. Consequently, all of our classifiers
 show a fair improvement over a random classification regarding accuracy
 and a major improvement regarding F1-measure.
 
@@ -5887,9 +5969,9 @@ In this chapter, we present the conclusion of this thesis and future
 work that remain to be done.
 
 Software maintenance activities such as debugging and feature
-enhancement are known to be challenging and costly {[}157{]}. Studies
+enhancement are known to be challenging and costly {[}158{]}. Studies
 have shown that the cost of software maintenance can reach up to 70\% of
-the overall cost of the software development life cycle {[}69{]}. Much
+the overall cost of the software development life cycle {[}70{]}. Much
 of this is attributable to several factors including the increase in
 software complexity, the lack of traceability between the various
 artifacts of the software development process, the lack of proper
@@ -5934,17 +6016,13 @@ categorize the research in many areas related to software maintenance.
   create fixes similar to the ones that developers had proposed in 84\%
   of the cases.
 \item
-  While the recall of BIANCA 37.15\%, it is important to note that we do
-  not claim that of issues in open-source systems are caused by project
-  dependencies.
-\item
   We built upon BIANCA with CLEVER that combines clone- and metric-based
-  detection of risky commit and proposes potential fixes. It
+  detection of risky commits and proposes potential fixes. It
   significantly reduced to scalability concerns of BIANCA while
   obtaining an average of 79.10\% precision and a 65.61\% recall.
 \item
   66\% of the fixes proposed by CLEVER were accepted by software
-  developer within Ubisoft.
+  developers within Ubisoft.
 \item
   We introduced JCHARMING, an automatic bug reproduction technique that
   combines crash traces and directed model checking. When applied to
@@ -5953,68 +6031,11 @@ categorize the research in many areas related to software maintenance.
   a bug was 19 minutes, which is quite reasonable, given the complexity
   of reproducing bugs that cause field crashes.
 \item
-  Finally, we proposed a taxonomy of bugs and performed an empirical.
-  The key findings are that Type 4 account for 61\% of the bugs and have
-  a bigger impact on software maintenance tasks than the other three
-  types.
+  Finally, we proposed a taxonomy of bugs and performed an empirical
+  study. The key findings are that Type 4 account for 61\% of the bugs
+  and have a bigger impact on software maintenance tasks than the other
+  three types.
 \end{itemize}
-
-\section{Closing Remarks}\label{closing-remarks}
-
-In this thesis, we proposed many approaches to help software developers
-build high quality software systems. We chose to focus on techniques
-that operate at commit-time. By doing so, this thesis' contributions
-adhere to the broader concept of just-in-time software quality
-improvement methods that promote the integration of software maintenance
-and quality assurance tasks with day-to-day development {[}91, 190,
-205{]}. Today's software systems are becoming ultra large, composed of
-many components that interact with each other in a complex way. It is
-often challenging for software developers to apply existing methods for
-improving software quality such as clone detection, refactoring after
-the system in its entirety has been built. This is because the mental
-models and thought processes that led to these changes or design
-decisions are long gone and forgotten. Just-in-time software improvement
-techniques encourage an agile and lean process in which improvements are
-made as soon as changes happen in the system, while the decisions
-motivating the changes are still fresh in the mind of practitioners.
-Agility and lean thinking are not new concepts. They date back to the
-seventies where Toyota, the car manufacturer, proposed just-in-time
-manufacturing techniques to produce high quality products that meet
-customers' needs {[}179{]}.
-
-Just-in-time manufacturing relies on several management philosophies and
-tools: continuous improvement (product-oriented layout of plants,
-division of systems, simplicity), elimination of waste (overproduction,
-waiting time, inventory waste, transportation, product defects),
-Hausukipingu (clean workspaces), Kabans (pulling the right number of
-items from the right shelves at just the right time), Jidoka (autonomous
-machines with judgment capabilities) and Andons (signal problems for
-corrective action).\footnote{We kept the Japanese version of most of the
-  words as they are used without translation in the literature.}
-
-One of the cornerstones of the just-in-time manufacturing philosophy of
-the seventies and the agile manifesto of the 2000's is continuous
-improvement {[}59{]}. Other notions cross the gap between just-in-time
-manufacturing and just-in-time software improvement. For example,
-integrated development environments (IDEs) are Jidokas in a sense that
-they auto-complete us and auto-correct us based on past behavior and,
-unit tests, bug report management systems and quality assurance (QA)
-bots are Andons.
-
-PRECINCT, BIANCA, and CLEVER are designed to support just-in-time
-software quality improvement and maintenance techniques by continuously
-checking developer's code before ending up integrated into a larger
-software system.
-
-We believe that commit-time software maintenance is the appropriate time
-to perform just-in-time software maintenance as commits mark the end of
-a task or sub-task that is ready to be versioned.
-
-JCHARMING adds value by proposing a mechanism for reproducing and fixing
-the remaining defects. We hope that software engineering researchers and
-practitioners find this work useful either as a starting point for
-exciting new research or for building software products that are of good
-quality.
 
 \section{Future Work}\label{future-work}
 
@@ -6034,43 +6055,99 @@ acquired from multiple software ecosystems.
 
 This leads to the scalability issues of our work. The model required to
 operate BIANCA took nearly three months using 48 Amazon Virtual Private
-Servers running in parallel to built and tested. While CLEVER addresses
-some of the scalability issues with its two-step classifier, the search
-of a potential solution is still computationally expansive.
+Servers running in parallel to be built and tested. While CLEVER
+addresses some of the scalability issues with its two-step classifier,
+the search of a potential solutions is still computationally expansive.
 
 \subsection{Other Possible Opportunities for Future
 Research}\label{other-possible-opportunities-for-future-research}
 
-To build on this work, we need to conduct experiment with additional (and
-larger) systems with the dual aim of fine-tuning the approach, and
+To build on this work, we need to conduct experiment with additional
+(and larger) systems with the dual aim of fine-tuning the approach, and
 assessing the scalability of our approach when applied to even larger
-systems could be conducted. Also, we want to improve PRECINCT to
-support Type 4 clones, which will be a significant advantage over other
-clone detectors. In addition, conducting user studies with developers to
-assess the effectiveness of PRECINCT compared to remote and
+systems could be conducted. Also, we want to improve PRECINCT to support
+Type 4 clones, which will be a significant advantage over other
+clone-detectors. In addition, conducting user studies with developers to
+assess the concrete effectiveness of PRECINCT compared to remote and
 local clone detection techniques.
 
 Conducting user studies with developers in order to gather their
-feedback on BIANCA and CLEVER would be beneficial. The feedback obtained
-could help fine-tune the approaches. Also, examining the relationship
-between project cluster measures (such as betweenness) and the
-performance of BIANCA. Finally, another improvement to BIANCA would be
-to support Type 4 clones.
+feedback on BIANCA and CLEVER would also be beneficial. The feedback
+obtained could help fine-tune the approaches. In addition, examining the
+relationship between project cluster measures (such as betweenness) and
+the performance of BIANCA. Finally, another improvement to BIANCA would
+be to support Type 4 clones.
 
 For BIANCA, building a feedback loop between the users and the clusters
-of known buggy commits and their fixes. If a fix is never used by the
-end-users, then we could remove it from the clusters and improve our
-accuracy.
+of known buggy commits and their fixes could be a major improvement. For
+example, if a fix is never used by end-users, then we could remove it
+from the clusters and improve our accuracy.
 
 For JCHARMING's, more experiments with more (and complex) bugs with the
 dual aim to (a) improve and fine tune the approach, and (b) assess the
 scalability of our approach when applied to even larger (and
-proprietary) systems. Finally, comparing JCHARMING to STAR {[}31{]},
+proprietary) systems. Finally, comparing JCHARMING to STAR {[}32{]},
 which is the closest approach to ours by running both methods on the
 same set of systems and bugs, could yield interesting results. This
 comparative study can provide insights into the differences in the use
 of symbolic analysis as it is in STAR and directed model checking, the
 core mechanism of JCHARMING.
+
+\section{Closing Remarks}\label{closing-remarks}
+
+In this thesis, we proposed many approaches to help software developers
+build high quality software systems. We chose to focus on techniques
+that operate at commit-time. By doing so, this thesis' contributions
+adhere to the broader concept of just-in-time software quality
+improvement methods that promote the integration of software maintenance
+and quality assurance tasks with day-to-day development {[}92, 191,
+205{]}. Today's software systems are becoming ultra large, composed of
+many components that interact with each other in a complex way. It is
+often challenging for software developers to apply existing methods for
+improving software quality such as clone detection, refactoring after
+the system in its entirety has been built. This is because the mental
+models and thought processes that led to these changes or design
+decisions are long gone and forgotten. Just-in-time software improvement
+techniques encourage an agile and lean process in which improvements are
+made as soon as changes happen in the system, while the decisions
+motivating the changes are still fresh in the mind of practitioners.
+Agility and lean thinking are not new concepts. They date back to the
+seventies where Toyota, the car manufacturer, proposed just-in-time
+manufacturing techniques to produce high quality products that meet
+customers' needs {[}180{]}.
+
+Just-in-time manufacturing relies on several management philosophies and
+tools: continuous improvement (product-oriented layout of plants,
+division of systems, simplicity), elimination of waste (overproduction,
+waiting time, inventory waste, transportation, product defects),
+Hausukipingu (clean workspaces), Kabans (pulling the right number of
+items from the right shelves at just the right time), Jidoka (autonomous
+machines with judgment capabilities) and Andons (signal problems for
+corrective action).\footnote{We kept the Japanese version of most of the
+  words as they are used without translation in the literature.}
+
+One of the cornerstones of the just-in-time manufacturing philosophy of
+the seventies and the agile manifesto of the 2000's is continuous
+improvement {[}60{]}. Other notions cross the gap between just-in-time
+manufacturing and just-in-time software improvement. For example,
+integrated development environments (IDEs) are Jidokas in a sense that
+they auto-complete us and auto-correct us based on past behavior and,
+unit tests, bug report management systems and quality assurance (QA)
+bots are Andons.
+
+PRECINCT, BIANCA, and CLEVER are designed to support just-in-time
+software quality improvement and maintenance techniques by continuously
+checking developer's code before its integration into a larger software
+system.
+
+We believe that commit-time software maintenance is the appropriate time
+to perform just-in-time software maintenance as commits mark the end of
+a task or sub-task that is ready to be versioned.
+
+JCHARMING adds value by proposing a mechanism for reproducing and fixing
+the remaining defects. We hope that software engineering researchers and
+practitioners find this work useful either as a starting point for
+exciting new research.
 
 \chapter{Appendices}\label{appendices}
 
@@ -6581,8 +6658,9 @@ repository}\label{file-systems-and-repository}
 \hypertarget{refs}{}
 \hypertarget{ref-Alencar2014}{}
 {[}1{]} Alencar, D., Abebe, S.L. and Mcintosh, S. 2014. An Empirical
-Study of Delays in the Integration of Addressed Issues. \emph{Software
-maintenance and evolution (iCSME)} (2014).
+Study of Delays in the Integration of Addressed Issues.
+\emph{Proceedings of the international conference on software
+maintenance and evolution} (2014), 281--290.
 
 \hypertarget{ref-Antoniol2002}{}
 {[}2{]} Antoniol, G., Canfora, G., Casazza, G., De Lucia, A. and Merlo,
@@ -6592,8 +6670,8 @@ E. 2002. Recovering traceability links between code and documentation.
 
 \hypertarget{ref-Anvik2006}{}
 {[}3{]} Anvik, J., Hiew, L. and Murphy, G.C. 2006. Who should fix this
-bug? \emph{Proceeding of the 28th international conference on software
-engineering - iCSE '06} (New York, New York, USA, May 2006), 361.
+bug? \emph{Proceeding of the international conference on software
+engineering} (2006), 361.
 
 \hypertarget{ref-ApacheSoftwareFoundation}{}
 {[}4{]} Apache Software Foundation Apache Ant.
@@ -6615,7 +6693,7 @@ learning and data mining.
 \hypertarget{ref-Artzi2008}{}
 {[}9{]} Artzi, S., Kim, S. and Ernst, M.D. 2008. Recrash: Making
 software failures reproducible by preserving object states.
-\emph{Proceedings of the 22nd european conference on object-oriented
+\emph{Proceedings of the european conference on object-oriented
 programming} (2008), 542--565.
 
 \hypertarget{ref-Avizienis2004}{}
@@ -6627,15 +6705,14 @@ programming} (2008), 542--565.
 \hypertarget{ref-Ayewah2007}{}
 {[}11{]} Ayewah, N., Pugh, W., Morgenthaler, J.D., Penix, J. and Zhou,
 Y. 2007. Evaluating static analysis defect warnings on production
-software. \emph{Proceedings of the 7th aCM sIGPLAN-sIGSOFT workshop on
-program analysis for software tools and engineering - pASTE '07} (New
-York, New York, USA, Jun. 2007), 1--8.
+software. \emph{Proceedings of the workshop on program analysis for
+software tools and engineering} (2007), 1--8.
 
 \hypertarget{ref-Bachmann2010}{}
 {[}12{]} Bachmann, A., Bird, C., Rahman, F., Devanbu, P. and Bernstein,
-A. 2010. The missing links. \emph{Proceedings of the eighteenth aCM
-sIGSOFT international symposium on foundations of software engineering -
-fSE '10} (New York, New York, USA, Nov. 2010), 97.
+A. 2010. The missing links. \emph{Proceedings of the acm sigsoft
+international symposium on foundations of software engineering} (2010),
+97.
 
 \hypertarget{ref-Baier2008}{}
 {[}13{]} Baier, C. and Katoen, J.-P. 2008. \emph{Principles of Model
@@ -6643,8 +6720,8 @@ Checking}. MIT press Cambridge.
 
 \hypertarget{ref-Baker}{}
 {[}14{]} Baker, B. 1995. On finding duplication and near-duplication in
-large software systems. \emph{Proceedings of the 2nd working conference
-on reverse engineering} (1995), 86--95.
+large software systems. \emph{Proceedings of the working conference on
+reverse engineering} (1995), 86--95.
 
 \hypertarget{ref-Balazinska}{}
 {[}15{]} Balazinska, M., Merlo, E., Dagenais, M., Lague, B. and
@@ -6660,26 +6737,25 @@ Transactions on Software Engineering}. 22, 10 (1996), 751--761.
 \hypertarget{ref-Bavota2013}{}
 {[}17{]} Bavota, G., Canfora, G., Penta, M.D., Oliveto, R. and
 Panichella, S. 2013. The Evolution of Project Inter-dependencies in a
-Software Ecosystem: The Case of Apache. \emph{2013 iEEE international
-conference on software maintenance} (Sep. 2013), 280--289.
+Software Ecosystem: The Case of Apache. \emph{Proceedings of the
+international conference on software maintenance} (2013), 280--289.
 
 \hypertarget{ref-Baxter1998}{}
 {[}18{]} Baxter, I.D., Yahin, A., Moura, L., Sant'Anna, M. and Bier, L.
 1998. Clone Detection Using Abstract Syntax Trees. \emph{Proceedings of
-the iEEE international conference on software maintenance.} (Mar. 1998),
+the ieee international conference on software maintenance.} (1998),
 368--377.
 
 \hypertarget{ref-Beckwith2006}{}
 {[}19{]} Beckwith, L., Kissinger, C., Burnett, M., Wiedenbeck, S.,
 Lawrance, J., Blackwell, A. and Cook, C. 2006. Tinkering and gender in
-end-user programmers' debugging. \emph{Proceedings of the sIGCHI
+end-user programmers' debugging. \emph{Proceedings of the sigchi
 conference on human factors in computing systems} (2006), 231--240.
 
 \hypertarget{ref-Bell2013}{}
 {[}20{]} Bell, J., Sarda, N. and Kaiser, G. 2013. Chronicler:
-Lightweight recording to reproduce field failures. \emph{2013 35th
-international conference on software engineering (iCSE)} (May 2013),
-362--371.
+Lightweight recording to reproduce field failures. \emph{Proceedings of
+the international conference on software engineering} (2013), 362--371.
 
 \hypertarget{ref-Bellon2007}{}
 {[}21{]} Bellon, S., Koschke, R., Antoniol, G., Krinke, J. and Merlo, E.
@@ -6689,24 +6765,23 @@ Transactions on Software Engineering}. 33, 9 (Sep. 2007), 577--591.
 \hypertarget{ref-Bettenburg2008}{}
 {[}22{]} Bettenburg, N., Just, S., Schröter, A., Weiss, C., Premraj, R.
 and Zimmermann, T. 2008. What makes a good bug report? \emph{Proceedings
-of the 16th aCM sIGSOFT international symposium on foundations of
-software engineering} (New York, New York, USA, 2008), 308.
+of the 16th acm sigsoft international symposium on foundations of
+software engineering} (2008), 308.
 
 \hypertarget{ref-Bettenburg2008a}{}
 {[}23{]} Bettenburg, N., Premraj, R. and Zimmermann, T. 2008. Duplicate
-bug reports considered harmful \ldots{} really? \emph{2008 iEEE
+bug reports considered harmful \ldots{} really? \emph{Proceedings of the
 international conference on software maintenance} (2008), 337--345.
 
 \hypertarget{ref-Bhattacharya2011}{}
 {[}24{]} Bhattacharya, P. and Neamtiu, I. 2011. Bug-fix time prediction
 models: can we do better? \emph{Proceeding of the international
-conference on mining software repositories} (New York, New York, USA,
-May 2011), 207--210.
+conference on mining software repositories} (2011), 207--210.
 
 \hypertarget{ref-Bortis2013}{}
 {[}25{]} Bortis, G. and Hoek, A. van der 2013. PorchLight: A tag-based
-approach to bug triaging. \emph{2013 35th international conference on
-software engineering (iCSE)} (May 2013), 342--351.
+approach to bug triaging. \emph{Proceeding of the international
+conference on software engineering} (2013), 342--351.
 
 \hypertarget{ref-Briand1999a}{}
 {[}26{]} Briand, L., Daly, J. and Wust, J. 1999. A unified framework for
@@ -6724,589 +6799,580 @@ Bloom Filters: A Survey. \emph{Internet Mathematics}. 1, 4 (Jan. 2004),
 \hypertarget{ref-Burg2013}{}
 {[}29{]} Burg, B., Bailey, R., Ko, A.J. and Ernst, M.D. 2013.
 Interactive record/replay for web application debugging.
-\emph{Proceedings of the 26th annual aCM symposium on user interface
-software and technology} (New York, New York, USA, Oct. 2013), 473--484.
+\emph{Proceedings of the annual acm symposium on user interface software
+and technology} (2013), 473--484.
 
 \hypertarget{ref-Burnstein2006}{}
 {[}30{]} Burnstein, I. 2006. \emph{Practical Software Testing: A
 Process-Oriented Approach}. Springer Science \& Business Media.
 
+\hypertarget{ref-chandra2009snugglebug}{}
+{[}31{]} Chandra, S., Fink, S.J. and Sridharan, M. 2009. Snugglebug: a
+powerful approach to weakest preconditions. \emph{ACM sigplan notices}
+(2009), 363--374.
+
 \hypertarget{ref-Chen2013a}{}
-{[}31{]} Chen, N. 2013. \emph{Star: stack trace based automatic crash
+{[}32{]} Chen, N. 2013. \emph{Star: stack trace based automatic crash
 reproduction}. Honk Kong University of Science; Technology.
 
 \hypertarget{ref-Chen2013}{}
-{[}32{]} Chen, N. 2013. \emph{Star: stack trace based automatic crash
+{[}33{]} Chen, N. 2013. \emph{Star: stack trace based automatic crash
 reproduction}. The Hong Kong University of Science; Technology.
 
 \hypertarget{ref-Chen2014}{}
-{[}33{]} Chen, T.-h., Nagappan, M., Shihab, E. and Hassan, A.E. 2014. An
+{[}34{]} Chen, T.-h., Nagappan, M., Shihab, E. and Hassan, A.E. 2014. An
 Empirical Study of Dormant Bugs Categories and Subject Descriptors.
 \emph{Proceedings of the international conference on mining software
 repository} (2014), 82--91.
 
 \hypertarget{ref-Chidamber1994}{}
-{[}34{]} Chidamber, S. and Kemerer, C. 1994. A metrics suite for object
+{[}35{]} Chidamber, S. and Kemerer, C. 1994. A metrics suite for object
 oriented design. \emph{IEEE Transactions on Software Engineering}. 20, 6
 (Jun. 1994), 476--493.
 
 \hypertarget{ref-ChrisVignola2014}{}
-{[}35{]} Chris Vignola 2014. The Java Community Process(SM) Program -
+{[}36{]} Chris Vignola 2014. The Java Community Process(SM) Program -
 JSRs: Java Specification Requests - detail JSR\# 352.
 
 \hypertarget{ref-Clause2007}{}
-{[}36{]} Clause, J. and Orso, A. 2007. A Technique for Enabling and
-Supporting Debugging of Field Failures. \emph{Proceedings of the 29th
+{[}37{]} Clause, J. and Orso, A. 2007. A Technique for Enabling and
+Supporting Debugging of Field Failures. \emph{Proceedings of the
 international conference on software engineering} (2007), 261--270.
 
 \hypertarget{ref-CollabNet}{}
-{[}37{]} CollabNet Tigris.org: Open Source Software Engineering.
+{[}38{]} CollabNet Tigris.org: Open Source Software Engineering.
 
 \hypertarget{ref-Cordy2006a}{}
-{[}38{]} Cordy, J.R. 2006. Source transformation, analysis and
+{[}39{]} Cordy, J.R. 2006. Source transformation, analysis and
 generation in TXL. \emph{Proceedings of the symposium on partial
-evaluation and semantics-based program manipulation} (New York, New
-York, USA, Jan. 2006), 1--11.
+evaluation and semantics-based program manipulation} (2006), 1--11.
 
 \hypertarget{ref-Cordy2011}{}
-{[}39{]} Cordy, J.R. and Roy, C.K. 2011. The NiCad Clone Detector.
+{[}40{]} Cordy, J.R. and Roy, C.K. 2011. The NiCad Clone Detector.
 \emph{Proceedings of the international conference on program
-comprehension} (Jun. 2011), 219--220.
+comprehension} (2011), 219--220.
 
 \hypertarget{ref-Czerwonka2013}{}
-{[}40{]} Czerwonka, J., Nagappan, N., Schulte, W. and Murphy, B. 2013.
+{[}41{]} Czerwonka, J., Nagappan, N., Schulte, W. and Murphy, B. 2013.
 CODEMINE: Building a Software Development Data Analytics Platform at
 Microsoft. \emph{IEEE Software}. 30, 4 (Jul. 2013), 64--71.
 
 \hypertarget{ref-DAmbros2010}{}
-{[}41{]} D'Ambros, M., Lanza, M. and Robbes, R. 2010. An extensive
-comparison of bug prediction approaches. \emph{2010 7th iEEE working
-conference on mining software repositories (mSR 2010)} (May 2010),
-31--41.
+{[}42{]} D'Ambros, M., Lanza, M. and Robbes, R. 2010. An extensive
+comparison of bug prediction approaches. \emph{Proceedings ot the
+working conference on mining software repositories} (2010), 31--41.
 
 \hypertarget{ref-Dallmeier}{}
-{[}42{]} Dallmeier, V., Zeller, A. and Meyer, B. 2009. Generating Fixes
+{[}43{]} Dallmeier, V., Zeller, A. and Meyer, B. 2009. Generating Fixes
 from Object Behavior Anomalies. \emph{Proceedings of the international
 conference on automated software engineering} (2009), 550--554.
 
 \hypertarget{ref-Dangel2000}{}
-{[}43{]} Dangel, A. 2000. PMD.
+{[}44{]} Dangel, A. 2000. PMD.
 
 \hypertarget{ref-de2001program}{}
-{[}44{]} De Lucia, A. 2001. Program slicing: Methods and applications.
+{[}45{]} De Lucia, A. 2001. Program slicing: Methods and applications.
 \emph{International working conference on source code analysis and
 manipulation} (2001), 144.
 
 \hypertarget{ref-de2008z3}{}
-{[}45{]} De Moura, L. and Bjørner, N. 2008. Z3: An efficient SMT solver.
+{[}46{]} De Moura, L. and Bjørner, N. 2008. Z3: An efficient SMT solver.
 \emph{Tools and algorithms for the construction and analysis of
 systems}. Springer. 337--340.
 
 \hypertarget{ref-Dean}{}
-{[}46{]} Dean, T.R., Cordy, J.R., Malton, A.J. and Schneider, K.A. 2003.
+{[}47{]} Dean, T.R., Cordy, J.R., Malton, A.J. and Schneider, K.A. 2003.
 Agile Parsing in TXL. \emph{Proceedings of the international conference
 on automated software engineering} (2003), 311--336.
 
 \hypertarget{ref-demange2013}{}
-{[}47{]} Demange, A., Moha, N. and Tremblay, G. 2013. Detection of SOA
+{[}48{]} Demange, A., Moha, N. and Tremblay, G. 2013. Detection of SOA
 Patterns. \emph{Proceedings of the international conference on
 service-oriented computing} (2013), 114--130.
 
 \hypertarget{ref-StephaneDucasse}{}
-{[}48{]} Ducasse, S., Rieger, M. and Demeyer, S. 1999. A Language
+{[}49{]} Ducasse, S., Rieger, M. and Demeyer, S. 1999. A Language
 Independent Approach for Detecting Duplicated Code. \emph{Proceedings of
 the international conference on software maintenance} (1999), 109--118.
 
 \hypertarget{ref-Dutertre2006}{}
-{[}49{]} Dutertre, B. and Moura, L.D. 2006. The yices smt solver.
-\emph{Tool paper at http://yices.csl.sri.com/tool-paper.pdf}. 2, 2
-(2006).
+{[}50{]} Dutertre, B. and Moura, L.D. 2006. \emph{The yices smt solver}.
+Technical Report \#2.
 
 \hypertarget{ref-Dyer2013}{}
-{[}50{]} Dyer, R., Nguyen, H.A., Rajan, H. and Nguyen, T.N. 2013. Boa: a
+{[}51{]} Dyer, R., Nguyen, H.A., Rajan, H. and Nguyen, T.N. 2013. Boa: a
 language and infrastructure for analyzing ultra-large-scale software
 repositories. \emph{Proceedings of the international conference on
-software engineering} (May 2013), 422--431.
+software engineering} (2013), 422--431.
 
 \hypertarget{ref-Edelkamp2004}{}
-{[}51{]} Edelkamp, S., Leue, S. and Lluch-Lafuente, A. 2004. Directed
+{[}52{]} Edelkamp, S., Leue, S. and Lluch-Lafuente, A. 2004. Directed
 explicit-state model checking in the validation of communication
 protocols. \emph{International Journal on Software Tools for Technology
 Transfer (STTT)}. 5, 2-3 (Mar. 2004), 247--267.
 
 \hypertarget{ref-Edelkamp2009}{}
-{[}52{]} Edelkamp, S., Schuppan, V., Bosnacki, D., Wijs, A.,
+{[}53{]} Edelkamp, S., Schuppan, V., Bosnacki, D., Wijs, A.,
 FehnkerAnsgar and Aljazzar, H. 2009. \emph{Survey on directed model
 checking}. Springer.
 
 \hypertarget{ref-ElEmam2001}{}
-{[}53{]} El Emam, K., Melo, W. and Machado, J.C. 2001. The prediction of
+{[}54{]} El Emam, K., Melo, W. and Machado, J.C. 2001. The prediction of
 faulty classes using object-oriented design metrics. \emph{Journal of
 Systems and Software}. 56, 1 (Feb. 2001), 63--75.
 
 \hypertarget{ref-Eldh2001}{}
-{[}54{]} Eldh, S. 2001. \emph{On Test Design}. Mälardalen.
+{[}55{]} Eldh, S. 2001. \emph{On Test Design}. Mälardalen.
 
 \hypertarget{ref-Eyolfson2011}{}
-{[}55{]} Eyolfson, J., Tan, L. and Lam, P. 2011. Do time of day and
+{[}56{]} Eyolfson, J., Tan, L. and Lam, P. 2011. Do time of day and
 developer experience affect commit bugginess. \emph{Proceeding of the
-8th working conference on mining software repositories - mSR '11} (New
-York, New York, USA, May 2011), 153.
+working conference on mining software repositories} (New York, New York,
+USA, May 2011), 153.
 
 \hypertarget{ref-Fischer}{}
-{[}56{]} Fischer, M., Pinzger, M. and Gall, H. Populating a Release
+{[}57{]} Fischer, M., Pinzger, M. and Gall, H. Populating a Release
 History Database from version control and bug tracking systems.
-\emph{International conference on software maintenance, 2003. iCSM 2003.
-proceedings.} 23--32.
+\emph{Proceedings of the international conference on software
+maintenance} 23--32.
 
 \hypertarget{ref-Fleiss1973}{}
-{[}57{]} Fleiss, J.L. and Cohen, J. 1973. The Equivalence of Weighted
+{[}58{]} Fleiss, J.L. and Cohen, J. 1973. The Equivalence of Weighted
 Kappa and the Intraclass Correlation Coefficient as Measures of
 Reliability. \emph{Educational and Psychological Measurement}. 33, 3
 (Oct. 1973), 613--619.
 
 \hypertarget{ref-Foss2015}{}
-{[}58{]} Foss, S.L. and Murphy, G.C. 2015. Do developers respond to code
-stability warnings? \emph{Proceedings of the 25th annual international
-conference on computer science and software engineering} (Nov. 2015),
+{[}59{]} Foss, S.L. and Murphy, G.C. 2015. Do developers respond to code
+stability warnings? \emph{Proceedings of the annual international
+conference on computer science and software engineering} (2015),
 162--170.
 
 \hypertarget{ref-fowler2001agile}{}
-{[}59{]} Fowler, M. and Highsmith, J. 2001. The agile manifesto.
+{[}60{]} Fowler, M. and Highsmith, J. 2001. The agile manifesto.
 \emph{Software Development}. 9, 8 (2001), 28--35.
 
 \hypertarget{ref-Gabel2008}{}
-{[}60{]} Gabel, M., Jiang, L. and Su, Z. 2008. Scalable detection of
+{[}61{]} Gabel, M., Jiang, L. and Su, Z. 2008. Scalable detection of
 semantic clones. \emph{Proceedings of the 13th international conference
-on software engineering} (New York, New York, USA, 2008), 321--330.
+on software engineering} (2008), 321--330.
 
 \hypertarget{ref-Girvan2002}{}
-{[}61{]} Girvan, M. and Newman, M.E.J. 2002. Community structure in
+{[}62{]} Girvan, M. and Newman, M.E.J. 2002. Community structure in
 social and biological networks. \emph{Proceedings of the National
-Academy of Sciences}. 99, 12 (Jun. 2002), 7821--7826.
+Academy of Sciences}. 99, 12 (2002), 7821--7826.
 
 \hypertarget{ref-Gode2009}{}
-{[}62{]} Göde, N. and Koschke, R. 2009. Incremental Clone Detection.
-\emph{Proceedings of the 13th european conference on software
-maintenance and reengineering} (2009), 219--228.
+{[}63{]} Göde, N. and Koschke, R. 2009. Incremental Clone Detection.
+\emph{Proceedings of the european conference on software maintenance and
+reengineering} (2009), 219--228.
 
 \hypertarget{ref-Graphwalker2016}{}
-{[}63{]} Graphwalker 2016. GraphWalker for testers.
+{[}64{]} Graphwalker 2016. GraphWalker for testers.
 \emph{Http://graphwalker.github.io/} (2016).
 
 \hypertarget{ref-Gyimothy2005}{}
-{[}64{]} Gyimothy, T., Ferenc, R. and Siket, I. 2005. Empirical
+{[}65{]} Gyimothy, T., Ferenc, R. and Siket, I. 2005. Empirical
 validation of object-oriented metrics on open source software for fault
 prediction. \emph{IEEE Transactions on Software Engineering}. 31, 10
 (Oct. 2005), 897--910.
 
 \hypertarget{ref-Hamill2014}{}
-{[}65{]} Hamill, M. and Goseva-Popstojanova, K. 2014. Exploring fault
+{[}66{]} Hamill, M. and Goseva-Popstojanova, K. 2014. Exploring fault
 types, detection activities, and failure severity in an evolving
 safety-critical software system. \emph{Software Quality Journal}. 23, 2
-(Apr. 2014), 229--265.
+(2014), 229--265.
 
 \hypertarget{ref-Hassan2005}{}
-{[}66{]} Hassan, A. and Holt, R. 2005. The top ten list: dynamic fault
+{[}67{]} Hassan, A. and Holt, R. 2005. The top ten list: dynamic fault
 prediction. \emph{Proceedings of the international conference on
 software maintenance} (2005), 263--272.
 
 \hypertarget{ref-Hassan2009}{}
-{[}67{]} Hassan, A.E. 2009. Predicting faults using the complexity of
+{[}68{]} Hassan, A.E. 2009. Predicting faults using the complexity of
 code changes. \emph{Proceedings of the international conference on
-software engineering} (May 2009), 78--88.
+software engineering} (2009), 78--88.
 
 \hypertarget{ref-Havelund2015}{}
-{[}68{]} Havelund, K., Holzmann, G. and Joshi, R. eds. 2015. \emph{NASA
+{[}69{]} Havelund, K., Holzmann, G. and Joshi, R. eds. 2015. \emph{NASA
 Formal Methods}. Springer International Publishing.
 
 \hypertarget{ref-HealthSocial2002}{}
-{[}69{]} Health, Social and Research, E. 2002. \emph{The Economic
+{[}70{]} Health, Social and Research, E. 2002. \emph{The Economic
 Impacts of Inadequate Infrastructure for Software Testing}.
 
 \hypertarget{ref-Herbold2011}{}
-{[}70{]} Herbold, S., Grabowski, J., Waack, S. and Bünting, U. 2011.
+{[}71{]} Herbold, S., Grabowski, J., Waack, S. and Bünting, U. 2011.
 Improved Bug Reporting and Reproduction through Non-intrusive GUI Usage
-Monitoring and Automated Replaying. \emph{2011 iEEE fourth international
-conference on software testing, verification and validation workshops}
-(Mar. 2011), 232--241.
+Monitoring and Automated Replaying. \emph{Proceedings of the
+international conference on software testing, verification and
+validation workshops} (2011), 232--241.
 
 \hypertarget{ref-Herraiz2008}{}
-{[}71{]} Herraiz, I., German, D.M., Gonzalez-Barahona, J.M. and Robles,
+{[}72{]} Herraiz, I., German, D.M., Gonzalez-Barahona, J.M. and Robles,
 G. 2008. Towards a simplification of the bug report form in eclipse.
-\emph{Proceedings of the 2008 international workshop on mining software
-repositories - mSR '08} (New York, New York, USA, May 2008), 145.
+\emph{Proceedings of the international workshop on mining software
+repositories} (2008), 145.
 
 \hypertarget{ref-Higo2011}{}
-{[}72{]} Higo, Y., Yasushi, U., Nishino, M. and Kusumoto, S. 2011.
+{[}73{]} Higo, Y., Yasushi, U., Nishino, M. and Kusumoto, S. 2011.
 Incremental Code Clone Detection: A PDG-based Approach.
-\emph{Proceedings of the 18th working conference on reverse engineering}
-(Oct. 2011), 3--12.
+\emph{Proceedings of the working conference on reverse engineering}
+(2011), 3--12.
 
 \hypertarget{ref-Hindle2008}{}
-{[}73{]} Hindle, A., German, D.M. and Holt, R. 2008. What do large
+{[}74{]} Hindle, A., German, D.M. and Holt, R. 2008. What do large
 commits tell us?: a taxonomical study of large commits.
 \emph{Proceedings of the international workshop on mining software
-repositories} (New York, New York, USA, 2008), 99--108.
+repositories} (2008), 99--108.
 
 \hypertarget{ref-holzmann1997model}{}
-{[}74{]} Holzmann, G.J. 1997. The model checker SPIN. \emph{IEEE
+{[}75{]} Holzmann, G.J. 1997. The model checker SPIN. \emph{IEEE
 Transactions on Software Engineering}. 23, 5 (1997), 279--295.
 
 \hypertarget{ref-Hovemeyer2007}{}
-{[}75{]} Hovemeyer, D. 2007. FindBugs.
+{[}76{]} Hovemeyer, D. 2007. FindBugs.
 
 \hypertarget{ref-Hummel2010}{}
-{[}76{]} Hummel, B., Juergens, E., Heinemann, L. and Conradt, M. 2010.
+{[}77{]} Hummel, B., Juergens, E., Heinemann, L. and Conradt, M. 2010.
 Index-based code clone detection: incremental, distributed, scalable.
-\emph{Proceedings of the iEEE international conference on software
-maintenance} (Sep. 2010), 1--9.
+\emph{Proceedings of the international conference on software
+maintenance} (2010), 1--9.
 
 \hypertarget{ref-Hunt1977}{}
-{[}77{]} Hunt, J.W. and Szymanski, T.G. 1977. A fast algorithm for
+{[}78{]} Hunt, J.W. and Szymanski, T.G. 1977. A fast algorithm for
 computing longest common subsequences. \emph{Communications of the ACM}.
-20, 5 (May 1977), 350--353.
+20, 5 (1977), 350--353.
 
 \hypertarget{ref-IBM2006}{}
-{[}78{]} IBM 2006. T. J. Watson Libraries for Analysis (WALA).
+{[}79{]} IBM 2006. T. J. Watson Libraries for Analysis (WALA).
 
 \hypertarget{ref-Jalbert2008}{}
-{[}79{]} Jalbert, N. and Weimer, W. 2008. Automated duplicate detection
-for bug tracking systems. \emph{2008 iEEE international conference on
-dependable systems and networks with fTCS and dCC (dSN)} (2008), 52--61.
+{[}80{]} Jalbert, N. and Weimer, W. 2008. Automated duplicate detection
+for bug tracking systems. \emph{Proceedings of the international
+conference on dependable systems and networks with ftcs and dcc} (2008),
+52--61.
 
 \hypertarget{ref-Jaygarl}{}
-{[}80{]} Jaygarl, H., Kim, S., Xie, T. and Chang, C.K. 2010. OCAT:
-Object Capture based Automated Testing. \emph{Proceedings of the 19th
+{[}81{]} Jaygarl, H., Kim, S., Xie, T. and Chang, C.K. 2010. OCAT:
+Object Capture based Automated Testing. \emph{Proceedings of the
 international symposium on software testing and analysis} (2010),
 159--170.
 
 \hypertarget{ref-Jeong2009}{}
-{[}81{]} Jeong, G., Kim, S. and Zimmermann, T. 2009. Improving bug
-triage with bug tossing graphs. \emph{Proceedings of the the 7th joint
-meeting of the european software engineering conference and the aCM
-sIGSOFT symposium on the foundations of software engineering} (New York,
-New York, USA, Aug. 2009), 111.
+{[}82{]} Jeong, G., Kim, S. and Zimmermann, T. 2009. Improving bug
+triage with bug tossing graphs. \emph{Proceedings of the the joint
+meeting of the european software engineering conference and the acm
+sigsoft symposium on the foundations of software engineering} (2009),
+111.
 
 \hypertarget{ref-Jiang2007}{}
-{[}82{]} Jiang, L., Misherghi, G., Su, Z. and Glondu, S. 2007. DECKARD:
+{[}83{]} Jiang, L., Misherghi, G., Su, Z. and Glondu, S. 2007. DECKARD:
 Scalable and Accurate Tree-Based Detection of Code Clones.
-\emph{Proceedings of the 29th international conference on software
-engineering} (May 2007), 96--105.
+\emph{Proceedings of the international conference on software
+engineering} (2007), 96--105.
 
 \hypertarget{ref-Jin2012}{}
-{[}83{]} Jin, W. and Orso, A. 2012. BugRedux: Reproducing field failures
-for in-house debugging. \emph{Proceedings of the 34th international
-conference on software engineering, iEEE} (Jun. 2012), 474--484.
+{[}84{]} Jin, W. and Orso, A. 2012. BugRedux: Reproducing field failures
+for in-house debugging. \emph{Proceedings of the international
+conference on software engineering, iEEE} (2012), 474--484.
 
 \hypertarget{ref-Jin2013}{}
-{[}84{]} Jin, W. and Orso, A. 2013. F3: fault localization for field
-failures. \emph{Proceedings of the 2013 international symposium on
-software testing and analysis} (New York, New York, USA, 2013),
-213--223.
+{[}85{]} Jin, W. and Orso, A. 2013. F3: fault localization for field
+failures. \emph{Proceedings of the international symposium on software
+testing and analysis} (2013), 213--223.
 
 \hypertarget{ref-Johnson2013}{}
-{[}85{]} Johnson, B., Song, Y., Murphy-Hill, E. and Bowdidge, R. 2013.
+{[}86{]} Johnson, B., Song, Y., Murphy-Hill, E. and Bowdidge, R. 2013.
 Why don't software developers use static analysis tools to find bugs?
 \emph{Proceedings of the international conference on software
-engineering} (May 2013), 672--681.
+engineering} (2013), 672--681.
 
 \hypertarget{ref-Johnson1993}{}
-{[}86{]} Johnson, J.H. 1993. Identifying redundancy in source code using
+{[}87{]} Johnson, J.H. 1993. Identifying redundancy in source code using
 fingerprints. \emph{Proceedings of the conference of the centre for
-advanced studies on collaborative research} (Oct. 1993), 171--183.
+advanced studies on collaborative research} (1993), 171--183.
 
 \hypertarget{ref-Johnson1994}{}
-{[}87{]} Johnson, J.H. 1994. Visualizing textual redundancy in legacy
+{[}88{]} Johnson, J.H. 1994. Visualizing textual redundancy in legacy
 source. \emph{Proceedings of the conference of the centre for advanced
-studies on collaborative research} (Oct. 1994), 32.
+studies on collaborative research} (1994), 32.
 
 \hypertarget{ref-JoshuaOMadadhain}{}
-{[}88{]} Joshua O'Madadhain, Danyel Fisher, Scott White, Padhraic Smyth,
+{[}89{]} Joshua O'Madadhain, Danyel Fisher, Scott White, Padhraic Smyth,
 Y.-b.B. 2005. Analysis and Visualization of Network Data using JUNG.
 \emph{Journal of Statistical Software}. 10, 2 (2005), 1--35.
 
 \hypertarget{ref-Juergens2009}{}
-{[}89{]} Juergens, E., Deissenboeck, F., Hummel, B. and Wagner, S. 2009.
-Do code clones matter? \emph{Proceedings of the iEEE 31st international
-conference on software engineering} (May 2009), 485--495.
+{[}90{]} Juergens, E., Deissenboeck, F., Hummel, B. and Wagner, S. 2009.
+Do code clones matter? \emph{Proceedings of the international conference
+on software engineering} (2009), 485--495.
 
 \hypertarget{ref-Jung2009}{}
-{[}90{]} Jung, Y., Oh, H. and Yi, K. 2009. Identifying static analysis
+{[}91{]} Jung, Y., Oh, H. and Yi, K. 2009. Identifying static analysis
 techniques for finding non-fix hunks in fix revisions. \emph{Proceeding
-of the aCM first international workshop on data-intensive software
-management and mining - dSMM '09} (New York, New York, USA, Nov. 2009),
-13.
+of the international workshop on data-intensive software management and
+mining} (2009), 13.
 
 \hypertarget{ref-Kamei2013}{}
-{[}91{]} Kamei, Y., Shihab, E., Adams, B., Hassan, A.E., Mockus, A.,
-Sinha, A. and Ubayashi, N. 2013. A large-scale empirical study of
-just-in-time quality assurance. \emph{IEEE Transactions on Software
-Engineering}. 39, 6 (Jun. 2013), 757--773.
+{[}92{]} Kamei, Y., Shihab, E., Ihara, A., Ibrahim, W.M., Ohira, M.,
+Adams, B., Hassan, A.E. and Matsumoto, K.I. 2013. Studying re-opened
+bugs in open source software. \emph{IEEE Transactions on Software
+Engineering}. 18, 5 (2013), 1005--1042.
 
 \hypertarget{ref-Kamiya2002}{}
-{[}92{]} Kamiya, T., Kusumoto, S. and Inoue, K. 2002. CCFinder: a
+{[}93{]} Kamiya, T., Kusumoto, S. and Inoue, K. 2002. CCFinder: a
 multilinguistic token-based code clone detection system for large scale
 source code. \emph{IEEE Transactions on Software Engineering}. 28, 7
 (Jul. 2002), 654--670.
 
 \hypertarget{ref-Kapser}{}
-{[}93{]} Kapser, C. and Godfrey, M. 2004. Aiding comprehension of
-cloning through categorization. \emph{Proceedings. 7th international
-workshop on principles of software evolution, 2004.} (2004), 85--94.
+{[}94{]} Kapser, C. and Godfrey, M. 2004. Aiding comprehension of
+cloning through categorization. \emph{Proceedings of the international
+workshop on principles of software evolution.} (2004), 85--94.
 
 \hypertarget{ref-Kapser2006}{}
-{[}94{]} Kapser, C. and Godfrey, M. 2006. Cloning Considered Harmful
-Considered Harmful. \emph{Proceedings of the 13th working conference on
-reverse engineering} (Oct. 2006), 19--28.
+{[}95{]} Kapser, C. and Godfrey, M. 2006. Cloning Considered Harmful
+Considered Harmful. \emph{Proceedings of the working conference on
+reverse engineering} (2006), 19--28.
 
 \hypertarget{ref-CoryKapser}{}
-{[}95{]} Kapser, C. and Godfrey, M.W. 2003. Toward a Taxonomy of Clones
+{[}96{]} Kapser, C. and Godfrey, M.W. 2003. Toward a Taxonomy of Clones
 in Source Code: A Case Study. \emph{International workshop on evolution
 of large scale industrial software architectures} (2003), 67--78.
 
 \hypertarget{ref-Kim2013}{}
-{[}96{]} Kim, D., Nam, J., Song, J. and Kim, S. 2013. Automatic patch
+{[}97{]} Kim, D., Nam, J., Song, J. and Kim, S. 2013. Automatic patch
 generation learned from human-written patches. \emph{Proceedings of the
-international conference on software engineering} (May 2013), 802--811.
+international conference on software engineering} (2013), 802--811.
 
 \hypertarget{ref-Kim2011c}{}
-{[}97{]} Kim, D., Wang, X., Member, S., Kim, S., Zeller, A., Cheung,
+{[}98{]} Kim, D., Wang, X., Member, S., Kim, S., Zeller, A., Cheung,
 S.C., Member, S. and Park, S. 2011. Which Crashes Should I Fix First?:
 Predicting Top Crashes at an Early Stage to Prioritize Debugging
 Efforts. \emph{TRANSACTIONS ON SOFTWARE ENGINEERING}. 37, 3 (2011),
 430--447.
 
 \hypertarget{ref-Kim2005}{}
-{[}98{]} Kim, M., Sazawal, V. and Notkin, D. 2005. An empirical study of
+{[}99{]} Kim, M., Sazawal, V. and Notkin, D. 2005. An empirical study of
 code clone genealogies. \emph{ACM SIGSOFT Software Engineering Notes}.
 30, 5 (Sep. 2005), 187--196.
 
 \hypertarget{ref-Kim2006}{}
-{[}99{]} Kim, S., Zimmermann, T., Pan, K. and Jr. Whitehead, E. 2006.
-Automatic Identification of Bug-Introducing Changes. \emph{Proceedings
-of the international conference on automated software engineering}
-(2006), 81--90.
-
-\hypertarget{ref-Kim2006c}{}
 {[}100{]} Kim, S., Zimmermann, T., Pan, K. and Jr. Whitehead, E. 2006.
 Automatic Identification of Bug-Introducing Changes. \emph{Proceedings
 of the international conference on automated software engineering}
 (2006), 81--90.
 
+\hypertarget{ref-Kim2006c}{}
+{[}101{]} Kim, S., Zimmermann, T., Pan, K. and Jr. Whitehead, E. 2006.
+Automatic Identification of Bug-Introducing Changes. \emph{Proceedings
+of the international conference on automated software engineering}
+(2006), 81--90.
+
 \hypertarget{ref-Kim2007a}{}
-{[}101{]} Kim, S., Zimmermann, T., Whitehead Jr., E.J. and Zeller, A.
+{[}102{]} Kim, S., Zimmermann, T., Whitehead Jr., E.J. and Zeller, A.
 2007. Predicting Faults from Cached History. \emph{Proceedings of the
-international conference on software engineering} (May 2007), 489--498.
+international conference on software engineering} (2007), 489--498.
 
 \hypertarget{ref-Kim2007}{}
-{[}102{]} Kim, S., Zimmermann, T., Whitehead Jr., E.J. and Zeller, A.
+{[}103{]} Kim, S., Zimmermann, T., Whitehead Jr., E.J. and Zeller, A.
 2007. Predicting Faults from Cached History. \emph{Proceedings of the
 international conference on software engineering} (May 2007), 489--498.
 
 \hypertarget{ref-Ko2006d}{}
-{[}103{]} Ko, A., Myers, B., Coblenz, M. and Aung, H. 2006. An
+{[}104{]} Ko, A., Myers, B., Coblenz, M. and Aung, H. 2006. An
 Exploratory Study of How Developers Seek, Relate, and Collect Relevant
 Information during Software Maintenance Tasks. \emph{IEEE Transactions
 on Software Engineering}. 32, 12 (Dec. 2006), 971--987.
 
 \hypertarget{ref-Kontogiannis}{}
-{[}104{]} Kontogiannis, K. 1997. Evaluation experiments on the detection
+{[}105{]} Kontogiannis, K. 1997. Evaluation experiments on the detection
 of programming patterns using software metrics. \emph{Proceedings of the
-fourth working conference on reverse engineering} (1997), 44--54.
+working conference on reverse engineering} (1997), 44--54.
 
 \hypertarget{ref-Koponen2006}{}
-{[}105{]} Koponen, T. 2006. Life cycle of defects in open source
+{[}106{]} Koponen, T. 2006. Life cycle of defects in open source
 software projects. \emph{Open source systems} (2006), 195--200.
 
 \hypertarget{ref-Kpodjedo2010}{}
-{[}106{]} Kpodjedo, S., Ricca, F., Galinier, P., Guéhéneuc, Y.-G. and
+{[}107{]} Kpodjedo, S., Ricca, F., Galinier, P., Guéhéneuc, Y.-G. and
 Antoniol, G. 2010. Design evolution metrics for defect prediction in
 object oriented systems. \emph{Empirical Software Engineering}. 16, 1
 (Dec. 2010), 141--175.
 
 \hypertarget{ref-Krinke2001}{}
-{[}107{]} Krinke, J. 2001. Identifying Similar Code with Program
-Dependence Graphs. \emph{Proceedings of the eighth iEEE working
-conference on reverse engineering} (Oct. 2001), 301--309.
+{[}108{]} Krinke, J. 2001. Identifying Similar Code with Program
+Dependence Graphs. \emph{Proceedings of the eighth working conference on
+reverse engineering} (2001), 301--309.
 
 \hypertarget{ref-Kripke1963}{}
-{[}108{]} Kripke, S.A. 1963. Semantical Considerations on Modal Logic.
+{[}109{]} Kripke, S.A. 1963. Semantical Considerations on Modal Logic.
 \emph{Acta Philosophica Fennica}. 16, 1963 (1963), 83--94.
 
 \hypertarget{ref-kropf1999introduction}{}
-{[}109{]} Kropf, T. 1999. \emph{Introduction to formal hardware
+{[}110{]} Kropf, T. 1999. \emph{Introduction to formal hardware
 verification}. Springer.
 
 \hypertarget{ref-Lamkanfi2010}{}
-{[}110{]} Lamkanfi, A., Demeyer, S., Giger, E. and Goethals, B. 2010.
-Predicting the severity of a reported bug. \emph{2010 7th iEEE working
-conference on mining software repositories (mSR 2010)} (May 2010),
-1--10.
+{[}111{]} Lamkanfi, A., Demeyer, S., Giger, E. and Goethals, B. 2010.
+Predicting the severity of a reported bug. \emph{Proceedings of the
+working conference on mining software repositories} (2010), 1--10.
 
 \hypertarget{ref-Landis1977}{}
-{[}111{]} Landis, J.R. and Koch, G.G. 1977. The Measurement of Observer
-Agreement for Categorical Data. \emph{Biometrics}. 33, 1 (Mar. 1977),
-159.
+{[}112{]} Landis, J.R. and Koch, G.G. 1977. The Measurement of Observer
+Agreement for Categorical Data. \emph{Biometrics}. 33, 1 (1977), 159.
 
 \hypertarget{ref-LaToza2006}{}
-{[}112{]} Latoza, T.D., Venolia, G. and DeLine, R. 2006. Maintaining
+{[}113{]} Latoza, T.D., Venolia, G. and DeLine, R. 2006. Maintaining
 mental models: a study of developer work habits. \emph{Proceeding of the
-28th international conference on software engineering - iCSE '06} (New
-York, New York, USA, 2006), 492--501.
+international conference on software engineering} (2006), 492--501.
 
 \hypertarget{ref-Layman2007}{}
-{[}113{]} Layman, L., Williams, L. and Amant, R.S. 2007. Toward Reducing
+{[}114{]} Layman, L., Williams, L. and Amant, R.S. 2007. Toward Reducing
 Fault Fix Time: Understanding Developer Behavior for the Design of
-Automated Fault Detection Tools. \emph{Proceedings of the first
-international symposium on empirical software engineering and
-measurement (eSEM 2007)} (Sep. 2007), 176--185.
+Automated Fault Detection Tools. \emph{Proceedings of the international
+symposium on empirical software engineering and measurement} (2007),
+176--185.
 
 \hypertarget{ref-le2012systematic}{}
-{[}114{]} Le Goues, C., Dewey-Vogt, M., Forrest, S. and Weimer, W. 2012.
+{[}115{]} Le Goues, C., Dewey-Vogt, M., Forrest, S. and Weimer, W. 2012.
 A systematic study of automated program repair: Fixing 55 out of 105
 bugs for \$8 each. \emph{Proceedings of the international conference on
 software engineering} (2012), 3--13.
 
 \hypertarget{ref-le2015should}{}
-{[}115{]} Le, X.-B.D., Le, T.-D.B. and Lo, D. 2015. Should fixing these
+{[}116{]} Le, X.-B.D., Le, T.-D.B. and Lo, D. 2015. Should fixing these
 failures be delegated to automated program repair? \emph{Proceedings of
 the international symposium on software reliability engineering} (2015),
 427--437.
 
 \hypertarget{ref-Lee2011a}{}
-{[}116{]} Lee, T., Nam, J., Han, D., Kim, S. and In, H.P. 2011. Micro
+{[}117{]} Lee, T., Nam, J., Han, D., Kim, S. and In, H.P. 2011. Micro
 interaction metrics for defect prediction. \emph{Proceedings of the
-european conference on foundations of software engineering} (New York,
-New York, USA, 2011), 311--231.
+european conference on foundations of software engineering} (2011),
+311--231.
 
 \hypertarget{ref-Lewis2013}{}
-{[}117{]} Lewis, C., Lin, Z., Sadowski, C., Zhu, X., Ou, R. and
+{[}118{]} Lewis, C., Lin, Z., Sadowski, C., Zhu, X., Ou, R. and
 Whitehead Jr., E.J. 2013. Does bug prediction support human developers?
 Findings from a google case study. \emph{Proceedings of the
-international conference on software engineering} (May 2013), 372--381.
+international conference on software engineering} (2013), 372--381.
 
 \hypertarget{ref-Li2006}{}
-{[}118{]} Li, Z., Lu, S., Myagmar, S. and Zhou, Y. 2006. CP-Miner:
+{[}119{]} Li, Z., Lu, S., Myagmar, S. and Zhou, Y. 2006. CP-Miner:
 finding copy-paste and related bugs in large-scale software code.
 \emph{IEEE Transactions on Software Engineering}. 32, 3 (Mar. 2006),
 176--192.
 
 \hypertarget{ref-Lo2013}{}
-{[}119{]} Lo, D. 2013. A Comparative Study of Supervised Learning
+{[}120{]} Lo, D. 2013. A Comparative Study of Supervised Learning
 Algorithms for Re-opened Bug Prediction. \emph{Proceedings of the
-european conference on software maintenance and reengineering} (Mar.
-2013), 331--334.
+european conference on software maintenance and reengineering} (2013),
+331--334.
 
 \hypertarget{ref-Maiga2015}{}
-{[}120{]} Maiga, A., Hamou-Lhadj, A., Nayrolles, M., Koochekian Sabor,
+{[}121{]} Maiga, A., Hamou-Lhadj, A., Nayrolles, M., Koochekian Sabor,
 K. and Larsson, A. 2015. An empirical study on the handling of crash
-reports in a large software company: An experience report. \emph{2015
-iEEE 31st international conference on software maintenance and
-evolution, iCSME 2015 - proceedings} (2015), 342--351.
+reports in a large software company: An experience report.
+\emph{Proceedings of the international conference on software
+maintenance and evolution} (2015), 342--351.
 
 \hypertarget{ref-Manber1994}{}
-{[}121{]} Manber, U. 1994. Finding similar files in a large file system.
+{[}122{]} Manber, U. 1994. Finding similar files in a large file system.
 \emph{Proceedings of the usenix winter} (Jan. 1994), 1--10.
 
 \hypertarget{ref-Manevich2004}{}
-{[}122{]} Manevich, R., Sridharan, M. and Adams, S. 2004. PSE:
+{[}123{]} Manevich, R., Sridharan, M. and Adams, S. 2004. PSE:
 explaining program failures via postmortem static analysis. \emph{ACM
-sIGSOFT software engineering notes} (Nov. 2004), 63.
+sigsoft software engineering notes} (2004), 63.
 
 \hypertarget{ref-Marcus}{}
-{[}123{]} Marcus, A. and Maletic, J. 2001. Identification of high-level
+{[}124{]} Marcus, A. and Maletic, J. 2001. Identification of high-level
 concept clones in source code. \emph{Proceedings international
 conference on automated software engineering} (2001), 107--114.
 
 \hypertarget{ref-MartinFowler2009}{}
-{[}124{]} Martin Fowler 2009. FeatureBranch.
+{[}125{]} Martin Fowler 2009. FeatureBranch.
 
 \hypertarget{ref-mcmillan1993symbolic}{}
-{[}125{]} McMillan, K.L. 1993. \emph{Symbolic model checking}. Springer.
+{[}126{]} McMillan, K.L. 1993. \emph{Symbolic model checking}. Springer.
 
 \hypertarget{ref-Menzies2008}{}
-{[}126{]} Menzies, T. and Marcus, A. 2008. Automated severity assessment
-of software defect reports. \emph{2008 iEEE international conference on
-software maintenance} (Sep. 2008), 346--355.
+{[}127{]} Menzies, T. and Marcus, A. 2008. Automated severity assessment
+of software defect reports. \emph{Proceedings of the international
+conference on software maintenance} (2008), 346--355.
 
 \hypertarget{ref-menzies2007problems}{}
-{[}127{]} Menzies, T., Dekhtyar, A., Distefano, J. and Greenwald, J.
+{[}128{]} Menzies, T., Dekhtyar, A., Distefano, J. and Greenwald, J.
 2007. Problems with Precision: A Response to`` Comments on'Data Mining
 Static Code Attributes to Learn Defect Predictors'''. \emph{IEEE
 Transactions on Software Engineering}. 33, 9 (2007), 637.
 
 \hypertarget{ref-Moha}{}
-{[}128{]} Moha, N., Palma, F., Nayrolles, M., Joyen-Conseil, B.,
+{[}129{]} Moha, N., Palma, F., Nayrolles, M., Joyen-Conseil, B.,
 Guéhéneuc, Y.-G., Baudry, B. and Jézéquel, J.-M. 2012. Specification and
 Detection of SOA Antipatterns. \emph{Procedings of the International
 Conference on Service Oriented Computing}. (2012), 1--16.
 
 \hypertarget{ref-Nagappan2005}{}
-{[}129{]} Nagappan, N. and Ball, T. 2005. Static analysis tools as early
+{[}130{]} Nagappan, N. and Ball, T. 2005. Static analysis tools as early
 indicators of pre-release defect density. \emph{Proceedings of the
-international conference on software engineering} (New York, New York,
-USA, May 2005), 580--586.
+international conference on software engineering} (2005), 580--586.
 
 \hypertarget{ref-Nagappan}{}
-{[}130{]} Nagappan, N. and Ball, T. 2005. Use of relative code churn
+{[}131{]} Nagappan, N. and Ball, T. 2005. Use of relative code churn
 measures to predict system defect density. \emph{Proceedings of the
 international conference on software engineering} (2005), 284--292.
 
 \hypertarget{ref-Nagappan2006}{}
-{[}131{]} Nagappan, N., Ball, T. and Zeller, A. 2006. Mining metrics to
+{[}132{]} Nagappan, N., Ball, T. and Zeller, A. 2006. Mining metrics to
 predict component failures. \emph{Proceeding of the international
-conference on software engineering} (New York, New York, USA, May 2006),
-452--461.
+conference on software engineering} (2006), 452--461.
 
 \hypertarget{ref-Nam2013}{}
-{[}132{]} Nam, J., Pan, S.J. and Kim, S. 2013. Transfer defect learning.
+{[}133{]} Nam, J., Pan, S.J. and Kim, S. 2013. Transfer defect learning.
 \emph{Proceedings of the international conference on software
-engineering} (May 2013), 382--391.
+engineering} (2013), 382--391.
 
 \hypertarget{ref-Narayanasamy2005}{}
-{[}133{]} Narayanasamy, S., Pokam, G. and Calder, B. 2005. BugNet:
+{[}134{]} Narayanasamy, S., Pokam, G. and Calder, B. 2005. BugNet:
 Continuously Recording Program Execution for Deterministic Replay
 Debugging. \emph{Proceedings of the 32nd annual international symposium
-on computer architecture} (May 2005), 284--295.
+on computer architecture} (2005), 284--295.
 
 \hypertarget{ref-NASA2009}{}
-{[}134{]} NASA 2009. Open Mission Control Technologies.
+{[}135{]} NASA 2009. Open Mission Control Technologies.
 
 \hypertarget{ref-Nayrolles2018}{}
-{[}135{]} Nayrolles, M. and Hamou-lhadj, A. 2018. CLEVER: Combining Code
+{[}136{]} Nayrolles, M. and Hamou-lhadj, A. 2018. CLEVER: Combining Code
 Metrics with Clone Detection for Just-In-Time Fault Prevention and
 Resolution in Large Industrial Projects. \emph{Mining software
 repositories} (2018).
 
 \hypertarget{ref-Nayrolles2016b}{}
-{[}136{]} Nayrolles, M. and Hamou-Lhadj, W. 2016. BUMPER: A Tool to Cope
+{[}137{]} Nayrolles, M. and Hamou-Lhadj, W. 2016. BUMPER: A Tool to Cope
 with Natural Language Search of Millions Bugs and Fixes.
 \emph{International conference on software analysis, evolution, and
 reengineering} (2016), 649--652.
 
 \hypertarget{ref-Nayrolles2015}{}
-{[}137{]} Nayrolles, M., Hamou-Lhadj, A., Sofiene, T. and Larsson, A.
+{[}138{]} Nayrolles, M., Hamou-Lhadj, A., Sofiene, T. and Larsson, A.
 2015. JCHARMING : A Bug Reproduction Approach Using Crash Traces and
-Directed Model Checking. \emph{Proceedings of the 22nd international
+Directed Model Checking. \emph{Proceedings of the international
 conference on software analysis, evolution, and reengineering} (2015),
 101--110.
 
 \hypertarget{ref-Nayrolles2016d}{}
-{[}138{]} Nayrolles, M., Hamou-Lhadj, A., Tahar, S. and Larsson, A.
+{[}139{]} Nayrolles, M., Hamou-Lhadj, A., Tahar, S. and Larsson, A.
 2016. A bug reproduction approach based on directed model checking and
 crash traces. \emph{Journal of Software: Evolution and Process}. (2016).
 
 \hypertarget{ref-Nayrolles2015g}{}
-{[}139{]} Nayrolles, M., Hamou-Lhadj, A., Tahar, S. and Larsson, A.
+{[}140{]} Nayrolles, M., Hamou-Lhadj, A., Tahar, S. and Larsson, A.
 2015. JCHARMING: A bug reproduction approach using crash traces and
-directed model checking. \emph{2015 iEEE 22nd international conference
-on software analysis, evolution, and reengineering, sANER 2015 -
-proceedings} (2015).
-
-\hypertarget{ref-Nayrolles}{}
-{[}140{]} Nayrolles, M., Maiga, A., Hamou-lhadj, A. and Larsson, A. A
-Taxonomy of Bugs : An Empircial Study. 1--10.
+directed model checking. \emph{Proceedings of the nternational
+conference on software analysis, evolution, and reengineering} (2015).
 
 \hypertarget{ref-Nayrolles2013a}{}
 {[}141{]} Nayrolles, M., Moha, N. and Valtchev, P. 2013. Improving SOA
@@ -7314,309 +7380,304 @@ Antipatterns Detection in Service Based Systems by Mining Execution
 Traces. \emph{Working conference on reverse engineering} (2013),
 321--330.
 
+\hypertarget{ref-Nayrolles}{}
+{[}142{]} Nayrolles, M., Palma, F., Moha, N. and Guéhéneuc, Y.-G. 2012.
+SODA : A Tool Support for the Detection of SOA Antipatterns.
+\emph{Proceedings of the international conference on service oriented
+computing} (2012), 451--456.
+
 \hypertarget{ref-Nessa2008}{}
-{[}142{]} Nessa, S., Abedin, M., Wong, W.E., Khan, L. and Qi, Y. 2008.
+{[}143{]} Nessa, S., Abedin, M., Wong, W.E., Khan, L. and Qi, Y. 2008.
 Software Fault Localization Using N -gram Analysis. \emph{WASA} (2008),
 548--559.
 
 \hypertarget{ref-Newman2004}{}
-{[}143{]} Newman, M.E.J. and Girvan, M. 2004. Finding and evaluating
+{[}144{]} Newman, M.E.J. and Girvan, M. 2004. Finding and evaluating
 community structure in networks. \emph{Physical Review E}. 69, 2 (Feb.
 2004), 026113.
 
 \hypertarget{ref-Nguyen2012}{}
-{[}144{]} Nguyen, A.T., Nguyen, T.T., Nguyen, T.N., Lo, D. and Sun, C.
+{[}145{]} Nguyen, A.T., Nguyen, T.T., Nguyen, T.N., Lo, D. and Sun, C.
 2012. Duplicate bug report detection with a combination of information
-retrieval and topic modeling. \emph{Proceedings of the 27th iEEE/ACM
-international conference on automated software engineering - aSE 2012}
-(New York, New York, USA, 2012), 70.
+retrieval and topic modeling. \emph{Proceedings of the international
+conference on automated software engineering} (2012), 70.
 
 \hypertarget{ref-Nguyen2012a}{}
-{[}145{]} Nguyen, H.A., Nguyen, T.T., Pham, N.H., Al-Kofahi, J. and
+{[}146{]} Nguyen, H.A., Nguyen, T.T., Pham, N.H., Al-Kofahi, J. and
 Nguyen, T.N. 2012. Clone Management for Evolving Software. \emph{IEEE
 Transactions on Software Engineering}. 38, 5 (Sep. 2012), 1008--1026.
 
 \hypertarget{ref-Nguyen2009}{}
-{[}146{]} Nguyen, T.T., Nguyen, H.A., Pham, N.H., Al-Kofahi, J.M. and
+{[}147{]} Nguyen, T.T., Nguyen, H.A., Pham, N.H., Al-Kofahi, J.M. and
 Nguyen, T.N. 2009. Clone-Aware Configuration Management.
-\emph{Proceedings of the iEEE/ACM international conference on automated
-software engineering} (Nov. 2009), 123--134.
+\emph{Proceedings of the international conference on automated software
+engineering} (2009), 123--134.
 
 \hypertarget{ref-Niko2012}{}
-{[}147{]} Niko, S., Mircea, L. and Romain, R. 2012. On how often code is
-cloned across repositories. \emph{Proceedings of the 34th international
+{[}148{]} Niko, S., Mircea, L. and Romain, R. 2012. On how often code is
+cloned across repositories. \emph{Proceedings of the international
 conference on software engineering} (2012), 1289--1292.
 
 \hypertarget{ref-OSullivan2009}{}
-{[}148{]} O'Sullivan, B. and Bryan 2009. Making sense of
+{[}149{]} O'Sullivan, B. and Bryan 2009. Making sense of
 revision-control systems. \emph{Communications of the ACM}. 52, 9 (Sep.
 2009), 56.
 
 \hypertarget{ref-ObjectRefineryLimited2005}{}
-{[}149{]} Object Refinery Limited 2005. JFreeChart.
+{[}150{]} Object Refinery Limited 2005. JFreeChart.
 
 \hypertarget{ref-Oracle2011}{}
-{[}150{]} Oracle 2011. Throwable (Java Plateform SE6).
+{[}151{]} Oracle 2011. Throwable (Java Plateform SE6).
 
 \hypertarget{ref-Ostrand2005}{}
-{[}151{]} Ostrand, T., Weyuker, E. and Bell, R. 2005. Predicting the
+{[}152{]} Ostrand, T., Weyuker, E. and Bell, R. 2005. Predicting the
 location and number of faults in large software systems. \emph{IEEE
 Transactions on Software Engineering}. 31, 4 (Apr. 2005), 340--355.
 
 \hypertarget{ref-Palma2013}{}
-{[}152{]} Palma, F. 2013. \emph{Detection of SOA Antipatterns}. Ecole
+{[}153{]} Palma, F. 2013. \emph{Detection of SOA Antipatterns}. Ecole
 Polytechnique de Montreal.
 
 \hypertarget{ref-Pan2008}{}
-{[}153{]} Pan, K., Kim, S. and Whitehead, E.J. 2008. Toward an
+{[}154{]} Pan, K., Kim, S. and Whitehead, E.J. 2008. Toward an
 understanding of bug fix patterns. \emph{Empirical Software
 Engineering}. 14, 3 (Aug. 2008), 286--315.
 
 \hypertarget{ref-Patenaude1999}{}
-{[}154{]} Patenaude, J.-F., Merlo, E., Dagenais, M. and Lague, B. 1999.
+{[}155{]} Patenaude, J.-F., Merlo, E., Dagenais, M. and Lague, B. 1999.
 Extending software quality assessment techniques to Java systems.
-\emph{Proceedings seventh international workshop on program
+\emph{Proceedings of the international workshop on program
 comprehension} (1999), 49--56.
 
 \hypertarget{ref-PerryDewayneE.1993}{}
-{[}155{]} Perry, Dewayne E. and Stieg., C.S. 1993. Software faults in
+{[}156{]} Perry, Dewayne E. and Stieg., C.S. 1993. Software faults in
 evolving a large, real-time system: a case study. \emph{Software
 engineering---ESEC} (1993), 48--67.
 
 \hypertarget{ref-Pratt2001}{}
-{[}156{]} Pratt, M.J. 2001. Introduction to ISO 10303---the STEP
+{[}157{]} Pratt, M.J. 2001. Introduction to ISO 10303---the STEP
 Standard for Product Data Exchange. \emph{Journal of Computing and
 Information Science in Engineering}. 1, 1 (Mar. 2001), 102.
 
 \hypertarget{ref-Pressman2005}{}
-{[}157{]} Pressman, R.S. 2005. \emph{Software Engineering: A
+{[}158{]} Pressman, R.S. 2005. \emph{Software Engineering: A
 Practitioner's Approach}. Palgrave Macmillan.
 
 \hypertarget{ref-Radatz1990}{}
-{[}158{]} Radatz, J., Geraci, A. and Katki, F. 1990. IEEE standard
+{[}159{]} Radatz, J., Geraci, A. and Katki, F. 1990. IEEE standard
 glossary of software engineering terminology. \emph{IEEE Std}.
 610121990, 121990 (1990), 3.
 
 \hypertarget{ref-rahman2013}{}
-{[}159{]} Rahman, F. and Devanbu, P. 2013. How, and why, process metrics
+{[}160{]} Rahman, F. and Devanbu, P. 2013. How, and why, process metrics
 are better. \emph{Proceedings of the international conference on
 software engineering} (2013), 432--441.
 
 \hypertarget{ref-Robertson2006}{}
-{[}160{]} Robertson, T.J., Lawrance, J. and Burnett, M. 2006. Impact of
+{[}161{]} Robertson, T.J., Lawrance, J. and Burnett, M. 2006. Impact of
 high-intensity negotiated-style interruptions on end-user debugging.
 \emph{Journal of Visual Languages and Computing}. 17, 2 (2006),
 187--202.
 
 \hypertarget{ref-Robertson2004}{}
-{[}161{]} Robertson, T.J., Prabhakararao, S., Burnett, M., Cook, C.,
+{[}162{]} Robertson, T.J., Prabhakararao, S., Burnett, M., Cook, C.,
 Ruthruff, J.R., Beckwith, L. and Phalgune, A. 2004. Impact of
 interruption style on end-user debugging. \emph{Proceedings of the
-sIGCHI conference on human factors in computing systems} (2004),
+sigchi conference on human factors in computing systems} (2004),
 287--294.
 
 \hypertarget{ref-Roehm2015}{}
-{[}162{]} Roehm, T., Nosovic, S. and Bruegge, B. 2015. Automated
+{[}163{]} Roehm, T., Nosovic, S. and Bruegge, B. 2015. Automated
 extraction of failure reproduction steps from user interaction traces.
-\emph{2015 iEEE 22nd international conference on software analysis,
-evolution, and reengineering (sANER)} (Mar. 2015), 121--130.
+\emph{Proceedings of the international conference on software analysis,
+evolution, and reengineering} (2015), 121--130.
 
 \hypertarget{ref-Rosen2015}{}
-{[}163{]} Rosen, C., Grawi, B. and Shihab, E. 2015. Commit guru:
+{[}164{]} Rosen, C., Grawi, B. and Shihab, E. 2015. Commit guru:
 analytics and risk prediction of software commits. \emph{Proceedings of
-the joint meeting on foundations of software engineering} (New York, New
-York, USA, Aug. 2015), 966--969.
+the joint meeting on foundations of software engineering} (2015),
+966--969.
 
 \hypertarget{ref-Rossler2013}{}
-{[}164{]} Rößler, J., Zeller, A., Fraser, G., Zamfir, C. and Candea, G.
-2013. Reconstructing Core Dumps. \emph{Proceedings of the 6th
-international conference on software testing, verification and
-validation, ser. iCST} (2013).
-
-\hypertarget{ref-Iss2009}{}
-{[}165{]} Roy, C.K. 2009. \emph{Detection and Analysis of Near-Miss
-Software Clones}. Queen's University.
+{[}165{]} Rößler, J., Zeller, A., Fraser, G., Zamfir, C. and Candea, G.
+2013. Reconstructing Core Dumps. \emph{Proceedings of the international
+conference on software testing, verification and validation} (2013).
 
 \hypertarget{ref-Roy2008}{}
-{[}166{]} Roy, C.K. and Cordy, J.R. 2008. An Empirical Study of Function
-Clones in Open Source Software. \emph{Proceedings of the working
-conference on reverse engineering} (Oct. 2008), 81--90.
+{[}166{]} Roy, C. and Cordy, J. 2008. NICAD: Accurate Detection of
+Near-Miss Intentional Clones Using Flexible Pretty-Printing and Code
+Normalization. \emph{Proceedings of the international conference on
+program comprehension} (2008), 172--181.
+
+\hypertarget{ref-Iss2009}{}
+{[}167{]} Roy, C.K. 2009. \emph{Detection and Analysis of Near-Miss
+Software Clones}. Queen's University.
 
 \hypertarget{ref-Runeson2007}{}
-{[}167{]} Runeson, P., Alexandersson, M. and Nyholm, O. 2007. Detection
+{[}168{]} Runeson, P., Alexandersson, M. and Nyholm, O. 2007. Detection
 of Duplicate Defect Reports Using Natural Language Processing.
-\emph{29th international conference on software engineering} (May 2007),
-499--510.
+\emph{Proceedings of the international conference on software
+engineering} (2007), 499--510.
 
 \hypertarget{ref-Saha2014}{}
-{[}168{]} Saha, R.K., Khurshid, S. and Perry, D.E. 2014. An empirical
-study of long lived bugs. \emph{2014 software evolution week - iEEE
+{[}169{]} Saha, R.K., Khurshid, S. and Perry, D.E. 2014. An empirical
+study of long lived bugs. \emph{Proceedings of the international
 conference on software maintenance, reengineering, and reverse
-engineering (cSMR-wCRE)} (Feb. 2014), 144--153.
+engineering} (2014), 144--153.
 
 \hypertarget{ref-Saini2016}{}
-{[}169{]} Saini, V., Sajnani, H., Kim, J. and Lopes, C. 2016.
+{[}170{]} Saini, V., Sajnani, H., Kim, J. and Lopes, C. 2016.
 SourcererCC and SourcererCC-I: : Tools to Detect Clones in Batch mode
-and During Software Development. \emph{Proceedings of the 38th
-international conference on software engineering} (New York, New York,
-USA, 2016), 597--600.
+and During Software Development. \emph{Proceedings of the international
+conference on software engineering} (2016), 597--600.
 
 \hypertarget{ref-Sajnani2016}{}
-{[}170{]} Sajnani, H., Saini, V., Svajlenko, J., Roy, C.K. and Lopes,
+{[}171{]} Sajnani, H., Saini, V., Svajlenko, J., Roy, C.K. and Lopes,
 C.V. 2016. SourcererCC: scaling code clone detection to big-code.
-\emph{Proceedings of the 38th international conference on software
-engineering} (New York, New York, USA, 2016), 1157--1168.
+\emph{Proceedings of the international conference on software
+engineering} (2016), 1157--1168.
 
 \hypertarget{ref-Seinturier2012}{}
-{[}171{]} Seinturier, L., Merle, P., Rouvoy, R., Romero, D., Schiavoni,
+{[}172{]} Seinturier, L., Merle, P., Rouvoy, R., Romero, D., Schiavoni,
 V. and Stefani, J.-B. 2012. A component-based middleware platform for
 reconfigurable service-oriented architectures. \emph{Software: Practice
 and Experience}. 42, 5 (2012), 559--583.
 
 \hypertarget{ref-Shihab2010}{}
-{[}172{]} Shihab, E., Ihara, A., Kamei, Y., Ibrahim, W.M., Ohira, M.,
+{[}173{]} Shihab, E., Ihara, A., Kamei, Y., Ibrahim, W.M., Ohira, M.,
 Adams, B., Hassan, A.E. and Matsumoto, K.-i. 2010. Predicting Re-opened
-Bugs: A Case Study on the Eclipse Project. \emph{2010 17th working
-conference on reverse engineering} (Oct. 2010), 249--258.
+Bugs: A Case Study on the Eclipse Project. \emph{Proceedings of the
+working conference on reverse engineering} (2010), 249--258.
 
 \hypertarget{ref-Shivaji2013}{}
-{[}173{]} Shivaji, S., Member, S., Member, S., Akella, R. and Kim, S.
+{[}174{]} Shivaji, S., Member, S., Member, S., Akella, R. and Kim, S.
 2013. Reducing Features to Improve Code Change-Based Bug Prediction.
 \emph{IEEE Transactions on Software Engineering}. 39, 4 (2013),
 552--569.
 
 \hypertarget{ref-snyder2011activemq}{}
-{[}174{]} Snyder, B., Bosanac, D. and Davies, R. 2011. \emph{ActiveMQ in
+{[}175{]} Snyder, B., Bosanac, D. and Davies, R. 2011. \emph{ActiveMQ in
 Action}. Manning Publications Co.
 
 \hypertarget{ref-Steven2000}{}
-{[}175{]} Steven, J., Chandra, P., Fleck, B. and Podgurski, A. 2000.
+{[}176{]} Steven, J., Chandra, P., Fleck, B. and Podgurski, A. 2000.
 jRapture: A Capture/Replay Tool for Observation-Based Testing.
 \emph{Proceedings of the international symposium on software testing and
 analysis.} (2000), 158--167.
 
 \hypertarget{ref-Subramanyam2003}{}
-{[}176{]} Subramanyam, R. and Krishnan, M. 2003. Empirical analysis of
+{[}177{]} Subramanyam, R. and Krishnan, M. 2003. Empirical analysis of
 CK metrics for object-oriented design complexity: implications for
 software defects. \emph{IEEE Transactions on Software Engineering}. 29,
 4 (Apr. 2003), 297--310.
 
 \hypertarget{ref-Sun2011}{}
-{[}177{]} Sun, C., Lo, D., Khoo, S.-C. and Jiang, J. 2011. Towards more
-accurate retrieval of duplicate bug reports. \emph{2011 26th IEEE/ACM
-International Conference on Automated Software Engineering (ASE 2011)}.
-(Nov. 2011), 253--262.
+{[}178{]} Sun, C., Lo, D., Khoo, S.-C. and Jiang, J. 2011. Towards more
+accurate retrieval of duplicate bug reports. \emph{Proceedings of the
+international conference on automated software engineering} (2011),
+253--262.
 
 \hypertarget{ref-SunghunKim2008}{}
-{[}178{]} Sunghun Kim, S., Whitehead, E. and Yi Zhang, Y. 2008.
+{[}179{]} Sunghun Kim, S., Whitehead, E. and Yi Zhang, Y. 2008.
 Classifying Software Changes: Clean or Buggy? \emph{IEEE Transactions on
 Software Engineering}. 34, 2 (Mar. 2008), 181--196.
 
 \hypertarget{ref-suzaki1987new}{}
-{[}179{]} Suzaki, K. 1987. \emph{New manufacturing challenge: Techniques
+{[}180{]} Suzaki, K. 1987. \emph{New manufacturing challenge: Techniques
 for continuous improvement}. Simon; Schuster.
 
 \hypertarget{ref-Tairas2006a}{}
-{[}180{]} Tairas, R., Gray, J. and Baxter, I. 2006. Visualization of
-clone detection results. \emph{Proceedings of the 2006 oOPSLA workshop
-on eclipse technology eXchange} (New York, New York, USA, 2006), 50--54.
+{[}181{]} Tairas, R., Gray, J. and Baxter, I. 2006. Visualization of
+clone detection results. \emph{Proceedings of the oopsla workshop on
+eclipse technology eXchange} (2006), 50--54.
 
 \hypertarget{ref-Tamrawi2011a}{}
-{[}181{]} Tamrawi, A., Nguyen, T.T., Al-Kofahi, J. and Nguyen, T.N.
+{[}182{]} Tamrawi, A., Nguyen, T.T., Al-Kofahi, J. and Nguyen, T.N.
 2011. Fuzzy set-based automatic bug triaging. \emph{Proceeding of the
-33rd international conference on software engineering - iCSE '11} (New
-York, New York, USA, 2011), 884.
+nternational conference on software engineering} (2011), 884.
 
 \hypertarget{ref-tao2014automatically}{}
-{[}182{]} Tao, Y., Kim, J., Kim, S. and Xu, C. 2014. Automatically
+{[}183{]} Tao, Y., Kim, J., Kim, S. and Xu, C. 2014. Automatically
 generated patches as debugging aids: a human study. \emph{Proceedings of
 the international symposium on foundations of software engineering}
 (2014), 64--74.
 
 \hypertarget{ref-TheApacheSoftwareFoundation2015}{}
-{[}183{]} The Apache Software Foundation 2015. Apache BatchEE.
-\emph{Http://batchee.incubator.apache.org/} (2015).
+{[}184{]} The Apache Software Foundation 2015. Apache BatchEE.
 
 \hypertarget{ref-TheApacheSoftwareFoundation1999}{}
-{[}184{]} The Apache Software Foundation 1999. Log4j 2 Guide - Apache
+{[}185{]} The Apache Software Foundation 1999. Log4j 2 Guide - Apache
 Log4j 2.
 
 \hypertarget{ref-Tian2012}{}
-{[}185{]} Tian, Y., Lo, D. and Sun, C. 2012. Information Retrieval Based
+{[}186{]} Tian, Y., Lo, D. and Sun, C. 2012. Information Retrieval Based
 Nearest Neighbor Classification for Fine-Grained Bug Severity
-Prediction. \emph{2012 19th working conference on reverse engineering}
-(Oct. 2012), 215--224.
+Prediction. \emph{Proceedings of the working conference on reverse
+engineering} (2012), 215--224.
 
 \hypertarget{ref-Tian2012a}{}
-{[}186{]} Tian, Y., Sun, C. and Lo, D. 2012. Improved Duplicate Bug
-Report Identification. \emph{2012 16th european conference on software
-maintenance and reengineering} (Mar. 2012), 385--390.
+{[}187{]} Tian, Y., Sun, C. and Lo, D. 2012. Improved Duplicate Bug
+Report Identification. \emph{Proceedings of the european conference on
+software maintenance and reengineering} (2012), 385--390.
 
 \hypertarget{ref-TinKamHo}{}
-{[}187{]} Tin Kam Ho 1995. Random decision forests. \emph{Proceedings of
+{[}188{]} Tin Kam Ho 1995. Random decision forests. \emph{Proceedings of
 the international conference on document analysis and recognition}
 (1995), 278--282.
 
 \hypertarget{ref-TinKamHo1998}{}
-{[}188{]} Tin Kam Ho 1998. The random subspace method for constructing
+{[}189{]} Tin Kam Ho 1998. The random subspace method for constructing
 decision forests. \emph{IEEE Transactions on Pattern Analysis and
 Machine Intelligence}. 20, 8 (1998), 832--844.
 
 \hypertarget{ref-Toomey2012}{}
-{[}189{]} Toomey, W. 2012. Ctcompare: Code clone detection using hashed
-token sequences. \emph{Proceedings of the 6th international workshop on
-software clones} (Jun. 2012), 92--93.
+{[}190{]} Toomey, W. 2012. Ctcompare: Code clone detection using hashed
+token sequences. \emph{Proceedings of the international workshop on
+software clones} (2012), 92--93.
 
 \hypertarget{ref-Tourani2016}{}
-{[}190{]} Tourani, P. and Adams, B. 2016. The Impact of Human
+{[}191{]} Tourani, P. and Adams, B. 2016. The Impact of Human
 Discussions on Just-in-Time Quality Assurance: An Empirical Study on
-OpenStack and Eclipse. \emph{23rd international conference on software
-analysis, evolution, and reengineering} (Mar. 2016), 189--200.
+OpenStack and Eclipse. \emph{Proceedings of the international conference
+on software analysis, evolution, and reengineering} (2016), 189--200.
 
 \hypertarget{ref-Tufano2015}{}
-{[}191{]} Tufano, M., Palomba, F., Bavota, G., Oliveto, R., Di Penta,
+{[}192{]} Tufano, M., Palomba, F., Bavota, G., Oliveto, R., Di Penta,
 M., De Lucia, A. and Poshyvanyk, D. 2015. When and why your code starts
-to smell bad. (May 2015), 403--414.
+to smell bad. \emph{Proceedings of the international conference on
+software engineering} (2015), 403--414.
 
 \hypertarget{ref-ValdiviaGarcia2014}{}
-{[}192{]} Valdivia Garcia, H. and Shihab, E. 2014. Characterizing and
+{[}193{]} Valdivia Garcia, H. and Shihab, E. 2014. Characterizing and
 predicting blocking bugs in open source projects. \emph{Proceedings of
-the 11th working conference on mining software repositories - mSR 2014}
-(New York, New York, USA, May 2014), 72--81.
+the working conference on mining software repositories} (2014), 72--81.
 
 \hypertarget{ref-Visser2003}{}
-{[}193{]} Visser, W., Havelund, K., Brat, G., Park, S. and Lerda, F.
+{[}194{]} Visser, W., Havelund, K., Brat, G., Park, S. and Lerda, F.
 2003. Model Checking Programs. \emph{Automated software engineering}
 (2003), 203--232.
 
 \hypertarget{ref-Visser2004}{}
-{[}194{]} Visser, W., Pǎsǎreanu, C.S. and Khurshid, S. 2004. Test input
-generation with java PathFinder. \emph{Proceedings of the 2004 ACM
-SIGSOFT International Symposium on Software Testing and Analysis}.
-(2004), 97.
+{[}195{]} Visser, W., Pǎsǎreanu, C.S. and Khurshid, S. 2004. Test input
+generation with java PathFinder. \emph{Proceedings of the international
+symposium on software testing and analysis} (2004), 97.
 
 \hypertarget{ref-Wahler}{}
-{[}195{]} Wahler, V., Seipel, D., Wolff, J. and Fischer, G. 2004. Clone
+{[}196{]} Wahler, V., Seipel, D., Wolff, J. and Fischer, G. 2004. Clone
 detection in source code by frequent itemset techniques.
-\emph{Proceedings of the fourth iEEE international workshop on source
-code analysis and manipulation} (2004), 128--135.
+\emph{Proceedings of the international workshop on source code analysis
+and manipulation} (2004), 128--135.
 
 \hypertarget{ref-Wang2011}{}
-{[}196{]} Wang, X.(., Baik, E. and Devanbu, P.T. 2011. System
+{[}197{]} Wang, X., Baik, E. and Devanbu, P.T. 2011. System
 compatibility analysis of Eclipse and Netbeans based on bug data.
-\emph{Proceeding of the 8th working conference on mining software
-repositories - mSR '11} (New York, New York, USA, May 2011), 230.
-
-\hypertarget{ref-Weiss2007}{}
-{[}197{]} Weiss, C., Premraj, R., Zimmermann, T. and Zeller, A. 2007.
-How Long Will It Take to Fix This Bug? \emph{Fourth international
-workshop on mining software repositories (mSR'07:ICSE workshops 2007)}
-(May 2007), 1--1.
+\emph{Proceeding of the working conference on mining software
+repositories} (2011), 230.
 
 \hypertarget{ref-Weiuxdf2007}{}
 {[}198{]} Weiß, C., Zimmermann, T. and Zeller, A. 2007. How Long will it
-Take to Fix This Bug ? \emph{Fourth international workshop on mining
-software repositories (mSR'07)} (2007), 1.
+Take to Fix This Bug ? \emph{Proceedings of the international workshop
+on mining software repositories} (2007), 1.
 
 \hypertarget{ref-Wellington2013}{}
 {[}199{]} Wellington, B. 2013. Dnsjava.
@@ -7640,20 +7701,20 @@ european conference on foundations of software engineering} (2011),
 
 \hypertarget{ref-Xuan2012}{}
 {[}203{]} Xuan, J., Jiang, H., Ren, Z. and Zou, W. 2012. Developer
-prioritization in bug repositories. \emph{2012 34th international
-conference on software engineering (iCSE)} (Jun. 2012), 25--35.
+prioritization in bug repositories. \emph{Proceedings of the
+international conference on software engineering} (2012), 25--35.
 
 \hypertarget{ref-yamanaka2012industrial}{}
 {[}204{]} Yamanaka, Y., Choi, E., Yoshida, N., Inoue, K. and Sano, T.
 2012. Industrial application of clone change management system.
-\emph{Proceedings of the 6th international workshop on software clones}
+\emph{Proceedings of the international workshop on software clones}
 (2012), 67--71.
 
 \hypertarget{ref-Yang2015}{}
 {[}205{]} Yang, X., Lo, D., Xia, X., Zhang, Y. and Sun, J. 2015. Deep
-Learning for Just-in-Time Defect Prediction. \emph{2015 iEEE
+Learning for Just-in-Time Defect Prediction. \emph{Proceedings of the
 international conference on software quality, reliability and security}
-(Aug. 2015), 17--26.
+(2015), 17--26.
 
 \hypertarget{ref-Zamfir2010}{}
 {[}206{]} Zamfir, C. and Candea, G. 2010. Execution Synthesis: A
@@ -7676,62 +7737,58 @@ Engineering}. 28, 2 (2002), 183--200.
 
 \hypertarget{ref-Zhang2012}{}
 {[}210{]} Zhang, F., Khomh, F., Zou, Y. and Hassan, A.E. 2012. An
-Empirical Study on Factors Impacting Bug Fixing Time. \emph{2012 19th
-working conference on reverse engineering} (Oct. 2012), 225--234.
+Empirical Study on Factors Impacting Bug Fixing Time. \emph{Proceedings
+of the working conference on reverse engineering} (2012), 225--234.
 
 \hypertarget{ref-Zhang2013a}{}
 {[}211{]} Zhang, G., Peng, X., Xing, Z., Shihai Jiang, Hai Wang and
 Zhao, W. 2013. Towards contextual and on-demand code clone management by
-continuous monitoring. \emph{28th iEEE/ACM international conference on
-automated software engineering} (Nov. 2013), 497--507.
+continuous monitoring. \emph{Proceedings of the international conference
+on automated software engineering} (2013), 497--507.
 
 \hypertarget{ref-Zhang2013}{}
 {[}212{]} Zhang, H., Gong, L. and Versteeg, S. 2013. Predicting
 bug-fixing time: an empirical study of commercial software projects.
-\emph{International conference on software engineering} (May 2013),
-1042--1051.
+\emph{Proceedings of the international conference on software
+engineering} (2013), 1042--1051.
 
 \hypertarget{ref-Zhou2012}{}
 {[}213{]} Zhou, J., Zhang, H. and Lo, D. 2012. Where should the bugs be
 fixed? More accurate information retrieval-based bug localization based
-on bug reports. \emph{Proceedings of the 34th international conference
-on software engineering, iEEE} (Jun. 2012), 14--24.
+on bug reports. \emph{Proceedings of the international conference on
+software engineering} (2012), 14--24.
 
 \hypertarget{ref-Zibran2012}{}
 {[}214{]} Zibran, M.F. and Roy, C.K. 2012. IDE-based real-time focused
-search for near-miss clones. \emph{Proceedings of the 27th annual aCM
-symposium on applied computing} (New York, New York, USA, 2012),
-1235--1242.
+search for near-miss clones. \emph{Proceedings of the symposium on
+applied computing} (2012), 1235--1242.
 
 \hypertarget{ref-Zibran2011}{}
 {[}215{]} Zibran, M.F. and Roy, C.K. 2011. Towards flexible code clone
 detection, management, and refactoring in IDE. \emph{Proceeding of the
-5th international workshop on software clones} (New York, New York, USA,
-2011), 75--76.
+international workshop on software clones} (2011), 75--76.
 
 \hypertarget{ref-Zimmermann2008}{}
 {[}216{]} Zimmermann, T. and Nagappan, N. 2008. Predicting defects using
 network analysis on dependency graphs. \emph{Proceedings of the
-international conference on software engineering} (New York, New York,
-USA, May 2008), 531.
+international conference on software engineering} (2008), 531.
 
 \hypertarget{ref-Zimmermann2012}{}
 {[}217{]} Zimmermann, T., Nagappan, N., Guo, P.J. and Murphy, B. 2012.
 Characterizing and predicting which bugs get reopened. \emph{Proceedings
-of the 34th international conference on software engineering, iEEE}
-(Jun. 2012), 1074--1083.
+of the international conference on software engineering} (2012),
+1074--1083.
 
 \hypertarget{ref-Zimmermann2007}{}
 {[}218{]} Zimmermann, T., Premraj, R. and Zeller, A. 2007. Predicting
 Defects for Eclipse. \emph{Proceedings of the international workshop on
-predictor models in software engineering} (May 2007), 9.
+predictor models in software engineering} (2007), 9.
 
 \hypertarget{ref-Zuddas2014}{}
 {[}219{]} Zuddas, D., Jin, W., Pastore, F., Mariani, L. and Orso, A.
 2014. MIMIC: locating and understanding bugs by analyzing mimicked
-executions. \emph{Proceedings of the 29th aCM/IEEE international
-conference on automated software engineering} (New York, New York, USA,
-Sep. 2014), 815--826.
+executions. \emph{Proceedings of the international conference on
+automated software engineering} (2014), 815--826.
 
 \addcontentsline{toc}{chapter}{Bibliography}
 \bibliography{conf/library.bib, library.bib}  %place your .bib files here

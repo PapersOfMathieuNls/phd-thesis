@@ -3,7 +3,7 @@
 
 ## Lists of the top-level open-source projects
 
-Lists all the top-level open-source projects we analysed for our works.
+Lists all the top-level open-source projects we analysed for our work.
 
 ### Parsers 
 

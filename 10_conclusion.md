@@ -19,15 +19,33 @@ In this thesis, we presented three approaches that perform software maintenance 
 
 - We manually reviewed 250 fixes proposed by BIANCA. We were able to identify the statements from the proposed fixes that can be reused to create fixes similar to the ones that developers had proposed in 84% of the cases.
 
-- While the recall of BIANCA 37.15%, it is important to note that we do not claim that of issues in open-source systems are caused by project dependencies. 
+- We built upon BIANCA with CLEVER that combines clone- and metric-based detection of risky commits and proposes potential fixes. It significantly reduced to scalability concerns of BIANCA while obtaining an average of 79.10% precision and a 65.61% recall. 
 
-- We built upon BIANCA with CLEVER that combines clone- and metric-based detection of risky commit and proposes potential fixes. It significantly reduced to scalability concerns of BIANCA while obtaining an average of 79.10% precision and a 65.61% recall. 
-
-- 66% of the fixes proposed by CLEVER were accepted by software developer within Ubisoft.
+- 66% of the fixes proposed by CLEVER were accepted by software developers within Ubisoft.
 
 - We introduced JCHARMING, an automatic bug reproduction technique that combines crash traces and directed model checking. When applied to thirty bugs from ten open source systems, JCHARMING was able to successfully reproduce 80% of the bugs. The average time to reproduce a bug was 19 minutes, which is quite reasonable, given the complexity of reproducing bugs that cause field crashes.
 
-- Finally, we proposed a taxonomy of bugs and performed an empirical. The key findings are that Type 4 account for 61% of the bugs and have a bigger impact on software maintenance tasks than the other three types.
+- Finally, we proposed a taxonomy of bugs and performed an empirical study. The key findings are that Type 4 account for 61% of the bugs and have a bigger impact on software maintenance tasks than the other three types.
+
+## Future Work
+
+### Current Limitations
+
+We should acknowledge that the most notable shortcoming of this thesis is the fact that we did not incorporate developers' opinions enough in our studies. Indeed, we only gathered developers opinions' in two separate occasions (BUMPER, Chapter 4 and CLEVER, Chapter 7). While their opinions were positives, we should continue to ask practitioners for their feedbacks on our work.
+
+Another limitation of our work is that most of the approaches (BUMPER, BIANCA and, CLEVER) will most likely be ineffective if applied to a single-system. Indeed, these approaches rely on the large amount of data acquired from multiple software ecosystems.
+
+This leads to the scalability issues of our work. The model required to operate BIANCA took nearly three months using 48 Amazon Virtual Private Servers running in parallel to be built and tested. While CLEVER addresses some of the scalability issues with its two-step classifier, the search of a potential solutions is still computationally expansive.
+
+### Other Possible Opportunities for Future Research
+
+To build on this work, we need to conduct experiment with additional (and larger) systems with the dual aim of fine-tuning the approach, and assessing the scalability of our approach when applied to even larger systems could be conducted. Also, we want to improve PRECINCT to support Type 4 clones, which will be a significant advantage over other clone-detectors. In addition, conducting user studies with developers to assess the concrete effectiveness of PRECINCT compared to remote and local clone detection techniques.
+
+Conducting user studies with developers in order to gather their feedback on BIANCA and CLEVER would also be beneficial. The feedback obtained could help fine-tune the approaches. In addition, examining the relationship between project cluster measures (such as betweenness) and the performance of BIANCA. Finally, another improvement to BIANCA would be to support Type 4 clones.
+
+For BIANCA, building a feedback loop between the users and the clusters of known buggy commits and their fixes could be a major improvement. For example, if a fix is never used by  end-users, then we could remove it from the clusters and improve our accuracy.
+
+For JCHARMING's, more experiments with more (and complex) bugs with the dual aim to (a) improve and fine tune the approach, and (b) assess the scalability of our approach when applied to even larger (and proprietary) systems. Finally, comparing JCHARMING to STAR [@Chen2013a], which is the closest approach to ours by running both methods on the same set of systems and bugs, could yield interesting results. This comparative study can provide insights into the differences in the use of symbolic analysis as it is in STAR and directed model checking, the core mechanism of JCHARMING.
 
 ## Closing Remarks
 
@@ -37,31 +55,10 @@ Just-in-time manufacturing relies on several management philosophies and tools: 
 
 One of the cornerstones of the just-in-time manufacturing philosophy of the seventies and the agile manifesto of the 2000's is continuous improvement [@fowler2001agile]. Other notions cross the gap between just-in-time manufacturing and just-in-time software improvement. For example, integrated development environments (IDEs) are Jidokas in a sense that they auto-complete us and auto-correct us based on past behavior and, unit tests, bug report management systems and quality assurance (QA) bots are Andons.
 
-PRECINCT, BIANCA, and CLEVER are designed to support just-in-time software quality improvement and maintenance techniques by continuously checking developer's code before ending up integrated into a larger software system.
+PRECINCT, BIANCA, and CLEVER are designed to support just-in-time software quality improvement and maintenance techniques by continuously checking developer's code before its integration into a larger software system.
 
 We believe that commit-time software maintenance is the appropriate time to perform just-in-time software maintenance as commits mark the end of a task or sub-task that is ready to be versioned.
 
-JCHARMING adds value by proposing a mechanism for reproducing and fixing the remaining defects. We hope that software engineering researchers and practitioners find this work useful either as a starting point for exciting new research or for building software products that are of good quality.
-
-## Future Work
-
-### Current Limitations
-
-We should acknowledge that the most notable shortcoming of this thesis is the fact that we did not incorporate developers' opinions enough in our studies. Indeed, we only gathered developers opinions' in two separate occasions (BUMPER, Chapter 4 and CLEVER, Chapter 7). While their opinions were positives, we should continue to ask practitioners for their feedbacks on our works.
-
-Another limitation of our work is that most of the approaches (BUMPER, BIANCA and, CLEVER) will most likely be ineffective if applied to a single-system. Indeed, these approaches rely on the large amount of data acquired from multiple software ecosystems to perform.
-
-This leads to the scalability issues of our work. The model required to operate BIANCA took nearly three months using 48 Amazon Virtual Private Servers running in parallel to built and tested. While CLEVER addresses some of the scalability issues with its two-step classifier, the search of potential solution is still computationally expansive.
-
-### Other Possible Opportunities for Future Research
-
-To build on this work, we additional experiment with additional (and larger) systems with the dual aim of fine-tuning the approach, and assessing the scalability of our approach when applied to even larger systems could be conducted. Also, we want to improving PRECINCT to support Type 4 clones will be a significant advantage over other clone-detectors. In addition, conducting user studies with developers to assess the concrete effectiveness of PRECINCT compared to remote and local clone detection techniques.
-
-Conducting human studies with developers in order to gather their feedback on BIANCA and CLEVER would be beneficial. The feedback obtained could help fine-tune the approaches. Also, examining the relationship between project cluster measures (such as betweenness) and the performance of BIANCA. Finally, another improvement to BIANCA would be to support Type 4 clones.
-
-For BIANCA, building a feedback loop between the users and the clusters of known buggy commits and their fixes. If a fix is never used by the end-users, then we could remove it from the clusters and improve our accuracy.
-
-For JCHARMING's, more experiments with more (and complex) bugs with the dual aim to (a) improve and fine tune the approach, and (b) assess the scalability of our approach when applied to even larger (and proprietary) systems. Finally, comparing JCHARMING to STAR [@Chen2013a], which is the closest approach to ours by running both methods on the same set of systems and bugs, could yield interesting results. This comparative study can provide insights into the differences in the use of symbolic analysis as it is in STAR and directed model checking, the core mechanism of JCHARMING.
+JCHARMING adds value by proposing a mechanism for reproducing and fixing the remaining defects. We hope that software engineering researchers and practitioners find this work useful either as a starting point for exciting new research.
 
 [^jap]: We kept the Japanese version of most of the words as they are used without translation in the literature.
-
