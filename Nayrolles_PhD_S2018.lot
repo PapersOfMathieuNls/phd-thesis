@@ -5,33 +5,33 @@
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {1}{\ignorespaces Resolved/Fixed Bug (R/F BR), Changesets (CS), and projects by dataset}}{36}{table.4.1}
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {2}{\ignorespaces Pretty-Printing Example}}{48}{table.5.2}
+\contentsline {table}{\numberline {2}{\ignorespaces Pretty-Printing Example}}{49}{table.5.2}
 \contentsline {table}{\numberline {3}{\ignorespaces List of Target Systems in Terms of Files and Kilo Line of Code (KLOC) at current version and Language}}{51}{table.5.3}
-\contentsline {table}{\numberline {4}{\ignorespaces Overview of PRECINCT's results in terms of precision, recall, F$_{1}$-measure, execution time and output reduction.}}{54}{table.5.4}
+\contentsline {table}{\numberline {4}{\ignorespaces Overview of PRECINCT's results in terms of precision, recall, F$_{1}$-measure, execution time and output reduction.}}{55}{table.5.4}
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5}{\ignorespaces Communities in terms of ID, Color code, Centroids, Betweenness and number of members}}{67}{table.6.5}
-\contentsline {table}{\numberline {6}{\ignorespaces BIANCA results in terms of organization, project name, a short description, number of class, number of commits, number of defect introducing commits, number of risky commit detected, precision (\%), recall (\%), F$_1$-measure (\%), the average similarity of first 3 and 5 proposed fixes with the actual fix and the average time difference between detected and original.}}{70}{table.6.6}
+\contentsline {table}{\numberline {5}{\ignorespaces Communities in terms of ID, Color code, Centroids, Betweenness and number of members}}{68}{table.6.5}
+\contentsline {table}{\numberline {6}{\ignorespaces BIANCA results in terms of organization, project name, a short description, number of class, number of commits, number of defect introducing commits, number of risky commit detected, precision (\%), recall (\%), F$_1$-measure (\%), the average similarity of first 3 and 5 proposed fixes with the actual fix.}}{72}{table.6.6}
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {7}{\ignorespaces Workshop results}}{96}{table.7.7}
+\contentsline {table}{\numberline {7}{\ignorespaces Workshop results}}{98}{table.7.7}
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {8}{\ignorespaces List of target systems in terms of Kilo line of code (KLoC), number of classes (NoC) and Bug \# ID}}{124}{table.8.8}
-\contentsline {table}{\numberline {9}{\ignorespaces Effectiveness of JCHARMING using directed model checking (DMC) in minutes, length of the generated JUnit tests (CE length) and model checking (MC) in minutes}}{126}{table.8.9}
+\contentsline {table}{\numberline {8}{\ignorespaces List of target systems in terms of Kilo line of code (KLoC), number of classes (NoC) and Bug \# ID}}{125}{table.8.8}
+\contentsline {table}{\numberline {9}{\ignorespaces Effectiveness of JCHARMING using directed model checking (DMC) in minutes, length of the generated JUnit tests (CE length) and model checking (MC) in minutes}}{127}{table.8.9}
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {10}{\ignorespaces Datasets}}{140}{table.9.10}
-\contentsline {table}{\numberline {11}{\ignorespaces Contingency table and Pearson's chi-squared tests}}{141}{table.9.11}
-\contentsline {table}{\numberline {12}{\ignorespaces Apache Ecosystem Complexity Metrics Comparison and Mann-whitney test results. $\mu $:mean, $\DOTSB \sum@ \slimits@ $:sum, $\mathaccentV {hat}05E{x}$:median, $\sigma $:standard deviation, $\%$:percentage}}{143}{table.9.12}
-\contentsline {table}{\numberline {13}{\ignorespaces Netbeans Ecosystem Complexity Metrics Comparison and Mann-whitney test results. $\mu $:mean, $\DOTSB \sum@ \slimits@ $:sum, $\mathaccentV {hat}05E{x}$:median, $\sigma $:standard deviation, $\%$:percentage}}{144}{table.9.13}
-\contentsline {table}{\numberline {14}{\ignorespaces Apache and Netbeans Ecosystems Complexity Metrics Comparison and Mann-whitney test results. \hspace {\textwidth } $\mu $:mean, $\DOTSB \sum@ \slimits@ $:sum, $\mathaccentV {hat}05E{x}$:median, $\sigma $:standard deviation, $\%$:percentage}}{145}{table.9.14}
-\contentsline {table}{\numberline {15}{\ignorespaces Support Vector Machine classifier performances while using 1 gram. \hspace {\textwidth } TP: True positive, TN: True Negative, FN: False Negative, FP: False Positive }}{151}{table.9.15}
-\contentsline {table}{\numberline {16}{\ignorespaces Linear Regression classifier performances while using 1 gram. \hspace {\textwidth } TP: True positive, TN: True Negative, FN: False Negative, FP: False Positive }}{151}{table.9.16}
-\contentsline {table}{\numberline {17}{\ignorespaces Random Forest classifier performances while using 1 gram. \hspace {\textwidth } TP: True positive, TN: True Negative, FN: False Negative, FP: False Positive }}{152}{table.9.17}
-\contentsline {table}{\numberline {18}{\ignorespaces Support Vector Machine classifier performances while using 2 grams. \hspace {\textwidth } TP: True positive, TN: True Negative, FN: False Negative, FP: False Positive }}{152}{table.9.18}
-\contentsline {table}{\numberline {19}{\ignorespaces Linear Regression classifier performances while using 2 grams. \hspace {\textwidth } TP: True positive, TN: True Negative, FN: False Negative, FP: False Positive }}{153}{table.9.19}
-\contentsline {table}{\numberline {20}{\ignorespaces Random Forest based classifier performances while using 2 grams. \hspace {\textwidth } TP: True positive, TN: True Negative, FN: False Negative, FP: False Positive }}{153}{table.9.20}
-\contentsline {table}{\numberline {21}{\ignorespaces Support Vector Machine classifier performances while using 3 grams. \hspace {\textwidth } TP: True positive, TN: True Negative, FN: False Negative, FP: False Positive }}{154}{table.9.21}
-\contentsline {table}{\numberline {22}{\ignorespaces Linear Regression classifier performances while using 3 grams. \hspace {\textwidth } TP: True positive, TN: True Negative, FN: False Negative, FP: False Positive }}{155}{table.9.22}
-\contentsline {table}{\numberline {23}{\ignorespaces Random Forest classifier performances while using 3 grams. \hspace {\textwidth } TP: True positive, TN: True Negative, FN: False Negative, FP: False Positive }}{155}{table.9.23}
-\contentsline {table}{\numberline {24}{\ignorespaces Random classifier. \hspace {\textwidth } TP: True positive, TN: True Negative, FN: False Negative, FP: False Positive }}{156}{table.9.24}
-\contentsline {table}{\numberline {25}{\ignorespaces Cohen's Kappa for each classifier}}{156}{table.9.25}
+\contentsline {table}{\numberline {10}{\ignorespaces Datasets}}{142}{table.9.10}
+\contentsline {table}{\numberline {11}{\ignorespaces Contingency table and Pearson's chi-squared tests}}{143}{table.9.11}
+\contentsline {table}{\numberline {12}{\ignorespaces Apache Ecosystem Complexity Metrics Comparison and Mann-whitney test results. $\mu $:mean, $\DOTSB \sum@ \slimits@ $:sum, $\mathaccentV {hat}05E{x}$:median, $\sigma $:standard deviation, $\%$:percentage}}{145}{table.9.12}
+\contentsline {table}{\numberline {13}{\ignorespaces Netbeans Ecosystem Complexity Metrics Comparison and Mann-whitney test results. $\mu $:mean, $\DOTSB \sum@ \slimits@ $:sum, $\mathaccentV {hat}05E{x}$:median, $\sigma $:standard deviation, $\%$:percentage}}{146}{table.9.13}
+\contentsline {table}{\numberline {14}{\ignorespaces Apache and Netbeans Ecosystems Complexity Metrics Comparison and Mann-whitney test results. \hspace {\textwidth } $\mu $:mean, $\DOTSB \sum@ \slimits@ $:sum, $\mathaccentV {hat}05E{x}$:median, $\sigma $:standard deviation, $\%$:percentage}}{147}{table.9.14}
+\contentsline {table}{\numberline {15}{\ignorespaces Support Vector Machine classifier performances while using 1 gram. \hspace {\textwidth } TP: True positive, TN: True Negative, FN: False Negative, FP: False Positive }}{153}{table.9.15}
+\contentsline {table}{\numberline {16}{\ignorespaces Linear Regression classifier performances while using 1 gram. \hspace {\textwidth } TP: True positive, TN: True Negative, FN: False Negative, FP: False Positive }}{153}{table.9.16}
+\contentsline {table}{\numberline {17}{\ignorespaces Random Forest classifier performances while using 1 gram. \hspace {\textwidth } TP: True positive, TN: True Negative, FN: False Negative, FP: False Positive }}{154}{table.9.17}
+\contentsline {table}{\numberline {18}{\ignorespaces Support Vector Machine classifier performances while using 2 grams. \hspace {\textwidth } TP: True positive, TN: True Negative, FN: False Negative, FP: False Positive }}{154}{table.9.18}
+\contentsline {table}{\numberline {19}{\ignorespaces Linear Regression classifier performances while using 2 grams. \hspace {\textwidth } TP: True positive, TN: True Negative, FN: False Negative, FP: False Positive }}{155}{table.9.19}
+\contentsline {table}{\numberline {20}{\ignorespaces Random Forest based classifier performances while using 2 grams. \hspace {\textwidth } TP: True positive, TN: True Negative, FN: False Negative, FP: False Positive }}{155}{table.9.20}
+\contentsline {table}{\numberline {21}{\ignorespaces Support Vector Machine classifier performances while using 3 grams. \hspace {\textwidth } TP: True positive, TN: True Negative, FN: False Negative, FP: False Positive }}{156}{table.9.21}
+\contentsline {table}{\numberline {22}{\ignorespaces Linear Regression classifier performances while using 3 grams. \hspace {\textwidth } TP: True positive, TN: True Negative, FN: False Negative, FP: False Positive }}{157}{table.9.22}
+\contentsline {table}{\numberline {23}{\ignorespaces Random Forest classifier performances while using 3 grams. \hspace {\textwidth } TP: True positive, TN: True Negative, FN: False Negative, FP: False Positive }}{157}{table.9.23}
+\contentsline {table}{\numberline {24}{\ignorespaces Random classifier. \hspace {\textwidth } TP: True positive, TN: True Negative, FN: False Negative, FP: False Positive }}{158}{table.9.24}
+\contentsline {table}{\numberline {25}{\ignorespaces Cohen's Kappa for each classifier}}{158}{table.9.25}
 \addvspace {10\p@ }
 \addvspace {10\p@ }

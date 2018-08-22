@@ -5,7 +5,7 @@
 
 Code clones appear when developers reuse code with little to no modification to the original code.
 Studies have shown that clones can account for up to 50% of code in a given software system [@Baker; @StephaneDucasse].
-Although developers often reuse code on purpose [@Kim2005], code cloning is generally considered as a bad practice in software development because clones may introduce bugs [@Kapser2006; @Juergens2009; @Li2006].
+Developers often reuse code on purpose [@Kim2005], and code clones can be considered as a bad practice in software development if they are not managed. Indeed, if a bug were to be found in one the instance of a clone, without knowing that this particular piece of code is a clone, it will be challenging to fix the bug in all the other occurrences without clone-detection and clone-management tools [@Kapser2006; @Juergens2009; @Li2006].
 
 In the last two decades, there have been many studies and tools that aim at detecting clones. 
 They can be grouped into two categories depending on whether they operate locally on a developer's workstation (e.g., [@Zibran2012; @Sajnani2016]) or remotely on a server (e.g., [@yamanaka2012industrial; @Zhang2013a]).
@@ -118,7 +118,7 @@ However, in Line 7 we can see the end of a block, but we do not have its beginni
 We do so by checking the block’s beginning and ending (using { and }) in C for example.
 Then, we send these expanded changesets to TXL for block extraction and formalization.
 
-For each extracted block, we check if the current block overrides (replaces) a previous block (Line 4).
+For each extracted block, we check if the current block overrides (replaces) a previous block (Line 4). A block is a piece of code that contains the opening and closing attributes of a code-block (i.e. `{` and `}` for Java) and is at least 5 lines long.
 In such a case, we delete the previous block as it does not represent the current version of the program anymore (Line 5).
 Also, we have an optional step in PRECINCT defined in Line 4. The compare_history is a condition to delete overridden blocks.
 
@@ -258,7 +258,7 @@ We also were able to reduce by 70.1% the number of lines outputted.
 
 Finally, for Dnsjava, the number of clone pairs starts high with 258 clones and goes down until Revision 70 where it reaches 165. Another quick drop is observed at Revision 239 where we found only 25 clone pairs. The number of clone pairs stays stable until Revision 1030 where it reaches 273. PRECINCT was able to detect 82.8% of the clone pairs detected by NICAD (226/273) with 100% recall while executing on average in 1.1 seconds while NICAD took 3 seconds in average. PRECINCT outputs 83.4% fewer lines than NICAD.
 
-Overall, PRECINCT prevented 97.7% of the 7000 clones (in all systems) to reach the central source code repository while executing more than twice as fast as NICAD (1.2 seconds compared to 3 seconds in average) and reducing the output in terms of lines of text output to the developers by 83.4% in average. Note here that we have not evaluated the quality of the output of PRECINCT compared to NICAD’s output. We need to conduct user studies for this. We are, however, confident, based on our experience trying many clone detection tools, that a simpler and a more interactive way to present the results of a clone detection tool is warranted. PRECINCT aims to do just that.
+Overall, PRECINCT prevented 97.7% of the 7000 clones (in all systems) to reach the central source code repository while executing more than twice as fast as NICAD (1.2 seconds compared to 3 seconds in average) and reducing the output in terms of lines of text output to the developers by 83.4% in average. Note here that we have not evaluated the usability of the output of PRECINCT compared to NICAD’s output. We need to conduct user studies for this. We are, however, confident, based on our experience trying many clone detection tools, that a simpler and a more interactive way to present the results of a clone detection tool is warranted. PRECINCT aims to do just that.
 
 The difference in execution time between NICAD and PRECINCT stems from the fact that, unlike PRECINCT, NICAD is not an incremental approach. For each revision, NICAD has to extract all the code blocks and then compares all the pairs with each other. On the other hand, PRECINCT only extracts blocks when they are modified and only compares what has been changed with the rest of the program.
 

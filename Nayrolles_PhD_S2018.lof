@@ -16,47 +16,47 @@
 \contentsline {figure}{\numberline {10}{\ignorespaces PRECINCT output when replaying commit \texttt {710b6b4} of the Monit system used in the case study.}}{50}{figure.5.10}
 \contentsline {figure}{\numberline {11}{\ignorespaces PRECINCT Branching.}}{52}{figure.5.11}
 \contentsline {figure}{\numberline {12}{\ignorespaces Monit clone detection over revisions}}{53}{figure.5.12}
-\contentsline {figure}{\numberline {13}{\ignorespaces JHotDraw clone detection over revisions}}{53}{figure.5.13}
+\contentsline {figure}{\numberline {13}{\ignorespaces JHotDraw clone detection over revisions}}{54}{figure.5.13}
 \contentsline {figure}{\numberline {14}{\ignorespaces Dnsjava clone detection over revisions}}{54}{figure.5.14}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {15}{\ignorespaces Managing events happening on project tracking systems to extract defect-introducing commits and commits that provided the fixes}}{60}{figure.6.15}
-\contentsline {figure}{\numberline {16}{\ignorespaces Clustering by dependency}}{60}{figure.6.16}
-\contentsline {figure}{\numberline {17}{\ignorespaces Classifying incoming commits and proposing fixes}}{61}{figure.6.17}
-\contentsline {figure}{\numberline {18}{\ignorespaces Simplified Dependency Graph for \texttt {com.badlogicgames.gdx}}}{62}{figure.6.18}
-\contentsline {figure}{\numberline {19}{\ignorespaces Dependency Graph}}{65}{figure.6.19}
-\contentsline {figure}{\numberline {20}{\ignorespaces Precision, Recall and F$_1$-measure variations according to $\alpha $}}{68}{figure.6.20}
-\contentsline {figure}{\numberline {21}{\ignorespaces okhttp commit \#0ca4c82dd1032625831a5814ea2ddcf165029bdc}}{76}{figure.6.21}
-\contentsline {figure}{\numberline {22}{\ignorespaces Druid commit \#1091861bb15876131653191ae409a523aa8ec0c5}}{77}{figure.6.22}
-\contentsline {figure}{\numberline {23}{\ignorespaces netty commit \#085a61a310187052e32b4a0e7ae9700dbe926848}}{79}{figure.6.23}
-\contentsline {figure}{\numberline {24}{\ignorespaces okhttp commit \#a96c3a8007d8e1a166f7aec423c7add1ea0e3522}}{80}{figure.6.24}
-\contentsline {figure}{\numberline {25}{\ignorespaces OrientDB commit \#444db817ee9404b17c1208df51781ce9cb6a2666}}{81}{figure.6.25}
-\contentsline {figure}{\numberline {26}{\ignorespaces Jsoup commit \#6c4f16f233cdfd7aedef33374609e9aa4ede255c}}{82}{figure.6.26}
+\contentsline {figure}{\numberline {15}{\ignorespaces Managing events happening on project tracking systems to extract defect-introducing commits and commits that provided the fixes}}{61}{figure.6.15}
+\contentsline {figure}{\numberline {16}{\ignorespaces Clustering by dependency}}{61}{figure.6.16}
+\contentsline {figure}{\numberline {17}{\ignorespaces Classifying incoming commits and proposing fixes}}{62}{figure.6.17}
+\contentsline {figure}{\numberline {18}{\ignorespaces Simplified Dependency Graph for \texttt {com.badlogicgames.gdx}}}{63}{figure.6.18}
+\contentsline {figure}{\numberline {19}{\ignorespaces Dependency Graph}}{67}{figure.6.19}
+\contentsline {figure}{\numberline {20}{\ignorespaces Precision, Recall and F$_1$-measure variations according to $\alpha $}}{69}{figure.6.20}
+\contentsline {figure}{\numberline {21}{\ignorespaces okhttp commit \#0ca4c82dd1032625831a5814ea2ddcf165029bdc}}{78}{figure.6.21}
+\contentsline {figure}{\numberline {22}{\ignorespaces Druid commit \#1091861bb15876131653191ae409a523aa8ec0c5}}{79}{figure.6.22}
+\contentsline {figure}{\numberline {23}{\ignorespaces netty commit \#085a61a310187052e32b4a0e7ae9700dbe926848}}{80}{figure.6.23}
+\contentsline {figure}{\numberline {24}{\ignorespaces okhttp commit \#a96c3a8007d8e1a166f7aec423c7add1ea0e3522}}{81}{figure.6.24}
+\contentsline {figure}{\numberline {25}{\ignorespaces OrientDB commit \#444db817ee9404b17c1208df51781ce9cb6a2666}}{83}{figure.6.25}
+\contentsline {figure}{\numberline {26}{\ignorespaces Jsoup commit \#6c4f16f233cdfd7aedef33374609e9aa4ede255c}}{84}{figure.6.26}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {27}{\ignorespaces Managing events happening on project tracking systems to extract defect-introducing commits and commits that provided the fixes}}{88}{figure.7.27}
-\contentsline {figure}{\numberline {28}{\ignorespaces Clustering by dependency}}{88}{figure.7.28}
-\contentsline {figure}{\numberline {29}{\ignorespaces Classifying incoming commits and proposing fixes}}{88}{figure.7.29}
-\contentsline {figure}{\numberline {30}{\ignorespaces Dependency Graph}}{90}{figure.7.30}
-\contentsline {figure}{\numberline {31}{\ignorespaces Clusters}}{90}{figure.7.31}
-\contentsline {figure}{\numberline {32}{\ignorespaces Process of Comparing New Commits}}{95}{figure.7.32}
+\contentsline {figure}{\numberline {27}{\ignorespaces Managing events happening on project tracking systems to extract defect-introducing commits and commits that provided the fixes}}{90}{figure.7.27}
+\contentsline {figure}{\numberline {28}{\ignorespaces Clustering by dependency}}{90}{figure.7.28}
+\contentsline {figure}{\numberline {29}{\ignorespaces Classifying incoming commits and proposing fixes}}{90}{figure.7.29}
+\contentsline {figure}{\numberline {30}{\ignorespaces Dependency Graph}}{92}{figure.7.30}
+\contentsline {figure}{\numberline {31}{\ignorespaces Clusters}}{92}{figure.7.31}
+\contentsline {figure}{\numberline {32}{\ignorespaces Process of Comparing New Commits}}{96}{figure.7.32}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {33}{\ignorespaces System with four steps $S_0$ to $S_3$, which have five atomic properties $p_1$ to $p_5$ }}{106}{figure.8.33}
-\contentsline {figure}{\numberline {34}{\ignorespaces A toy program under testing }}{107}{figure.8.34}
-\contentsline {figure}{\numberline {35}{\ignorespaces A toy program under model checking }}{108}{figure.8.35}
-\contentsline {figure}{\numberline {36}{\ignorespaces A toy program under directed model checking }}{108}{figure.8.36}
-\contentsline {figure}{\numberline {37}{\ignorespaces Overview of JCHARMING. }}{110}{figure.8.37}
-\contentsline {figure}{\numberline {38}{\ignorespaces Java InvalidActivityException is thrown in the Bar.Foo loop if the control variable is greater than~2. }}{111}{figure.8.38}
-\contentsline {figure}{\numberline {39}{\ignorespaces Hypothetical example of static program slicing}}{112}{figure.8.39}
-\contentsline {figure}{\numberline {40}{\ignorespaces Hypothetical example of backward static program slicing}}{113}{figure.8.40}
-\contentsline {figure}{\numberline {41}{\ignorespaces Hypothetical example representing $bslice_{[a \leftarrow d]}$ (left) vs. $\cup _{i=d}^{a} bslice_{[f_{i+1} \leftarrow f_i]}$ (right) for a crash trace $T={d, f, e}$. }}{114}{figure.8.41}
-\contentsline {figure}{\numberline {42}{\ignorespaces Steps of Algorithm \ref {alg:jcharming-slice} where $f_3$ is corrupted. }}{116}{figure.8.42}
-\contentsline {figure}{\numberline {43}{\ignorespaces High level architecture of the Junit test case generation }}{121}{figure.8.43}
-\contentsline {figure}{\numberline {44}{\ignorespaces Simplified Unit Test template }}{123}{figure.8.44}
-\contentsline {figure}{\numberline {45}{\ignorespaces Crash trace reported for bug ArgoUML \#311}}{128}{figure.8.45}
-\contentsline {figure}{\numberline {46}{\ignorespaces Crash trace reported for bug Mahout \#486}}{130}{figure.8.46}
-\contentsline {figure}{\numberline {47}{\ignorespaces Crash trace reported for bug JFreeChart \#664}}{131}{figure.8.47}
+\contentsline {figure}{\numberline {33}{\ignorespaces System with four steps $S_0$ to $S_3$, which have five atomic properties $p_1$ to $p_5$ }}{108}{figure.8.33}
+\contentsline {figure}{\numberline {34}{\ignorespaces A toy program under testing }}{110}{figure.8.34}
+\contentsline {figure}{\numberline {35}{\ignorespaces A toy program under model checking }}{110}{figure.8.35}
+\contentsline {figure}{\numberline {36}{\ignorespaces A toy program under directed model checking }}{110}{figure.8.36}
+\contentsline {figure}{\numberline {37}{\ignorespaces Overview of JCHARMING. }}{112}{figure.8.37}
+\contentsline {figure}{\numberline {38}{\ignorespaces Java InvalidActivityException is thrown in the Bar.Foo loop if the control variable is greater than~2. }}{113}{figure.8.38}
+\contentsline {figure}{\numberline {39}{\ignorespaces Hypothetical example of static program slicing}}{114}{figure.8.39}
+\contentsline {figure}{\numberline {40}{\ignorespaces Hypothetical example of backward static program slicing}}{115}{figure.8.40}
+\contentsline {figure}{\numberline {41}{\ignorespaces Hypothetical example representing $bslice_{[a \leftarrow d]}$ (left) vs. $\cup _{i=d}^{a} bslice_{[f_{i+1} \leftarrow f_i]}$ (right) for a crash trace $T={d, f, e}$. }}{116}{figure.8.41}
+\contentsline {figure}{\numberline {42}{\ignorespaces Steps of Algorithm \ref {alg:jcharming-slice} where $f_3$ is corrupted. }}{118}{figure.8.42}
+\contentsline {figure}{\numberline {43}{\ignorespaces High level architecture of the Junit test case generation }}{123}{figure.8.43}
+\contentsline {figure}{\numberline {44}{\ignorespaces Simplified Unit Test template }}{124}{figure.8.44}
+\contentsline {figure}{\numberline {45}{\ignorespaces Crash trace reported for bug ArgoUML \#311}}{130}{figure.8.45}
+\contentsline {figure}{\numberline {46}{\ignorespaces Crash trace reported for bug Mahout \#486}}{132}{figure.8.46}
+\contentsline {figure}{\numberline {47}{\ignorespaces Crash trace reported for bug JFreeChart \#664}}{133}{figure.8.47}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {48}{\ignorespaces Class diagram showing the relationship between bugs and fixed }}{138}{figure.9.48}
-\contentsline {figure}{\numberline {49}{\ignorespaces Proposed Taxonomy of Bugs }}{138}{figure.9.49}
-\contentsline {figure}{\numberline {50}{\ignorespaces Ambari heatmap }}{158}{figure.9.50}
+\contentsline {figure}{\numberline {48}{\ignorespaces Class diagram showing the relationship between bugs and fixed }}{140}{figure.9.48}
+\contentsline {figure}{\numberline {49}{\ignorespaces Proposed Taxonomy of Bugs }}{140}{figure.9.49}
+\contentsline {figure}{\numberline {50}{\ignorespaces Ambari heatmap }}{160}{figure.9.50}
 \addvspace {10\p@ }
 \addvspace {10\p@ }

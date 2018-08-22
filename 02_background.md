@@ -84,7 +84,7 @@ In Figure \ref{fig:merge}, the `master` branch points on `a13ab2` while the `1_f
     \label{fig:merge}}
 \end{figure}
 
-## Providers\label{sec:revision-provider}
+## Version Control Systems Providers\label{sec:revision-provider}
 
 In this thesis, we mainly refer to three version control systems: `Svn`, `Git` and, to a lesser extent, `Mercurial`.
 `SVN` is distributed by the Apache Foundation and is a centralized concurrent version system that can handle conflicts in the different versions of different developers. SVN  is widely used in industry.
@@ -147,11 +147,11 @@ The relationship between a report or a task and the actual modification can be h
 The reason is that they are on two different systems: the version control system and the project tracking system.
 While it is considered a good practice to link each report with the versioning system by indicating the report `#id` on the modification message, more than half of the reports are not linked to a modification [@Wu2011].
 
-## Providers\label{sec:bug-provider}
+## Project Tracking Systems Providers\label{sec:bug-provider}
 
 We have collected data from four different project tracking systems: `Bugzilla`, `Jira`, `Github` and `Sourceforge`.
 `Bugzilla` belongs to the Mozilla foundation and has first been released in 1998.
-`Jira`, provided by Altassian, has been released 14 years ago, in 2002.
+`Jira`, provided by Altassian, has been released 16 years ago, in 2002.
 `Bugzilla` is 100% open source and it is difficult to estimate how many projects use it.
 However, we can envision that it owns a great share of the market as major organizations such as Mozilla, Eclipse and the Apache Software Foundation use it.
 `Jira`, on the other hand, is a commercial software tool --- with a freemium business model --- and Altassian claims that they have 25,000 customers over the world.

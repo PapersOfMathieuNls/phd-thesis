@@ -8,9 +8,9 @@
 \BOOKMARK [0][]{chapter.2}{Background}{}% 8
 \BOOKMARK [1][]{section.2.1}{Definitions}{chapter.2}% 9
 \BOOKMARK [1][]{section.2.2}{Version control systems}{chapter.2}% 10
-\BOOKMARK [1][]{section.2.3}{Providers}{chapter.2}% 11
+\BOOKMARK [1][]{section.2.3}{Version Control Systems Providers}{chapter.2}% 11
 \BOOKMARK [2][]{subsection.2.3.1}{Project Tracking Systems}{section.2.3}% 12
-\BOOKMARK [1][]{section.2.4}{Providers}{chapter.2}% 13
+\BOOKMARK [1][]{section.2.4}{Project Tracking Systems Providers}{chapter.2}% 13
 \BOOKMARK [0][]{chapter.3}{Related work}{}% 14
 \BOOKMARK [1][]{section.3.1}{Clone Detection}{chapter.3}% 15
 \BOOKMARK [2][]{subsection.3.1.1}{Traditional Clone Detection Techniques}{section.3.1}% 16
@@ -90,49 +90,50 @@
 \BOOKMARK [1][]{section.7.6}{Threats to Validity}{chapter.7}% 90
 \BOOKMARK [1][]{section.7.7}{Chapter Summary}{chapter.7}% 91
 \BOOKMARK [0][]{chapter.8}{Bug Reproduction Using Crash Traces and Directed Model Checking}{}% 92
-\BOOKMARK [1][]{section.8.1}{Preliminaries}{chapter.8}% 93
-\BOOKMARK [1][]{section.8.2}{Approach}{chapter.8}% 94
-\BOOKMARK [2][]{subsection.8.2.1}{Collecting Crash Traces}{section.8.2}% 95
-\BOOKMARK [2][]{subsection.8.2.2}{Preprocessing}{section.8.2}% 96
-\BOOKMARK [2][]{subsection.8.2.3}{Building the Backward Static Slice}{section.8.2}% 97
-\BOOKMARK [2][]{subsection.8.2.4}{Directed Model Checking}{section.8.2}% 98
-\BOOKMARK [2][]{subsection.8.2.5}{Validation}{section.8.2}% 99
-\BOOKMARK [2][]{subsection.8.2.6}{Generating Test Cases for Bug Reproduction}{section.8.2}% 100
-\BOOKMARK [1][]{section.8.3}{Experimental Setup}{chapter.8}% 101
-\BOOKMARK [2][]{subsection.8.3.1}{Targeted Systems}{section.8.3}% 102
-\BOOKMARK [2][]{subsection.8.3.2}{Bug Selection and Crash Traces}{section.8.3}% 103
-\BOOKMARK [1][]{section.8.4}{Empirical Validation}{chapter.8}% 104
-\BOOKMARK [2][]{subsection.8.4.1}{Successfully Reproduced}{section.8.4}% 105
-\BOOKMARK [2][]{subsection.8.4.2}{Partially Reproduced}{section.8.4}% 106
-\BOOKMARK [2][]{subsection.8.4.3}{Not Reproduced}{section.8.4}% 107
-\BOOKMARK [1][]{section.8.5}{Threats to Validity}{chapter.8}% 108
-\BOOKMARK [1][]{section.8.6}{Chapter Summary}{chapter.8}% 109
-\BOOKMARK [0][]{chapter.9}{Towards a Classification of Bugs Based on the Location of the Corrections: An Empirical Study}{}% 110
-\BOOKMARK [1][]{section.9.1}{Introduction}{chapter.9}% 111
-\BOOKMARK [1][]{section.9.2}{Experimental Setup}{chapter.9}% 112
-\BOOKMARK [2][]{subsection.9.2.1}{Context Selection}{section.9.2}% 113
-\BOOKMARK [2][]{subsection.9.2.2}{Dataset Analysis}{section.9.2}% 114
-\BOOKMARK [1][]{section.9.3}{Empirical Validation}{chapter.9}% 115
-\BOOKMARK [2][]{subsection.9.3.1}{Are T4 bug predictable at submission time?}{section.9.3}% 116
-\BOOKMARK [2][]{subsection.9.3.2}{What are the best predictors of type 4 bugs?}{section.9.3}% 117
-\BOOKMARK [1][]{section.9.4}{Threats to Validity}{chapter.9}% 118
-\BOOKMARK [1][]{section.9.5}{Chapter Summary}{chapter.9}% 119
-\BOOKMARK [0][]{chapter.10}{Conclusion and Future Work}{}% 120
-\BOOKMARK [1][]{section.10.1}{Summary of the Findings}{chapter.10}% 121
-\BOOKMARK [1][]{section.10.2}{Closing Remarks}{chapter.10}% 122
-\BOOKMARK [1][]{section.10.3}{Future Work}{chapter.10}% 123
-\BOOKMARK [2][]{subsection.10.3.1}{Current Limitations}{section.10.3}% 124
-\BOOKMARK [2][]{subsection.10.3.2}{Other Possible Opportunities for Future Research}{section.10.3}% 125
-\BOOKMARK [0][]{chapter.11}{Appendices}{}% 126
-\BOOKMARK [1][]{section.11.1}{Lists of the top-level open-source projects}{chapter.11}% 127
-\BOOKMARK [2][]{subsection.11.1.1}{Parsers}{section.11.1}% 128
-\BOOKMARK [2][]{subsection.11.1.2}{Databases}{section.11.1}% 129
-\BOOKMARK [2][]{subsection.11.1.3}{Web and Services}{section.11.1}% 130
-\BOOKMARK [2][]{subsection.11.1.4}{Cloud and Big data}{section.11.1}% 131
-\BOOKMARK [2][]{subsection.11.1.5}{Messaging and Logging}{section.11.1}% 132
-\BOOKMARK [2][]{subsection.11.1.6}{Graphics}{section.11.1}% 133
-\BOOKMARK [2][]{subsection.11.1.7}{Dependency Management and build systems}{section.11.1}% 134
-\BOOKMARK [2][]{subsection.11.1.8}{Networking}{section.11.1}% 135
-\BOOKMARK [2][]{subsection.11.1.9}{File systems and repository}{section.11.1}% 136
-\BOOKMARK [2][]{subsection.11.1.10}{Misc}{section.11.1}% 137
-\BOOKMARK [0][]{section*.30}{Bibliography}{}% 138
+\BOOKMARK [1][]{section.8.1}{Introduction}{chapter.8}% 93
+\BOOKMARK [1][]{section.8.2}{Preliminaries}{chapter.8}% 94
+\BOOKMARK [1][]{section.8.3}{Approach}{chapter.8}% 95
+\BOOKMARK [2][]{subsection.8.3.1}{Collecting Crash Traces}{section.8.3}% 96
+\BOOKMARK [2][]{subsection.8.3.2}{Preprocessing}{section.8.3}% 97
+\BOOKMARK [2][]{subsection.8.3.3}{Building the Backward Static Slice}{section.8.3}% 98
+\BOOKMARK [2][]{subsection.8.3.4}{Directed Model Checking}{section.8.3}% 99
+\BOOKMARK [2][]{subsection.8.3.5}{Validation}{section.8.3}% 100
+\BOOKMARK [2][]{subsection.8.3.6}{Generating Test Cases for Bug Reproduction}{section.8.3}% 101
+\BOOKMARK [1][]{section.8.4}{Experimental Setup}{chapter.8}% 102
+\BOOKMARK [2][]{subsection.8.4.1}{Targeted Systems}{section.8.4}% 103
+\BOOKMARK [2][]{subsection.8.4.2}{Bug Selection and Crash Traces}{section.8.4}% 104
+\BOOKMARK [1][]{section.8.5}{Empirical Validation}{chapter.8}% 105
+\BOOKMARK [2][]{subsection.8.5.1}{Successfully Reproduced}{section.8.5}% 106
+\BOOKMARK [2][]{subsection.8.5.2}{Partially Reproduced}{section.8.5}% 107
+\BOOKMARK [2][]{subsection.8.5.3}{Not Reproduced}{section.8.5}% 108
+\BOOKMARK [1][]{section.8.6}{Threats to Validity}{chapter.8}% 109
+\BOOKMARK [1][]{section.8.7}{Chapter Summary}{chapter.8}% 110
+\BOOKMARK [0][]{chapter.9}{Towards a Classification of Bugs Based on the Location of the Corrections: An Empirical Study}{}% 111
+\BOOKMARK [1][]{section.9.1}{Introduction}{chapter.9}% 112
+\BOOKMARK [1][]{section.9.2}{Experimental Setup}{chapter.9}% 113
+\BOOKMARK [2][]{subsection.9.2.1}{Context Selection}{section.9.2}% 114
+\BOOKMARK [2][]{subsection.9.2.2}{Dataset Analysis}{section.9.2}% 115
+\BOOKMARK [1][]{section.9.3}{Empirical Validation}{chapter.9}% 116
+\BOOKMARK [2][]{subsection.9.3.1}{Are T4 bug predictable at submission time?}{section.9.3}% 117
+\BOOKMARK [2][]{subsection.9.3.2}{What are the best predictors of type 4 bugs?}{section.9.3}% 118
+\BOOKMARK [1][]{section.9.4}{Threats to Validity}{chapter.9}% 119
+\BOOKMARK [1][]{section.9.5}{Chapter Summary}{chapter.9}% 120
+\BOOKMARK [0][]{chapter.10}{Conclusion and Future Work}{}% 121
+\BOOKMARK [1][]{section.10.1}{Summary of the Findings}{chapter.10}% 122
+\BOOKMARK [1][]{section.10.2}{Future Work}{chapter.10}% 123
+\BOOKMARK [2][]{subsection.10.2.1}{Current Limitations}{section.10.2}% 124
+\BOOKMARK [2][]{subsection.10.2.2}{Other Possible Opportunities for Future Research}{section.10.2}% 125
+\BOOKMARK [1][]{section.10.3}{Closing Remarks}{chapter.10}% 126
+\BOOKMARK [0][]{chapter.11}{Appendices}{}% 127
+\BOOKMARK [1][]{section.11.1}{Lists of the top-level open-source projects}{chapter.11}% 128
+\BOOKMARK [2][]{subsection.11.1.1}{Parsers}{section.11.1}% 129
+\BOOKMARK [2][]{subsection.11.1.2}{Databases}{section.11.1}% 130
+\BOOKMARK [2][]{subsection.11.1.3}{Web and Services}{section.11.1}% 131
+\BOOKMARK [2][]{subsection.11.1.4}{Cloud and Big data}{section.11.1}% 132
+\BOOKMARK [2][]{subsection.11.1.5}{Messaging and Logging}{section.11.1}% 133
+\BOOKMARK [2][]{subsection.11.1.6}{Graphics}{section.11.1}% 134
+\BOOKMARK [2][]{subsection.11.1.7}{Dependency Management and build systems}{section.11.1}% 135
+\BOOKMARK [2][]{subsection.11.1.8}{Networking}{section.11.1}% 136
+\BOOKMARK [2][]{subsection.11.1.9}{File systems and repository}{section.11.1}% 137
+\BOOKMARK [2][]{subsection.11.1.10}{Misc}{section.11.1}% 138
+\BOOKMARK [0][]{section*.30}{Bibliography}{}% 139

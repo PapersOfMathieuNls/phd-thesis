@@ -22,7 +22,7 @@ While the answers are often accurate and precise, they do not leverage the histo
 fixing [@Saha2014], bug reproduction [@Nayrolles2015],
 fault analysis [@Nessa2008], etc.
 
-In this paper, we introduce BUMPER (BUg Metarepository for dEvelopers
+In this chapter, we introduce BUMPER (BUg Metarepository for dEvelopers
 and Researchers), a web-based infrastructure that can be used by software developers and researchers to access data from diverse repositories using natural language queries transparently, regardless of where the data was originally created and hosted.
 
 The idea behind BUMPER is that it can connect to any bug tracking and
@@ -56,7 +56,7 @@ This highly scalable architecture allows BUMPER to serve requests in less than a
 
 ### BUMPER Metadata\label{sub:BUMPER Metadata}
 
-Figure \ref{fig:bumper-metamodel}  shows the core BUMPER metamodel, which captures the common data elements used by most existing bug tracking and control version systems. An issue (task) is characterized by a date, a title, a description, and a fixing time.
+Figure \ref{fig:bumper-metamodel}  shows the core BUMPER metamodel, which captures the common data elements used by most existing bug tracking and control version systems. An issue (task) is characterized by a date, a title, a description, and a fixing time. The cardinality between issues and project (i.e `0..*`) represent the fact that issues can be filled in without knowing which subproject(s) is (are) impacted.
 
 \begin{figure*}
   \centering
@@ -88,7 +88,7 @@ It is highly probable that thousands of records have to be scanned before the RD
 
 Unlike a traditional RDBMS, BUMPER relies on Apache Lucene and uses compressed bitsets to store indexes.
 Bitsets are one of the simplest---and older---data structure that contains only 0 and 1.
-BUMPER supports binary operations like intersection, AND, OR and XOR that can be performed in a snap even for thousands and thousands of records. As an example, if we wish to retrieve bug reports that contain the words `null pointer exception` and have a changeset containing a `try/catch`, a binary intersection will be performed between the two sets of documents, which is much faster than selecting bug reports that match null pointer exception first and then checking if they have a changeset containing a `try/catch` as in the case of an RDBMS.
+BUMPER supports binary operations like intersection, AND, OR and XOR that can be performed in a less than a second even for millions of records. As an example, if we wish to retrieve bug reports that contain the words `null pointer exception` and have a changeset containing a `try/catch`, a binary intersection will be performed between the two sets of documents, which is much faster than selecting bug reports that match null pointer exception first and then checking if they have a changeset containing a `try/catch` as in the case of an RDBMS.
 This technique comes with a high overhead—compared to an RDBMS--for index update, but, in practice, information retrievals tend to be much faster.
 In our case, we want to provide fast access to decades of open source historical data. We periodically update (at night) our indexes when a sufficient amount of new data has been downloaded from the bug tracking and version control systems that BUMPER supports.
 
@@ -220,7 +220,7 @@ public String[] readOneLine() throws IOException{
 
 ## Empirical Validation
 
-Participants were asked to find a code snippet that can be slightly modified in order to fix a bug using BUMPER and Google. The goal of this preliminary study was to compare how fast a suitable fix can be found using BUMPER and Google. We send our survey to 20 participants and received eight responses (40%) and asked them to report on their experience in terms of the time taken to find a fix and the number of Web pages that were browsed. Participants reported then when using Google, it took, on average, 6.94 minutes by examining, in average, 7.57 online sources to find a fix. When using BUMPER, however, it only took around 4.5 minutes. The participants only needed to use BUMPER and not other websites. The feedback we received from the participants was very encouraging. They mainly emphasized the ability of BUMPER to group many repositories in one place, making the search for similar bugs/fixes practical. We intend, in the future, to conduct a large scale (and more formal) experiment with BUMPER for a thorough evaluation of its effectiveness to help software developers in fixing bugs.
+Participants were asked to find a code snippet that can be slightly modified in order to fix a bug using BUMPER and Google. The goal of this preliminary study was to compare how fast a suitable fix can be found using BUMPER and Google. We send our survey to 20 participants and received eight responses (40%) and asked them to report on their experience in terms of the time taken to find a fix and the number of Web pages that were browsed. Half of the participants began by using Google then Bumper while the other half did the opposite. Participants reported then when using Google, it took, on average, 6.94 minutes by examining, in average, 7.57 online sources to find a fix. When using BUMPER, however, it only took around 4.5 minutes. The participants only needed to use BUMPER and not other websites. The feedback we received from the participants was very encouraging. They mainly emphasized the ability of BUMPER to group many repositories in one place, making the search for similar bugs/fixes practical. We intend, in the future, to conduct a large scale (and more formal) experiment with BUMPER for a thorough evaluation of its effectiveness to help software developers in fixing bugs.
 
 ## Threats to Validity
 
