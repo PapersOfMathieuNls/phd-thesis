@@ -71,11 +71,19 @@ Finally, we conclude the thesis in Chapter 10, following with future directions 
 
 Earlier versions of the work done in this thesis have been published in the following papers:
 
-1. Abdelwahab Hamou-Lhadj, **Mathieu Nayrolles**: A Project on Software Defect Prevention at Commit-Time: A Success Story of University-Industry Research Collaboration. Accepted to the International Workshop on Software Engineering Research and Industrial Practice 2018 (SER&IP 2018, Co-located with the International Conference on Software Engineering 2018).
+1. Abdelwahab Hamou-Lhadj, **Mathieu Nayrolles**: A Project on Software Defect Prevention at 
+Commit-Time: A Success Story of University-Industry Research Collaboration. Proceeding of the 
+5th International Workshop on Software Engineering Research and Industrial Practice, co-located 
+with the International Conference on Software Engineering pp. 24-25.
 
-2. **Mathieu Nayrolles**, Abdelwahab Hamou-Lhadj: CLEVER: Combining Code Metrics with Clone Detection for Just-In-Time Fault Prevention and Resolution in Large Industrial Projects. Accepted to Mining Software Repositories 2018 (MSR 2018, Co-located with the International Conference on Software Engineering 2018).
+2. **Mathieu Nayrolles**, Abdelwahab Hamou-Lhadj: CLEVER: Combining Code Metrics with Clone 
+Detection for Just-In-Time Fault Prevention and Resolution in Large Industrial Projects. 
+Proceeding of the International Conference on Mining Software Repositories 2018.
 
-3. **Mathieu Nayrolles**, Abdelwahab Hamou-Lhadj: Towards a Classification of Bugs to Facilitate Software Maintainibility Tasks. Accepted to the International Workshop on Software Qualities and their Dependencies (SQUADE 2018, Co-located with the International Conference on Software Engineering 2018).
+3. **Mathieu Nayrolles**, Abdelwahab Hamou-Lhadj: Towards a Classification of Bugs to 
+Facilitate Software Maintainibility Tasks. Proceedings of the 1st International Workshop on 
+Software Qualities and Their Dependencies 2018, Co-located with the International Conference on 
+Software Engineering 2018, pp. 25-32.
 
 4. **Mathieu Nayrolles**, Abdelwahab Hamou-Lhadj, Sofiène Tahar, Alf Larsson: A bug reproduction approach based on directed model checking and crash traces. Journal of Software: Evolution and Process 29(3) (2017).
 
@@ -92,7 +100,7 @@ While they are not directly related to this thesis, at the same time, they are n
 
 In addition, we seized the opportunity to disseminate the best practices discovered from our extensive investigation of software ecosystems in several books aimed at practitioners. Appendices of this thesis list the open-source systems that have been studied for our works.
 
-9. **Mathieu Nayrolles** (2018). Angular 2 Design Patterns and Best Practices. (pp. 504). Packt Publishing. 
+9. **Mathieu Nayrolles** (2018). Angular Design Patterns. (pp. 178). Packt Publishing. 
 
 10. **Mathieu Nayrolles**, Rajesh Gunasundaram, Sridhar Rao (2017). Expert Angular. (pp. 454). Packt Publishing.
 
