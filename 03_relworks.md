@@ -21,7 +21,13 @@ In 2010, Hummel et al. proposed an approach that is both incremental and scalabl
 
 ### Remote Detection of Clones
 
-Yuki et al. conducted one of the few studies on the application of clone management to industrial systems [@yamanaka2012industrial]. They implemented a tool named Clone Notifier at NEC with the help of experienced practitioners. They specifically focus on clone insertion notification, very much like PRECINCT. Unlike PRECINCT, their approach uses a remote approach in which the changes are committed (i.e., they reach the central repository, and anyone can pull them into his or her machines) and a central server analyses the changes. If the committed changes contain newly inserted clones, then an email notification is sent.
+Yuki et al. conducted one of the few studies on the application of clone management to 
+industrial systems [@yamanaka2012industrial]. They implemented a tool named Clone Notifier at 
+NEC with the help of experienced practitioners. They specifically focus on clone insertion 
+notification, very much like PRECINCT. Unlike PRECINCT however, their approach uses a remote 
+approach in which the changes are committed (i.e., they reach the central repository, and 
+anyone can pull them into their machines) and a central server analyses the changes. If the 
+committed changes contain newly inserted clones, then an email notification is sent.
 
 Zhang et al. proposed CCEvents (Code Cloning Events) [@Zhang2013a]. Their approach monitors code repository continuously and allows stakeholders to use a domain specific language called CCEML to specify which email notifications they wish to receive.
 
