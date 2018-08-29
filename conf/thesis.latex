@@ -60,7 +60,7 @@ breaklinks=true
 
 \usepackage{todonotes}
 
-\author{Mathieu Nayrolles}
+\author{Mathieu Louis Nayrolles}
 \title{Software Maintenance at Commit-Time}
 
 \titleOfPhDAuthor{Mr.}          % or Ms., Mrs., Miss, etc. (only for PhD's)
@@ -80,16 +80,15 @@ breaklinks=true
 \end{abstract}
 
 \begin{acknowledgments}
-My deepest gratitude goes to Dr. Wahab Hamou-Lhadj for accepting to enrol me as a Ph.D student, believing in my ideas, and helping me grow as a person and a researcher. Your guidance and availability never failed me during these challenging years. 
+My deepest gratitude goes to Dr. Abdelwahab Hamou-Lhadj for accepting to enrol me as a Ph.D student, believing in my ideas, and helping me grow as a person and a researcher. Your guidance and availability never failed me during these challenging years. 
 
-Thanks to Yves Jacquier, Olivier Pomarez, Julien Kauffmann and Nicolas Fleury from Ubisoft that first saw value in my work and allowed me to study their systems. Also, I would like to thank all the employees at Ubisoft that supported me during this adventure; especially Florent Jousset, Luc Bouchard and, Chadi Lebbos.
+Thanks to Yves Jacquier, Olivier Pomarez, Julien Kauffmann and Nicolas Fleury from Ubisoft that first saw value in my work and allowed me to study their systems. Also, I would like to thank all the employees at Ubisoft that supported me during this adventure, especially Florent Jousset, Luc Bouchard and, Chadi Lebbos.
 
-Thanks to the members of SBA, ISyLM and, La Forge research labs for the brainstorming sessions and their feedbacks on my work.
+Thanks to the members of Intelligent System-Logging and Monitoring research lab (formerly known as the Software Behaviour Analysis research lab) at ENCS Concordia Ubiversity and La Forge research lab at Ubisoft Montr\'eal for the brainstorming sessions and their feedbacks on my work.
 
-I am also grateful to the Concordia School of Graduate Studies and the \textit{The Fonds de recherche du Qu\'ebec – Nature et technologies (FRQNT)} for their continuous financial support during my graduate studies. 
+I am also grateful to the Concordia School of Graduate Studies, the \textit{ Fonds de recherche du Qu\'ebec – Nature et technologies (FRQNT)} and, the Natural Sciences and Engineering Research Concil of Canada (NSERC) for their continuous financial support during my graduate studies. 
 
-Sheryl Tablan, the Graduate Program Coordinator - Ph.D. Program, who allowed me to navigate various administrative ambushes. 
-
+I would also like to thank Ms. Sheryl Tablan, the Graduate Program Coordinator - Ph.D. Program, who allowed me to navigate various administrative ambushes. 
 
 Finally, Lakm\'e Gremillet, for her unwavering support that carried me through ups and downs, successes and failures. There is no doubt in my mind that none of this will have been possible without her.
 \end{acknowledgments}
