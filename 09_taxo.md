@@ -1,13 +1,8 @@
-﻿# Towards a Classification of Bugs Based on the Location of the Corrections: An Empirical Study
+# Towards a Classification of Bugs Based on the Location of the Corrections: An Empirical Study
 
 ## Introduction
 
-In previous chapters, we showed how to prevent clones and defects, proposes fixes at commit-time and reproduce on-field crashes.
-
-These techniques, however, treat all bugs as the same.  This is also the case for other studies in the literature (e.g.,  [@Weiß2007; @Zhang2013]). For example, a bug that requires only one fix is analyzed the same way as a bug that necessitates multiple fixes. Similarly, if multiple bugs are fixed by modifying the exact same locations in the code, then we should investigate how these bugs are related in order to predict them in the future. Note here that we do not refer to duplicate bugs. Duplicate bugs are marked as duplicate (and not fixed) and only the master bug is fixed.
-
-Our works [@Nayrolles2016d; @Nayrolles2016b; @Maiga2015; @Nayrolles2015g; @Nayrolles2018; @Nayrolles2015]) treat bug as equal in a sense that they do not assume any underlying classification of bugs. It also the case for other studies.
-By a fix, we mean a modification (adding or deleting lines of code) to an existing file that is used to solve the bug.
+In previous chapters, we showed how to prevent clones and defects, proposes fixes at commit-time. We also introduced a technique to reproduce on-field crashes [@Nayrolles2016d; @Nayrolles2016b; @Maiga2015; @Nayrolles2015g; @Nayrolles2018; @Nayrolles2015]). These techniques, however, treat all bugs as the same.  This is also the case for other studies in the literature (e.g.,  [@Weiß2007; @Zhang2013]). For example, a bug that requires only one fix is analyzed the same way as a bug that necessitates multiple fixes. Similarly, if multiple bugs are fixed by modifying the exact same locations in the code, then we should investigate how these bugs are related in order to predict them in the future. By a fix, we mean a modification (adding or deleting lines of code) to an existing file that is used to solve the bug. Note here that we do not refer to duplicate bugs. Duplicate bugs are marked as duplicate (and not fixed) and only the master bug is fixed.
 
 As a motivating example, consider Bugs #AMQ-5066 and #AMQ-5092 from the Apache Software Foundation bug report
 management system (used to build one of the datasets in this
