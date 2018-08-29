@@ -1,4 +1,4 @@
-﻿---
+---
 abstract:  "Software maintenance activities such as debugging and feature enhancement are known to be challenging and costly, which explains an ever growing line of research in software maintenance areas including mining software repository, default prevention, clone detection, and bug reproduction. The main goal is to improve the productivity of software developers as they undertake maintenance tasks. Existing tools, however, operate in an offline fashion, i.e., after the changes to the systems have been made. Studies have shown that software developers tend to be reluctant to use these tools as part of a continuous development process. This is because they require installation and training, hindering their integration with developers’ workflow, which in turn limits their adoption.
 
 In this thesis, we propose novel approaches to support software developers at commit-time. As part of the developer's workflow, a commit marks the end of a given task. We show how commits can be used to catch unwanted modifications to the system, and prevent the introduction of clones and bugs, before these modifications reach the central code repository. We also propose a bug reproduction technique that is based on model checking and crash traces. Furthermore, we propose a new way for classifying bugs based on the location of fixes that can serve as the basis for future research in this field of study. 
@@ -33,7 +33,7 @@ BUMPER supports many features including: (1) the ability to use multiple bug tra
 
 2. Online and incremental clone detection at commit-time (Chapter 5):
 Code clones appear when developers reuse code with little to no modification to the original code. Studies have shown that clones can account for about 7% to 50% of the code in a given software system [@Baker; @StephaneDucasse].
-Nevertheless, clones are considered a bad practice in software development since they may introduce new bugs in code [@Juergens2009]. If a bug is discovered in one segment of the code that has been copied and pasted several times, then the developers will have to remember the places where this segment has been reused to fix the bug in each place.
+Nevertheless, introduction of new software clones is to be controlled as they may introduce new bugs in code [@Juergens2009]. If a bug is discovered in one segment of the code that has been copied and pasted several times, then the developers will have to remember the places where this segment has been reused to fix the bug in each place.
 In this research, we present PRECINCT (PREventing Clones INsertion at Commit-Time) that focuses on preventing the insertion of clones at commit-time, i.e., before they reach the central code repository. PRECINCT is an online clone detection technique that relies on the use of pre-commit hooks capabilities of modern source code version control systems.
 
 3. An approach for preventing bug insertion at commit-time using clone detection and dependency analysis (Chapter 6):
@@ -48,11 +48,11 @@ Crash reproduction is an expensive task because the data provided by end users i
 It is, therefore, important to invest in techniques and tools for automatic bug reproduction to ease the maintenance process and accelerate the rate of bug fixes and patches. We propose an approach, called JCHARMING (Java CrasH Automatic Reproduction by directed Model checkING) that uses a combination of crash traces and model checking to reproduce bugs that caused field failures automatically [@Nayrolles2015; @Nayrolles2016d].
 Unlike existing techniques, JCHARMING does not require instrumentation of the code.
 It does not need access to the content of the heap either.
-Instead, JCHARMING uses a list of functions output when an uncaught exception in Java occurs (i.e., the
+Instead, JCHARMING uses a list of functions outputed when an uncaught exception in Java occurs (i.e., the
 crash trace) to guide a model checking engine to uncover the statements that caused the crash.
 Such outputs are often found in bug reports.
 
-6. A classification of bugs  based on the location of fixes (Chapter 9):
+6. A classification of bugs based on the location of fixes (Chapter 9):
 In recent years, there has been an increase in attention in techniques and tools that mine large bug repositories to help software developers understand the causes of bugs and speed up the fixing process. These techniques, however, treat all bugs in the same way. Bugs that are fixed by changing a single location in the code are examined the same way as those that require complex changes.
 After examining more than 100 thousand bug reports of 380 projects, we found that bugs can be classified into four types based on the location of their fixes.
 Type 1 bugs are the ones that fixed by modifying a single location in the code, while Type 2 refers to bugs that are fixed in more than one location.
@@ -71,71 +71,65 @@ Finally, we conclude the thesis in Chapter 10, following with future directions 
 
 Earlier versions of the work done in this thesis have been published in the following papers:
 
-1. Abdelwahab Hamou-Lhadj, **Mathieu Nayrolles**: A Project on Software Defect Prevention at 
-Commit-Time: A Success Story of University-Industry Research Collaboration. Proceeding of the 
-5th International Workshop on Software Engineering Research and Industrial Practice, co-located 
-with the International Conference on Software Engineering pp. 24-25.
+1. Abdelwahab Hamou-Lhadj, **Mathieu Nayrolles**: A Project on Software Defect Prevention at Commit-Time: A Success Story of University-Industry Research Collaboration. Proceeding of the 5th International Workshop on Software Engineering Research and Industrial Practice, co-located with the International Conference on Software Engineering 2018, pp. 24-25.
 
-2. **Mathieu Nayrolles**, Abdelwahab Hamou-Lhadj: CLEVER: Combining Code Metrics with Clone 
-Detection for Just-In-Time Fault Prevention and Resolution in Large Industrial Projects. 
-Proceeding of the International Conference on Mining Software Repositories 2018.
+2. **Mathieu Nayrolles**, Abdelwahab Hamou-Lhadj: CLEVER: Combining Code Metrics with Clone Detection for Just-In-Time Fault Prevention and Resolution in Large Industrial Projects. Proceeding of the International Conference on Mining Software Repositories 2018.
 
-3. **Mathieu Nayrolles**, Abdelwahab Hamou-Lhadj: Towards a Classification of Bugs to 
-Facilitate Software Maintainibility Tasks. Proceedings of the 1st International Workshop on 
-Software Qualities and Their Dependencies 2018, Co-located with the International Conference on 
-Software Engineering 2018, pp. 25-32.
+3. **Mathieu Nayrolles**, Abdelwahab Hamou-Lhadj: Towards a Classification of Bugs to Facilitate Software Maintainibility Tasks. Proceeding of the 1st International Workshop on Software Qualities and Their Dependencies 2018, Co-located with the International Conference on Software Engineering 2018, pp. 25-32.
 
 4. **Mathieu Nayrolles**, Abdelwahab Hamou-Lhadj, Sofiène Tahar, Alf Larsson: A bug reproduction approach based on directed model checking and crash traces. Journal of Software: Evolution and Process 29(3) (2017).
 
-5. **Mathieu Nayrolles**, Abdelwahab Hamou-Lhadj: BUMPER: A Tool for Coping with Natural Language Searches of Millions of Bugs and Fixes. International Conference on Software Analysis, Evolution and Reengineering 2016: 649-652.
+5. **Mathieu Nayrolles**, Abdelwahab Hamou-Lhadj: BUMPER: A Tool for Coping with Natural Language Searches of Millions of Bugs and Fixes. International Conference on Software Analysis, Evolution and Reengineering 2016, pp. 649-652.
 
-6. **Mathieu Nayrolles**, Abdelwahab Hamou-Lhadj, Sofiène Tahar, Alf Larsson: JCHARMING: A bug reproduction approach using crash traces and directed model checking. International Conference on Software Analysis, Evolution and Reengineering 2015: 101-110. **Best Paper Award**.
+6. **Mathieu Nayrolles**, Abdelwahab Hamou-Lhadj, Sofiène Tahar, Alf Larsson: JCHARMING: A bug reproduction approach using crash traces and directed model checking. International Conference on Software Analysis, Evolution and Reengineering 2015, pp. 101-110. **Best Paper Award**.
 
 The following papers were published in parallel to the aforementioned publications.
 While they are not directly related to this thesis, at the same time, they are not completely irrelevant, as their topics include crash report handling and quality oriented refactoring of service based applications.
 
-7. Abdou Maiga, Abdelwahab Hamou-Lhadj, **Mathieu Nayrolles**, Korosh Koochekian Sabor, Alf Larsson: An empirical study on the handling of crash reports in a large software company: An experience report. International Conference on Software Maintenance and Evolution 2015: 342-351.
+7. Abdou Maiga, Abdelwahab Hamou-Lhadj, **Mathieu Nayrolles**, Korosh Koochekian Sabor, Alf Larsson: An empirical study on the handling of crash reports in a large software company: An experience report. International Conference on Software Maintenance and Evolution 2015, pp. 342-351.
 
-8. **Mathieu Nayrolles**, Eric Beaudry, Naouel Moha, Petko Valtchev, Abdelwahab Hamou-Lhadj: Towards Quality-Driven SOA Systems Refactoring Through Planning. International Multidisciplinary Conference on e-Technologies 2015: 269-284.
+8. **Mathieu Nayrolles**, Eric Beaudry, Naouel Moha, Petko Valtchev, Abdelwahab Hamou-Lhadj: Towards Quality-Driven SOA Systems Refactoring Through Planning. International Multidisciplinary Conference on e-Technologies 2015, pp. 269-284.
+
+9. Korosh Koochekian Sabor, **Mathieu Nayrolles**, Abdelaziz Trabelsi, Abdelwahab Hamou-Lhadj: An Approach for Predicting Bug Report Fields Using a Neural Network Model. Accepted to ISSRE-IDEAR 2018.
 
 In addition, we seized the opportunity to disseminate the best practices discovered from our extensive investigation of software ecosystems in several books aimed at practitioners. Appendices of this thesis list the open-source systems that have been studied for our works.
 
-9. **Mathieu Nayrolles** (2018). Angular Design Patterns. (pp. 178). Packt Publishing. 
+10. **Mathieu Nayrolles** (2018). Angular Design Patterns. (pp. 178). Packt Publishing. 
 
-10. **Mathieu Nayrolles**, Rajesh Gunasundaram, Sridhar Rao (2017). Expert Angular. (pp. 454). Packt Publishing.
+11. **Mathieu Nayrolles**, Rajesh Gunasundaram, Sridhar Rao (2017). Expert Angular. (pp. 454). Packt Publishing.
 
-11. **Mathieu Nayrolles** (2015). Magento Site Performance Optimization. (pp. 92). Packt Publishing.
+12. **Mathieu Nayrolles** (2015). Magento Site Performance Optimization. (pp. 92). Packt Publishing.
 
-12. **Mathieu Nayrolles** (2015). Xamarin Studio for Android Programming: A C# Cookbook. (pp. 298). Packt Publishing.
+13. **Mathieu Nayrolles** (2015). Xamarin Studio for Android Programming: A C# Cookbook. (pp. 298). Packt Publishing.
 
-13. **Mathieu Nayrolles** (2014). Mastering Apache Solr. Inkstall Publishing. (pp. 152). Inkstall Publishing.
+14. **Mathieu Nayrolles** (2014). Mastering Apache Solr. Inkstall Publishing. (pp. 152). Inkstall Publishing.
 
-14. **Mathieu Nayrolles** (2013). Instant Magento Performance Optimization How-to. (pp. 56). Packt Publishing.
+15. **Mathieu Nayrolles** (2013). Instant Magento Performance Optimization How-to. (pp. 56). Packt Publishing.
 
 Finally, the work presented in this thesis also attracted media-coverage for its impact at Ubisoft, one of the world largest video game publisher. A google search for "commit+assistant+ubisoft" yields more than 114,000 results at the time of writing. Here is a curated list of the most interesting press articles.
 
-15. Sinclair, B. (2018). Ubisoft’s “Minority Report of programming” - GamesIndustry.
+16. Sinclair, B. (2018). Ubisoft’s “Minority Report of programming” - GamesIndustry.
 \url{https://www.gamesindustry.biz/articles/2018-02-22-ubisofts-minority-report-of-programming}.
 
-16. Maxime Johnson. (2018). Jeux videos : reunir les chercheurs et les créateurs - Techno - L’actualite.
+17. Maxime Johnson. (2018). Jeux videos : reunir les chercheurs et les créateurs - Techno - L’actualite.
 \url{http://lactualite.com/techno/2018/02/23/jeu-video-reunir-les-chercheurs-et-les-createurs/}
 
-17. Condliffe, J. (2018). AI can help spot coding mistakes before they happen. - MIT Technology Review.
+18. Condliffe, J. (2018). AI can help spot coding mistakes before they happen. - MIT Technology Review.
 \url{https://www.technologyreview.
 com/the-download/610416/ai-can-help-spot-coding-mistakes-before-they-happen/}
 
-18. Matt Kamen. (2018). Ubisoft’s AI in Far Cry 5 and Watch Dogs could change gaming - WIRED UK.\url{http://www.wired.co.uk/article/ubisoft-commit-assist-ai}
+19. Matt Kamen. (2018). Ubisoft’s AI in Far Cry 5 and Watch Dogs could change gaming - WIRED UK.\url{http://www.wired.co.uk/article/ubisoft-commit-assist-ai}
 
-19. Kenneth Gibson. (2018). STEM SIGHTS: The Concordian who uses AI to fix software bugs - Concordia News. 
+20. Kenneth Gibson. (2018). STEM SIGHTS: The Concordian who uses AI to fix software bugs - Concordia News. 
 \url{http://www.concordia.ca/cunews/main/stories/2018/04/10/stem-sights-concordian-who-makes-bug-free-software.html}
 
-20. Ryan Remiorz. (2018). Concordia develops tool with Ubisoft to detect glitches in gaming software - Financial Post.
+21. Ryan Remiorz. (2018). Concordia develops tool with Ubisoft to detect glitches in gaming software - Financial Post.
 \url{http://business.financialpost.com/pmn/business-pmn/concordia-develops-tool-with-ubisoft-to-detect-glitches-in-gaming-software}
 
-21. The Canadian Press. (2018). Concordia partners with Ubisoft to detect glitches in gaming software - The Globe and Mail.
+22. The Canadian Press. (2018). Concordia partners with Ubisoft to detect glitches in gaming software - The Globe and Mail.
 \url{https://www.theglobeandmail.com/business/technology/article-concordia-partners-with-ubisoft-to-detect-glitches-in-gaming-software/}
 
-22. Cyrille Baron. (2018). Commit Assistant, l’IA qui aide les développeurs de jeux - iQ France.
+23. Cyrille Baron. (2018). Commit Assistant, l’IA qui aide les développeurs de jeux - iQ France.
 \url{https://iq.intel.fr/commit-assistant-lia-qui-aide-les-developpeurs-de-jeux/?sf184907379=1}
 
 In these publications, the work presented in this thesis is referred to as _commit-assistant_ which is the internal implementation of CLEVER (Chapter 7).
