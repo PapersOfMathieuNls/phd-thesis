@@ -75,7 +75,7 @@ Earlier versions of the work done in this thesis have been published in the foll
 
 2. **Mathieu Nayrolles**, Abdelwahab Hamou-Lhadj: CLEVER: Combining Code Metrics with Clone Detection for Just-In-Time Fault Prevention and Resolution in Large Industrial Projects. Proceeding of the International Conference on Mining Software Repositories 2018.
 
-3. **Mathieu Nayrolles**, Abdelwahab Hamou-Lhadj: Towards a Classification of Bugs to Facilitate Software Maintainibility Tasks. Proceeding of the 1st International Workshop on Software Qualities and Their Dependencies 2018, Co-located with the International Conference on Software Engineering 2018, pp. 25-32.
+3. **Mathieu Nayrolles**, Abdelwahab Hamou-Lhadj: Towards a Classification of Bugs to Facilitate Software Maintainibility Tasks. Proceeding of the 1st International Workshop on Software Qualities and Their Dependencies 2018, co-located with the International Conference on Software Engineering 2018, pp. 25-32.
 
 4. **Mathieu Nayrolles**, Abdelwahab Hamou-Lhadj, Sofiène Tahar, Alf Larsson: A bug reproduction approach based on directed model checking and crash traces. Journal of Software: Evolution and Process 29(3) (2017).
 
@@ -90,7 +90,7 @@ While they are not directly related to this thesis, at the same time, they are n
 
 8. **Mathieu Nayrolles**, Eric Beaudry, Naouel Moha, Petko Valtchev, Abdelwahab Hamou-Lhadj: Towards Quality-Driven SOA Systems Refactoring Through Planning. International Multidisciplinary Conference on e-Technologies 2015, pp. 269-284.
 
-9. Korosh Koochekian Sabor, **Mathieu Nayrolles**, Abdelaziz Trabelsi, Abdelwahab Hamou-Lhadj: An Approach for Predicting Bug Report Fields Using a Neural Network Model. Accepted to ISSRE-IDEAR 2018.
+9. Korosh Koochekian Sabor, **Mathieu Nayrolles**, Abdelaziz Trabelsi, Abdelwahab Hamou-Lhadj: An Approach for Predicting Bug Report Fields Using a Neural Network Model. Accepted to the International Workshop on Debugging and Repair (IDEAR) co-located with the International Symposium of Software Reliability Engineering (ISSRE) 2018.
 
 In addition, we seized the opportunity to disseminate the best practices discovered from our extensive investigation of software ecosystems in several books aimed at practitioners. Appendices of this thesis list the open-source systems that have been studied for our works.
 

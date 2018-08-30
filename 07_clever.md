@@ -1,8 +1,6 @@
-﻿# Combining Code Metrics with Clone Detection for Just-In-Time Fault Prevention and Resolution
+ # Combining Code Metrics with Clone Detection for Just-In-Time Fault Prevention and Resolution
 
 ## Introduction
-
-
 
 In the previous chapter, we presented BIANCA, an approach that relies on clone-detection to detect risky commits and propose fixes. While the performances of BIANCA are satisfactory, it still has major limitations. For instance, it only supports the Java programming language and building the model supporting it is incredibly expansive.
 
@@ -13,7 +11,7 @@ However, Commit-guru and similar tools suffer from some limitations. First, they
 
 Finally, they have been mainly validated using open source systems. Their effectiveness, when applied to industrial systems, has yet to be shown.
 
-In this chapter, we propose an approach, called CLEVER (Combining Levels of Bug Prevention and Resolution techniques), that relies on a two-phase process for intercepting risky commits before they reach the central repository. The first phase consists of building a metric-based model to assess the likelihood that an incoming commit is risky or not. This is similar to existing approaches. The next phase relies on clone detection to compare code blocks extracted from suspicious risky commits, detected in the first phase, with those of known historical fault-introducing commits. This additional phase provides CLEVER with two apparent advantages over Commit-guru and other similar approaches. First, as we will show in the evaluation section, CLEVER is able to reduce the number of false positives by relying on code matching instead of mere metrics. The second advantage is that, with CLEVER, it is possible to use commits that were used to fix faults introduced by previous commits to suggest recommendations to developers on how to improve the risky commits at hand. This way, CLEVER goes one step further than Commit-guru (and similar techniques) by providing developers with a potential fix for their risky commits.
+In this chapter, we propose an approach, called CLEVER (Combining Levels of Bug Prevention and Resolution techniques), that relies on a two-phase process for intercepting risky commits before they reach the central repository. The first phase consists of building a metric-based model to assess the likelihood that an incoming commit is risky or not. This is similar to existing approaches. The next phase relies on clone detection to compare code blocks extracted from suspicious risky commits, detected in the first phase, with those of known historical fault-introducing commits. This additional phase provides CLEVER with two apparent advantages over Commit-guru and other similar approaches. First, as we will show in the evaluation section, CLEVER is able to reduce the number of false positives by relying on code matching instead of mere metrics only. The second advantage is that, with CLEVER, it is possible to use commits that were used to fix faults introduced by previous commits to suggest recommendations to developers on how to improve the risky commits at hand. This way, CLEVER goes one step further than Commit-guru (and similar techniques) by providing developers with a potential fix for their risky commits.
 
 Another important aspect of CLEVER is its ability to detect risky commits not only by comparing them to commits of a single project but also to those belonging to other projects that share common dependencies. This is important in the context of an industrial setting where  software systems tend to have many dependencies that make them vulnerable to the same faults.
 
@@ -61,7 +59,7 @@ At Ubisoft, dependencies are managed within the framework of a single repository
 
 ### Building a Database of Code Blocks of Defect-Commits and Fix-Commits {#sec:offline}
 
-In order to build of database of code blocks of defect-commits and fix-commits we use the same technic as for BIANCA. First, we listen to issue closing-events and extract the blocks of code belonging to incrimated commits (i.e. commit known to have introduced a bug) using our refined version of TXL and NICAD.
+In order to build of database of code blocks of defect-commits and fix-commits we use the same technic as for BIANCA. First, we listen to issue closing-events and extract the blocks of code belonging to incrimated commits (i.e. commit known to have introduced a bug) using our refined versions of TXL and NICAD.
 
 ### Building a Metric-Based Model {#sec:metric-based}
 
@@ -82,7 +80,7 @@ Once again, we reuse the comparing method approach created for BIANCA when it co
 
 As discussed in Section \ref{sec:metric-based}, a new commit goes through the metric-based model first (Steps 1 to 4). If the commit is classified as _non-risky_, we simply let it through, and we stop the process. If the commit is classified as _risky_, however, we continue the process with Steps 5 to 8 in our approach.
 
-One may wonder why we needed to have a metric-based model in the first place. We could have resorted to clone detection as the main mechanism as exposed in the previous chapter. The main reason for having the metric-based model is efficiency. If each commit had to be analysed against all known signatures using code clone similarity, then, it would have made CLEVER impractical at Ubisoft’s scale. We estimate that, in an average workday (i.e. thousands of commits), if all commits had to be compared against all signatures on the same cluster we used for our experiments it would take around 25 minutes to process a commit with the current processing power dedicated to *CLEVER*.
+One may wonder why we needed to have a metric-based model in the first place. We could have resorted to clone detection as the main mechanism as exposed in the previous chapter. The main reason for having the metric-based model is efficiency. If each commit had to be analysed against all known signatures using code clone similarity, then, it would have made CLEVER impractical at Ubisoft's scale. We estimate that, in an average workday (i.e. thousands of commits), if all commits had to be compared against all signatures on the same cluster we used for our experiments it would take around 25 minutes to process a commit with the current processing power dedicated to *CLEVER*.
 In comparison, it takes, on average, 3.75 seconds with the current two-step approach.
 
 ### Proposing Fixes
@@ -100,7 +98,7 @@ In this section, we present the setup of our case study in terms of repository s
 
 ### Project Repository Selection {#sec:rep}
 
-In collaboration with Ubisoft developers, we selected 12 major software projects (i.e., systems) developed at Ubisoft to evaluate the effectiveness of CLEVER. These systems continue to be actively maintained by thousands of developers. Ubisoft projects are organized by game engines. A game engine can be used in the development of many high-budget games. The projects selected for this case study are related to the same game engine. For confidentiality and security reasons, neither the names nor the characteristics of these projects are provided. We can, however, disclose that the size of these systems altogether consists of millions of files of code, hundreds of millions of lines of code and hundreds of thousands of commits. All 12 systems are AAA videos games.
+In collaboration with Ubisoft developers, we selected 12 major software projects (i.e., systems) developed at Ubisoft to evaluate the effectiveness of CLEVER. These systems continue to be actively maintained by thousands of developers. Ubisoft projects are organized by game engines. A game engine can be used in the development of many high-budget games. The  projects selected for this case study are related to the same game engine. For confidentiality and security reasons, neither the names nor the characteristics of these projects are provided. We can, however, disclose that the size of these systems altogether consists of millions of files of code, hundreds of millions of lines of code and hundreds of thousands of commits. All 12 systems are AAA videos games.
 
 ### Project Dependency Analysis {#sec:dependencies}
 
@@ -171,6 +169,7 @@ All the participants answered the first question favourably. They also proposed 
 - Ability to leverage many years of historical data of inter-related projects, hence allowing development teams to share their experiences in fixing bugs. 
 - Easy integration of CLEVER into developers' work flow based on the tool's ability to operate at commit-time.  
 - Precision and recall of the tool (79% and 65% respectively) demonstrating CLEVER's capabilities to catch many defects that would otherwise end up in the code repository. 
+
 For the second question, the participants proposed to add a feedback
 loop to CLEVER where the input of software developers is taken into
 account during classification. The objective is to reduce the number of
@@ -208,7 +207,7 @@ In this section, we describe the lessons learned during this industrial collabor
 
 ### Deep understanding of the project requirements
 
-Throughout the design of CLEVER, it was important to have a close collaboration between the research team and the Ubisoft developers. This allowed the research team to understand well the requirements of the project. Through this collaboration, both the research and development teams quickly realized that existing work in the literature was not sufficient to address the project’s requirements. In addition, existing studies were mainly tested using open source systems, which may be quite different in structure and size from large industrial systems. In our case, we found that a deep understanding of Ubisoft ecosystem was an important enabler for many decisions we made in this project including the fact that CLEVER operates on multiple systems and that it uses a two-phase mechanism. It was also important to come up with a solution that integrates well with the workflow of Ubisoft developers. This required the development of CLEVER in a way it integrates well with the entire suite of Ubisoft’s version control systems. The key lesson here is to understand well the requirements of a project and its complexity.
+Throughout the design of CLEVER, it was important to have a close collaboration between the research team and the Ubisoft developers. This allowed the research team to understand well the requirements of the project. Through this collaboration, both the research and development teams quickly realized that existing work in the literature was not sufficient to address the project's requirements. In addition, existing studies were mainly tested using open source systems, which may be quite different in structure and size from large industrial systems. In our case, we found that a deep understanding of Ubisoft ecosystem was an important enabler for many decisions we made in this project including the fact that CLEVER operates on multiple systems and that it uses a two-phases mechanism. It was also important to come up with a solution that integrates well with the workflow of Ubisoft developers. This required the development of CLEVER in a way it integrates well with the entire suite of Ubisoft's version control systems. The key lesson here is to understand well the requirements of a project and its complexity.
 
 ### Understanding the benefits of the project to both parties
 
@@ -233,7 +232,7 @@ Any new initiate brings with it important changes to the way people work. Managi
 
 We identified two main limitations of our approach, CLEVER, which require further studies.
 
-CLEVER is designed to work on multiple related systems. Applying CLEVER to a single system will most likely be less effective. The two-phase classification process of CLEVER would be hindered by the fact that it is unlikely to have a large number of similar bugs within the same system. For single systems, we recommend the use of metric-based models. A metric-based solution, however, may turn to be ineffective when applied across systems because of the difficulty associated with identifying common thresholds that are applicable to a wide range of systems.
+CLEVER is designed to work on multiple related systems. Applying CLEVER to a single system will most likely be less effective. The two-phases classification process of CLEVER would be hindered by the fact that it is unlikely to have a large number of similar bugs within the same system. For single systems, we recommend the use of metric-based models. A metric-based solution, however, may turn to be ineffective when applied across systems because of the difficulty associated with identifying common thresholds that are applicable to a wide range of systems.
 
 The second limitation we identified has to do with the fact that CLEVER is designed to work with Ubisoft systems. Ubisoft uses C#, C, C++, Java and other internally developed languages. It is however common to have  other languages used in an environment with many inter-related systems. We intend to extend CLEVER to process commits from other languages as well.
 
@@ -251,5 +250,5 @@ In conclusion, internal and external validity have both been minimized by choosi
 In this chapter, we presented CLEVER (Combining Levels of Bug Prevention and Resolution Techniques), an approach that detects risky commits (i.e., a commit that is likely to introduce a bug) with an average of 79.10% precision and a 65.61% recall.
 CLEVER combines code metrics, clone detection techniques, and project dependency analysis to detect risky commits within and across projects.  CLEVER operates at commit-time, i.e., before the commits reach the central code repository. Also, because it relies on code comparison, CLEVER does not only detect risky commits but also makes recommendations to developers on how to fix them. We believe that this makes CLEVER a practical approach for preventing bugs and proposing corrective measures that integrate well with the developer's workflow through the commit mechanism. CLEVER is still in its infancy and we expect it to be available this year to thousands of developers.
 
-In the next chapter, we present JCHARMING, an approach for reproducing bugs using stack traces. JCHARMING is meant to be used by developers when the commit-time approaches presented in Chapters 4, 6 and 7 did not manage to prevent the introduction of defects.
+In the next chapter, we present JCHARMING, an approach for reproducing bugs using stack traces. JCHARMING is meant to be used by developers when the commit-time approaches presented in Chapters 5, 6 and 7 did not manage to prevent the introduction of defects.
 

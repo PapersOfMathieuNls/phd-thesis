@@ -1,4 +1,4 @@
-﻿
+
 # An Aggregated Bug Repository for Developers and Researchers
 
 ## Introduction
@@ -8,7 +8,6 @@ Program debugging, an important software maintenance activity, is known to be ch
 When facing a new bug, one might want to leverage decades of open source
 software history to find a suitable solution.
 The chances are that a similar bug or crash has already been fixed somewhere in another open source project. The problem is that each open source project hosts its data in a different data repository, using different bug tracking and version control systems. Moreover, these systems have different interfaces to access data.
-
 The data is not represented in a uniform way either.
 This is further complicated by the fact that bug tracking tools and version control systems are not necessarily connected.
 The former follows the life of the bug, while the latter manages the fixes.
@@ -46,7 +45,7 @@ BUMPER relies on a highly scalable architecture composed of two Virtual Private 
 The first server handles the web requests and runs three distinct components: Pound, Varnish, and NginX. Pound is a lightweight open source reverse proxy program and application firewall.
 It also serves to decode https request to http. Translating an https request to http allows us to save the https decryption time required on each step. Pound also acts as a load-balancing service for the lower levels.
 Varnish then handles the translated requests. Varnish is an http accelerator designed for content-heavy and dynamic websites.
-It caches requests that come in and serves the Web requests from the cache if the cache is still valid.
+It caches requests that come in and serves the web requests from the cache if the cache is still valid.
 NginX (pronounced engine-x) is a web-server that was developed with a particular focus on high concurrency, high performances, and low memory usage.
 The second VPS also uses Pound for the same reasons and SolrCloud. SolrCloud is the scalable version of Apache Solr where the data can be separated into shards (e.g., chunks of manageable size).
 Each shard can be hosted on a different server, but still indexed in a central repository.
